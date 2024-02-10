@@ -1,0 +1,11 @@
+version: '3'
+services:
+  backend:
+    image: 'express-js'
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - '3000:80'
+    container_name: shop-express-js
