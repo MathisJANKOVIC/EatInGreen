@@ -2,8 +2,7 @@ version: '3'
 services:
   backend:
     image: 'express-js'
-    container_name: greenbuy-express-js
-
+    container_name: shopingreen-express-js
     build:
       context: ./backend
     ports:
@@ -11,31 +10,32 @@ services:
     volumes:
       - ./backend:/app
     environment:
-      - MONGODB_URI=mongodb://root:pass@localhost:2717/
-      - DB_NAME=greenbuy
       - SERVER_PORT=3000
+      - DB_USER=root
+      - DB_PASSWORD=pass
+      - DB_HOST=db
+      - DB_PORT=27017
+      - DB_NAME=shopingreen
     networks:
-      - greenbuy-network
+      - shopingreen-network
 
   db:
     image: 'mongo'
-    container_name: greenbuy-mongodb
-
+    container_name: shopingreen-mongo
     ports:
-      - '2717:27017'
+      - '27017:27017'
     volumes:
       - database:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: pass
-      MONGO_INITDB_DATABASE: greenbuy
+      MONGO_INITDB_DATABASE: shopingreen
     networks:
-      - greenbuy-network
+      - shopingreen-network
 
   db-manager:
     image: mongo-express
-    container_name: greenbuy-mongo-express
-
+    container_name: shopingreen-mongo-express
     ports:
       - 8081:8081
     environment:
@@ -45,21 +45,21 @@ services:
     depends_on:
       - db
     networks:
-      - greenbuy-network
+      - shopingreen-network
 
   frontend:
     image: 'react-js'
-    container_name: greenbuy-react
-
+    container_name: sopingreen-react-js
+    stdin_open: true
     build:
       context: ./frontend
     ports:
       - '5500:3000'
     networks:
-      - greenbuy-network
+      - shopingreen-network
 
 volumes:
   database:
 
 networks:
-  greenbuy-network:
+  shopingreen-network:
