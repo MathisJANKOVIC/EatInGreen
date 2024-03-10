@@ -1,42 +1,44 @@
-import express from 'express'
-import jwt from 'jsonwebtoken'
+import express, { Request, Response} from 'express'
+import bcrypt from 'bcrypt'
 
-import User from '../../models/user'
-import { jwt_secret, token_expiration } from '../../settings'
+import { Users } from '../../models/user'
+import { minPasswordLength } from '../../settings'
+import { generateToken, getFields } from '../../utils'
 
 const router = express.Router()
 
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
 
-    const { email, password, firstName, lastName } = req.body
+    const fullName = req.body.fullName
+    const email = req.body.email
+    const password = req.body.password
 
-    if(!email || !password || !firstName || !lastName) {
+    if(!/^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$/.test(fullName)) {
+        return res.status(422).json({error: 'Invalid full name, only letters, spaces and hyphens are allowed'});
+    }
+    if(email == undefined || password == undefined || fullName == undefined) {
         return res.status(422).json({error: 'All required fields must be specified'})
     }
     if(!/^\S+@\S+\.\S+$/.test(email)) {
         return res.status(422).json({error: 'Invalid email'})
     }
-    if(password.length < 6) {
-        return res.status(422).json({error: 'Password cannot be shorter than 6 characters'})
-    }
-
-    const userWithSameEmail = await User.findOne({email})
-    if(userWithSameEmail) {
+    if(await Users.findOne({email})){
         return res.status(409).json({error: 'User with this email already exists'})
     }
+    if(password.length < minPasswordLength) {
+        return res.status(422).json({error: `Password cannot be shorter than ${minPasswordLength} characters`})
+    }
+    const hashedPassword: string = await bcrypt.hash(password.toString(), 10)
 
-    const user = new User({ email, password, firstName, lastName })
+    const user = new Users({
+        email: email,
+        password: hashedPassword,
+        fullName: fullName
+    })
     await user.save()
 
-    const jwt_token = jwt.sign({userId: user._id}, jwt_secret, {expiresIn: token_expiration})
-    res.status(201).json({
-        token: jwt_token,
-        user: {
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName
-        }
-    })
+    const token: string = generateToken(user._id.toString())
+    return res.status(201).json({ token: token, user: getFields(user)})
 })
 
 export default router

@@ -3,13 +3,13 @@ import mongoose from 'mongoose'
 
 import login from './routes/auth/login'
 import register from './routes/auth/register'
-import profile from './routes/user/profile'
+import updateUser from './routes/user/update'
 
 const serverPort: string = process.env.SERVER_PORT || '3000'
 const dbHost: string = process.env.DB_HOST || 'localhost'
 const dbPort: string = process.env.DB_PORT || '27017'
 const dbPassword: string = process.env.DB_PASSWORD || ''
-const dbUser: string  = process.env.DB_USER  || 'root'
+const dbUser: string  = process.env.DB_USER || 'root'
 const dbName: string = process.env.DB_NAME || 'shopingreen'
 
 const app = express()
@@ -20,7 +20,7 @@ app.use(express.json())
 // Routes
 app.use('/login', login)
 app.use('/register', register)
-app.use('/user', profile)
+app.use('/user/update', updateUser)
 
 mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`)
 
