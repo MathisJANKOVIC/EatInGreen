@@ -28,12 +28,14 @@ router.post('/', async (req: Request, res: Response) => {
     if(password.length < minPasswordLength) {
         return res.status(422).json({error: `Password cannot be shorter than ${minPasswordLength} characters`})
     }
+
     const hashedPassword: string = await bcrypt.hash(password.toString(), 10)
 
     const user = new Users({
         email: email,
         password: hashedPassword,
-        fullName: fullName
+        fullName: fullName,
+        addresses: []
     })
     await user.save()
 
