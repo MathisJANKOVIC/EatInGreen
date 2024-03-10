@@ -16,6 +16,8 @@ services:
       - DB_HOST=db
       - DB_PORT=27017
       - DB_NAME=shopingreen
+    depends_on:
+      - db
     networks:
       - shopingreen-network
 
@@ -33,23 +35,9 @@ services:
     networks:
       - shopingreen-network
 
-  db-manager:
-    image: mongo-express
-    container_name: shopingreen-mongo-express
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: pass
-      ME_CONFIG_MONGODB_URL: mongodb://root:pass@db:27017/
-    depends_on:
-      - db
-    networks:
-      - shopingreen-network
-
   frontend:
     image: 'react-js'
-    container_name: sopingreen-react-js
+    container_name: shopingreen-react-js
     stdin_open: true
     build:
       context: ./frontend
