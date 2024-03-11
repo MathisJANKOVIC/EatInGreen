@@ -1,8 +1,8 @@
 import express, { Request, Response} from 'express'
 import bcrypt from 'bcrypt'
+import fs from 'fs'
 
 import { Users } from '../../models/user'
-import { minPasswordLength } from '../../settings'
 import { generateToken, getFields } from '../../utils'
 
 const router = express.Router()
@@ -25,8 +25,12 @@ router.post('/', async (req: Request, res: Response) => {
     if(await Users.findOne({email})){
         return res.status(409).json({error: 'User with this email already exists'})
     }
-    if(password.length < minPasswordLength) {
-        return res.status(422).json({error: `Password cannot be shorter than ${minPasswordLength} characters`})
+
+    const rawData = fs.readFileSync(`${__dirname}/../../settings.json`)
+    const settings = JSON.parse(rawData.toString())
+
+    if(password.length < settings.minPasswordLength) {
+        return res.status(422).json({error: `Password cannot be shorter than ${settings.minPasswordLength} characters`})
     }
 
     const hashedPassword: string = await bcrypt.hash(password.toString(), 10)

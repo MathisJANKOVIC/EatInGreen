@@ -1,10 +1,10 @@
 import express, { Request, Response} from 'express'
 import bcrypt from 'bcrypt'
+import fs from 'fs'
 
 import { getFields } from '../../utils'
 import { UserRequest } from '../../types'
 import { Users, User } from '../../models/user'
-import { minPasswordLength } from '../../settings'
 import authenticate from '../../middlewares/authentication'
 
 const router = express.Router()
@@ -25,8 +25,11 @@ router.patch('/', authenticate, async (req: Request, res: Response) => {
     if(newPassword !== undefined) {
         const password = req.body.password
 
-        if(newPassword.length < minPasswordLength) {
-            return res.status(422).json({error: `Password cannot be shorter than ${minPasswordLength} characters`})
+        const rawData = fs.readFileSync(`${__dirname}/../../settings.json`)
+        const settings = JSON.parse(rawData.toString())
+
+        if(newPassword.length < settings.minPasswordLength) {
+            return res.status(422).json({error: `Password cannot be shorter than ${settings.minPasswordLength} characters`})
         }
         if(password === undefined) {
             return res.status(422).json({error: 'Current password is required to change the password'})
