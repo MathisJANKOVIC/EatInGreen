@@ -2,11 +2,10 @@ import express, { Request, Response} from 'express'
 import bcrypt from 'bcrypt'
 import fs from 'fs'
 
-import { getFields } from '../../utils'
-import { UserRequest } from '../../types'
-import { Users, User } from '../../models/user'
-import authenticate from '../../middlewares/authentication'
+import { Users, User, safeFields } from '../../models/user'
+import { UserRequest, authenticate} from '../../authentication'
 
+const settings = JSON.parse(fs.readFileSync('./settings.json').toString())
 const router = express.Router()
 
 router.patch('/', authenticate, async (req: Request, res: Response) => {
@@ -25,9 +24,6 @@ router.patch('/', authenticate, async (req: Request, res: Response) => {
     if(newPassword !== undefined) {
         const password = req.body.password
 
-        const rawData = fs.readFileSync(`${__dirname}/../../settings.json`)
-        const settings = JSON.parse(rawData.toString())
-
         if(newPassword.length < settings.minPasswordLength) {
             return res.status(422).json({error: `Password cannot be shorter than ${settings.minPasswordLength} characters`})
         }
@@ -41,7 +37,7 @@ router.patch('/', authenticate, async (req: Request, res: Response) => {
     }
 
     user.save()
-    return res.status(200).json({user: getFields(user)})
+    return res.status(200).json({user: safeFields(user)})
 })
 
 export default router

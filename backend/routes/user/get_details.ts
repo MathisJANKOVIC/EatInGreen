@@ -1,8 +1,7 @@
 import express, { Request, Response} from 'express'
 
-import { UserRequest } from '../../types'
 import { Users, User } from '../../models/user'
-import authenticate from '../../middlewares/authentication'
+import { UserRequest, authenticate } from '../../authentication'
 
 const router = express.Router()
 

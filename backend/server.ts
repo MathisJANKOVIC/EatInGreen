@@ -1,10 +1,10 @@
 import express from 'express'
-import mongoose, { get } from 'mongoose'
+import mongoose from 'mongoose'
 
 import login from './routes/auth/login'
 import register from './routes/auth/register'
-import getUserDetails from './routes/user/get_details'
 import updateUser from './routes/user/update'
+import getUserDetails from './routes/user/get_details'
 
 const serverPort: string = process.env.SERVER_PORT || '3000'
 const dbHost: string = process.env.DB_HOST || 'localhost'
@@ -28,5 +28,5 @@ app.use('/user/update', updateUser)
 mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`)
 
 app.listen(serverPort, () => {
-    console.log('Server is up and running')
+    console.log('Server is ready')
 })

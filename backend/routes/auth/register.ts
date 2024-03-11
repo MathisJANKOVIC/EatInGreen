@@ -1,10 +1,11 @@
-import express, { Request, Response} from 'express'
+import express, { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import fs from 'fs'
+ 
+import { createToken } from '../../authentication'
+import { Users, safeFields } from '../../models/user'
 
-import { Users } from '../../models/user'
-import { generateToken, getFields } from '../../utils'
-
+const settings = JSON.parse(fs.readFileSync('./settings.json').toString())
 const router = express.Router()
 
 router.post('/', async (req: Request, res: Response) => {
@@ -13,11 +14,14 @@ router.post('/', async (req: Request, res: Response) => {
     const email = req.body.email
     const password = req.body.password
 
+    if(email === undefined || password === undefined || fullName === undefined) {
+        return res.status(422).json({error: 'All required fields must be specified'})
+    }
+    if(typeof fullName !== 'string' || typeof email !== 'string' || typeof password !== 'string') {
+        return res.status(422).json({error: 'All fields must be of type string'})
+    }
     if(!/^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$/.test(fullName)) {
         return res.status(422).json({error: 'Invalid full name, only letters, spaces and hyphens are allowed'});
-    }
-    if(email == undefined || password == undefined || fullName == undefined) {
-        return res.status(422).json({error: 'All required fields must be specified'})
     }
     if(!/^\S+@\S+\.\S+$/.test(email)) {
         return res.status(422).json({error: 'Invalid email'})
@@ -25,15 +29,10 @@ router.post('/', async (req: Request, res: Response) => {
     if(await Users.findOne({email})){
         return res.status(409).json({error: 'User with this email already exists'})
     }
-
-    const rawData = fs.readFileSync(`${__dirname}/../../settings.json`)
-    const settings = JSON.parse(rawData.toString())
-
     if(password.length < settings.minPasswordLength) {
         return res.status(422).json({error: `Password cannot be shorter than ${settings.minPasswordLength} characters`})
     }
-
-    const hashedPassword: string = await bcrypt.hash(password.toString(), 10)
+    const hashedPassword: string = await bcrypt.hash(password, 10)
 
     const user = new Users({
         email: email,
@@ -43,8 +42,8 @@ router.post('/', async (req: Request, res: Response) => {
     })
     await user.save()
 
-    const token: string = generateToken(user._id.toString())
-    return res.status(201).json({ token: token, user: getFields(user)})
+    const token: string = createToken(user._id.toString())
+    return res.status(201).json({ token: token, user: safeFields(user)})
 })
 
 export default router

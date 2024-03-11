@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "start": "nodemon app.ts --ext ts --legacy-watch"
+    "start": "nodemon server.ts --ext ts --legacy-watch"
   },
   "keywords": [],
   "author": "",

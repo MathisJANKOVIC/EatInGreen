@@ -32,5 +32,12 @@ interface User extends Document {
     }[]
 }
 
+function safeFields(user: User) {
+    return {
+        email: user.email,
+        fullName: user.fullName,
+    }
+}
+
 const Users = mongoose.model('User', Schema)
-export { User, Users }
+export { User, Users, safeFields }
