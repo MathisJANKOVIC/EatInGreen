@@ -1,8 +1,9 @@
 import express from 'express'
-import mongoose from 'mongoose'
+import mongoose, { get } from 'mongoose'
 
 import login from './routes/auth/login'
 import register from './routes/auth/register'
+import getUserDetails from './routes/user/get_details'
 import updateUser from './routes/user/update'
 
 const serverPort: string = process.env.SERVER_PORT || '3000'
@@ -20,6 +21,8 @@ app.use(express.json())
 // Routes
 app.use('/login', login)
 app.use('/register', register)
+
+app.use('/user', getUserDetails)
 app.use('/user/update', updateUser)
 
 mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`)
