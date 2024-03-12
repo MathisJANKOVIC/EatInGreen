@@ -28,17 +28,13 @@ app.use('/register', register)
 app.use('/user', getUserDetails)
 app.use('/user/update', updateUser)
 
-let hasConnectedToDb = false
-mongoose.connection.on('connected', () => {
-    console.log('successfully connected to MongoDB')
-    hasConnectedToDb = true
-})
-
+let isConnected = false
 let isConnecting = false
 
-async function connectDbWithRetry() {
-    if (isConnecting) return
-    isConnecting = true
+async function connectToDbAndRetryIfFails() {
+    if(isConnecting) {
+        return
+    }
 
     while(true) {
         try {
@@ -49,19 +45,23 @@ async function connectDbWithRetry() {
             await new Promise(resolve => setTimeout(resolve, settings.dbReconnectDelaySec * 1000))
         }
     }
-
     isConnecting = false
 }
 (async () => {
-    await connectDbWithRetry()
+    await connectToDbAndRetryIfFails()
 })()
 
+mongoose.connection.on('connected', () => {
+    isConnected = true
+    console.log('successfully connected to MongoDB')
+})
+
 mongoose.connection.on('disconnected', () => {
-    if(hasConnectedToDb) {
+    if(isConnected) {
+        isConnected = false
         console.log('disconnected from MongoDB, reconnecting...')
-        hasConnectedToDb = false
     }
-    connectDbWithRetry()
+    connectToDbAndRetryIfFails()
 })
 
 app.listen(serverPort, () => {

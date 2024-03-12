@@ -28,7 +28,7 @@ router.patch('/', authenticate, async (req: Request, res: Response) => {
         if(!FieldValidator.password.isValid(newPassword)) {
             return res.status(422).json({error: FieldValidator.password.requirement})
         }
-        user.password = hashPassword(newPassword)
+        user.password = await hashPassword(newPassword)
     }
     if(addresses !== undefined){
         if(!FieldValidator.addresses.isValid(addresses)) {

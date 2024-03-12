@@ -1,6 +1,6 @@
 import { Response, NextFunction, Request } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
+import argon2 from 'argon2'
 import fs from 'fs'
 
 const settings = JSON.parse(fs.readFileSync('./settings.json').toString())
@@ -9,8 +9,8 @@ interface UserRequest extends Request {
     userId: string
 }
 
-function hashPassword(password: string) {
-    return bcrypt.hashSync(password, settings.jwt.passwordSalt)
+async function hashPassword(password: string) {
+    return await argon2.hash(password)
 }
 
 function createToken(userId: string) {
@@ -34,4 +34,4 @@ function authenticate(req: Request, res: Response, next: NextFunction) {
     })
 }
 
-export { UserRequest, hashPassword, createToken, authenticate } 
+export { UserRequest, hashPassword, createToken, authenticate }

@@ -30,7 +30,7 @@ router.post('/', async (req: Request, res: Response) => {
     if(!FieldValidator.password.isValid(password)) {
         return res.status(422).json({error: FieldValidator.password.requirement})
     }
-    const hashedPassword = hashPassword(password)
+    const hashedPassword = await hashPassword(password)
 
     const user = new Users({
         email: email,

@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import bcrypt from 'bcrypt'
+import argon2 from 'argon2'
 
 import { createToken } from '../../authentication'
 import { User, Users, getUserInfo } from '../../models/user'
@@ -21,7 +21,7 @@ router.post('/', async (req: Request, res: Response) => {
 
     const user: User | null = await Users.findOne({email})
 
-    if(user === null || !await bcrypt.compare(password, user.password)) {
+    if(user === null || !await argon2.verify(user.password, password)) {
         return res.status(404).json({error: 'Wrong email or password.'})
     }
 
