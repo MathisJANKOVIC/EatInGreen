@@ -35,26 +35,29 @@ async function connectToDbAndRetryIfFails() {
     if(isConnecting) {
         return
     }
+    isConnecting = true
 
     while(true) {
         try {
-            await mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`)
+            await mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`, {
+                serverSelectionTimeoutMS: settings.db.connectionTimeoutSEC * 1000,
+                connectTimeoutMS: 4000,
+            })
             break
         } catch (error) {
-            console.error(`failed to connect to MongoDB, retrying in ${settings.dbReconnectDelaySec} sec`)
-            await new Promise(resolve => setTimeout(resolve, settings.dbReconnectDelaySec * 1000))
+            console.error(`failed to connect to MongoDB, retrying in ${settings.db.reconnectionDelaySEC} sec`)
+            console.error(error)
+            await new Promise(resolve => setTimeout(resolve, settings.db.reconnectionDelaySEC * 1000))
         }
     }
+    isConnected = true
     isConnecting = false
+
+    console.log('successfully connected to MongoDB')
 }
 (async () => {
     await connectToDbAndRetryIfFails()
 })()
-
-mongoose.connection.on('connected', () => {
-    isConnected = true
-    console.log('successfully connected to MongoDB')
-})
 
 mongoose.connection.on('disconnected', () => {
     if(isConnected) {

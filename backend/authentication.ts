@@ -1,6 +1,5 @@
 import { Response, NextFunction, Request } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import argon2 from 'argon2'
 import fs from 'fs'
 
 const settings = JSON.parse(fs.readFileSync('./settings.json').toString())
@@ -9,12 +8,8 @@ interface UserRequest extends Request {
     userId: string
 }
 
-async function hashPassword(password: string) {
-    return await argon2.hash(password)
-}
-
 function createToken(userId: string) {
-    return jwt.sign(userId, settings.jwt.secret)
+    return jwt.sign(userId, settings.jwtSecret)
 }
 
 function authenticate(req: Request, res: Response, next: NextFunction) {
@@ -25,7 +20,7 @@ function authenticate(req: Request, res: Response, next: NextFunction) {
     }
     const token: string = authHeader.split(' ')[1]
 
-    jwt.verify(token, settings.jwt.secret, (err: any, user: JwtPayload | string | undefined) => {
+    jwt.verify(token, settings.jwtSecret, (err: any, user: JwtPayload | string | undefined) => {
         if(err || user === undefined) {
             return res.status(401).json({error: 'Invalid credentials'})
         }
@@ -34,4 +29,4 @@ function authenticate(req: Request, res: Response, next: NextFunction) {
     })
 }
 
-export { UserRequest, hashPassword, createToken, authenticate }
+export { UserRequest, createToken, authenticate }

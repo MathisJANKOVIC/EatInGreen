@@ -1,8 +1,9 @@
 import express, { Request, Response} from 'express'
+import argon2 from 'argon2'
 
 import { Users, User, getUserInfo } from '../../models/user'
 import { FieldValidator, areAllFieldsUndefined } from '../../validations'
-import { UserRequest, authenticate, hashPassword} from '../../authentication'
+import { UserRequest, authenticate } from '../../authentication'
 
 const router = express.Router()
 
@@ -28,7 +29,7 @@ router.patch('/', authenticate, async (req: Request, res: Response) => {
         if(!FieldValidator.password.isValid(newPassword)) {
             return res.status(422).json({error: FieldValidator.password.requirement})
         }
-        user.password = await hashPassword(newPassword)
+        user.password = await argon2.hash(newPassword)
     }
     if(addresses !== undefined){
         if(!FieldValidator.addresses.isValid(addresses)) {
