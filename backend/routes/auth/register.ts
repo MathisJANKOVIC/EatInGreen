@@ -1,11 +1,9 @@
 import express, { Request, Response } from 'express'
-import bcrypt from 'bcrypt'
-import fs from 'fs'
- 
-import { createToken } from '../../authentication'
-import { Users, safeFields } from '../../models/user'
 
-const settings = JSON.parse(fs.readFileSync('./settings.json').toString())
+import { Users, getUserInfo } from '../../models/user'
+import { hashPassword, createToken } from '../../authentication'
+import { FieldValidator, areFieldStrings, areFieldDefined } from '../../validations'
+
 const router = express.Router()
 
 router.post('/', async (req: Request, res: Response) => {
@@ -14,25 +12,25 @@ router.post('/', async (req: Request, res: Response) => {
     const email = req.body.email
     const password = req.body.password
 
-    if(email === undefined || password === undefined || fullName === undefined) {
-        return res.status(422).json({error: 'All required fields must be specified'})
+    if(!areFieldStrings(req.body)) {
+        return res.status(422).json({error: 'All fields must be of type string.'})
     }
-    if(typeof fullName !== 'string' || typeof email !== 'string' || typeof password !== 'string') {
-        return res.status(422).json({error: 'All fields must be of type string'})
+    if(!areFieldDefined({ fullName, email, password })) {
+        return res.status(422).json({error: "Fields 'fullName', 'email' and 'password' are required to register."})
     }
-    if(!/^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$/.test(fullName)) {
-        return res.status(422).json({error: 'Invalid full name, only letters, spaces and hyphens are allowed'});
+    if(!FieldValidator.fullName.isValid(fullName)) {
+        return res.status(422).json({error: FieldValidator.fullName.requirement})
     }
-    if(!/^\S+@\S+\.\S+$/.test(email)) {
-        return res.status(422).json({error: 'Invalid email'})
+    if(!FieldValidator.email.isValid(email)) {
+        return res.status(422).json({error: FieldValidator.email.requirement})
     }
     if(await Users.findOne({email})){
-        return res.status(409).json({error: 'User with this email already exists'})
+        return res.status(409).json({error: 'User with this email already exists.'})
     }
-    if(password.length < settings.minPasswordLength) {
-        return res.status(422).json({error: `Password cannot be shorter than ${settings.minPasswordLength} characters`})
+    if(!FieldValidator.password.isValid(password)) {
+        return res.status(422).json({error: FieldValidator.password.requirement})
     }
-    const hashedPassword: string = await bcrypt.hash(password, 10)
+    const hashedPassword = hashPassword(password)
 
     const user = new Users({
         email: email,
@@ -43,7 +41,7 @@ router.post('/', async (req: Request, res: Response) => {
     await user.save()
 
     const token: string = createToken(user._id.toString())
-    return res.status(201).json({ token: token, user: safeFields(user)})
+    return res.status(201).json({ token: token, user: getUserInfo(user)})
 })
 
 export default router

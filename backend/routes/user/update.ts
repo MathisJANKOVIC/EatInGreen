@@ -1,43 +1,44 @@
 import express, { Request, Response} from 'express'
-import bcrypt from 'bcrypt'
-import fs from 'fs'
 
-import { Users, User, safeFields } from '../../models/user'
-import { UserRequest, authenticate} from '../../authentication'
+import { Users, User, getUserInfo } from '../../models/user'
+import { FieldValidator, areAllFieldsUndefined } from '../../validations'
+import { UserRequest, authenticate, hashPassword} from '../../authentication'
 
-const settings = JSON.parse(fs.readFileSync('./settings.json').toString())
 const router = express.Router()
 
 router.patch('/', authenticate, async (req: Request, res: Response) => {
-    const userId = (req as UserRequest).user.userId
+    const userId = (req as UserRequest).userId
     const user = await Users.findById(userId) as User
 
-    const newFullName = req.body.fullName
+    const newFullName = req.body.newFullName
     const newPassword = req.body.newPassword
+    const addresses = req.body.addresses
 
-    if(newFullName !== undefined) {
-        if(!/^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$/.test(newFullName)) {
-            return res.status(422).json({error: 'Invalid full name, only letters, spaces and hyphens are allowed'});
+    if(areAllFieldsUndefined({ newFullName, newPassword, newAddresses: addresses })){
+        return res.status(422).json({error: 'At least one field must be defined to update the user.'})
+    }
+
+    if(newFullName !== undefined){
+        if(!FieldValidator.fullName.isValid(newFullName)) {
+            return res.status(422).json({error: FieldValidator.fullName.requirement})
         }
         user.fullName = newFullName
     }
-    if(newPassword !== undefined) {
-        const password = req.body.password
-
-        if(newPassword.length < settings.minPasswordLength) {
-            return res.status(422).json({error: `Password cannot be shorter than ${settings.minPasswordLength} characters`})
+    if(newPassword !== undefined){
+        if(!FieldValidator.password.isValid(newPassword)) {
+            return res.status(422).json({error: FieldValidator.password.requirement})
         }
-        if(password === undefined) {
-            return res.status(422).json({error: 'Current password is required to change the password'})
+        user.password = hashPassword(newPassword)
+    }
+    if(addresses !== undefined){
+        if(!FieldValidator.addresses.isValid(addresses)) {
+            return res.status(422).json({error: FieldValidator.addresses.requirement})
         }
-        if(!await bcrypt.compare(password, user.password)) {
-            return res.status(401).json({error: 'Invalid password'})
-        }
-        user.password = await bcrypt.hash(newPassword.toString(), 10)
+        user.addresses = addresses
     }
 
     user.save()
-    return res.status(200).json({user: safeFields(user)})
+    return res.status(200).json({user: getUserInfo(user)})
 })
 
 export default router

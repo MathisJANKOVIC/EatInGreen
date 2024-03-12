@@ -7,7 +7,7 @@ const Schema = new mongoose.Schema({
     addresses: [{
         fullName: { type: String, required: true},
         tel: { type: String, required: true },
-        AdditionalInfo: { type: String, default: ""},
+        additionalInfo: { type: String, default: ""},
         street: { type: String, required: true},
         city: { type: String, required: true},
         zip: { type: String, required: true},
@@ -16,28 +16,40 @@ const Schema = new mongoose.Schema({
     }]
 }, { versionKey: false })
 
+interface Address {
+    fullName: string
+    tel: string
+    additionalInfo: string
+    street: string
+    city: string
+    zip: string
+    country: string
+    isDefault: boolean
+}
+
 interface User extends Document {
     fullName: string
     email: string
     password: string
-    addresses: {
-        fullName: string
-        tel: string
-        AdditionalInfo: string
-        street: string
-        city: string
-        zip: string
-        country: string
-        isDefault: boolean
-    }[]
+    addresses: Array<Address>
 }
 
-function safeFields(user: User) {
+function getUserInfo(user: User) {
     return {
         email: user.email,
         fullName: user.fullName,
+        addresses: user.addresses.map(address => ({
+            fullName: address.fullName,
+            tel: address.tel,
+            additionalInfo: address.additionalInfo,
+            street: address.street,
+            city: address.city,
+            zip: address.zip,
+            country: address.country,
+            isDefault: address.isDefault
+        }))
     }
 }
 
 const Users = mongoose.model('User', Schema)
-export { User, Users, safeFields }
+export { User, Users, Address, getUserInfo }

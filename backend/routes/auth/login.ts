@@ -2,27 +2,31 @@ import express, { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 
 import { createToken } from '../../authentication'
-import { User, Users, safeFields } from '../../models/user'
+import { User, Users, getUserInfo } from '../../models/user'
+import { areFieldStrings, areFieldDefined } from '../../validations'
 
 const router = express.Router()
 
 router.post('/', async (req: Request, res: Response) => {
 
     const email = req.body.email
-    const password = req.body.password.toString()
+    const password = req.body.password
 
-    if(email == undefined || password == undefined) {
-        return res.status(422).json({error: 'Email and password are required to login'} )
+    if(!areFieldStrings(req.body)) {
+        return res.status(422).json({error: 'All fields must of type string.'})
+    }
+    if(!areFieldDefined({ email, password })) {
+        return res.status(422).json({error: "Fields 'email' and 'password' are required to login."} )
     }
 
     const user: User | null = await Users.findOne({email})
 
     if(user === null || !await bcrypt.compare(password, user.password)) {
-        return res.status(404).json({error: 'Wrong email or password'})
+        return res.status(404).json({error: 'Wrong email or password.'})
     }
 
     const token: string = createToken(user._id.toString())
-    return res.status(200).json({ token: token, user: safeFields(user) })
+    return res.status(200).json({ token: token, user: getUserInfo(user) })
 })
 
 export default router
