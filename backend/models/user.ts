@@ -16,22 +16,20 @@ const Schema = new mongoose.Schema({
     }]
 }, { versionKey: false })
 
-interface Address {
-    fullName: string
-    tel: string
-    additionalInfo: string
-    street: string
-    city: string
-    zip: string
-    country: string
-    isDefault: boolean
-}
-
 interface User extends Document {
     fullName: string
     email: string
     password: string
-    addresses: Array<Address>
+    addresses: Array<{
+        fullName: string
+        tel: string
+        additionalInfo: string
+        street: string
+        city: string
+        zip: string
+        country: string
+        isDefault: boolean
+    }>
 }
 
 function getUserInfo(user: User) {
@@ -52,4 +50,4 @@ function getUserInfo(user: User) {
 }
 
 const Users = mongoose.model('User', Schema)
-export { User, Users, Address, getUserInfo }
+export { User, Users, getUserInfo }

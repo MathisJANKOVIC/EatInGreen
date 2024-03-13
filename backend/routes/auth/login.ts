@@ -20,6 +20,7 @@ router.post('/', async (req: Request, res: Response) => {
     }
 
     var user: User | null = null
+
     try {
         user = await Users.findOne({email})
     } catch (error) {
