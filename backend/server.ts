@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import express from 'express'
+import cors from 'cors'
 import fs from 'fs'
 
 import login from './routes/auth/login'
@@ -19,6 +20,7 @@ const settings = JSON.parse(fs.readFileSync('./settings.json').toString())
 const app = express()
 
 // Middlewares
+app.use(cors())
 app.use(express.json())
 
 // Routes
@@ -28,40 +30,43 @@ app.use('/register', register)
 app.use('/user', getUserDetails)
 app.use('/user/update', updateUser)
 
-let hasConnectedToDb = false
-mongoose.connection.on('connected', () => {
-    console.log('successfully connected to MongoDB')
-    hasConnectedToDb = true
-})
-
+let isConnected = false
 let isConnecting = false
 
-async function connectDbWithRetry() {
-    if (isConnecting) return
+async function connectToDbAndRetryIfFails() {
+    if(isConnecting) {
+        return
+    }
     isConnecting = true
 
     while(true) {
         try {
-            await mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`)
+            await mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`, {
+                serverSelectionTimeoutMS: settings.db.connectionTimeoutSEC * 1000,
+                connectTimeoutMS: 2000,
+            })
             break
         } catch (error) {
-            console.error(`failed to connect to MongoDB, retrying in ${settings.dbReconnectDelaySec} sec`)
-            await new Promise(resolve => setTimeout(resolve, settings.dbReconnectDelaySec * 1000))
+            console.error(error)
+            console.error(`failed to connect to MongoDB, retrying in ${settings.db.reconnectionDelaySEC} sec`)
+            await new Promise(resolve => setTimeout(resolve, settings.db.reconnectionDelaySEC * 1000))
         }
     }
-
+    isConnected = true
     isConnecting = false
+
+    console.log('successfully connected to MongoDB')
 }
 (async () => {
-    await connectDbWithRetry()
+    await connectToDbAndRetryIfFails()
 })()
 
 mongoose.connection.on('disconnected', () => {
-    if(hasConnectedToDb) {
+    if(isConnected) {
+        isConnected = false
         console.log('disconnected from MongoDB, reconnecting...')
-        hasConnectedToDb = false
     }
-    connectDbWithRetry()
+    connectToDbAndRetryIfFails()
 })
 
 app.listen(serverPort, () => {

@@ -25,8 +25,9 @@ class Email {
 }
 
 class Password {
-    private static readonly minLenght = 6
     public static readonly requirement = 'Password must be at least 6 characters long.'
+    private static readonly minLenght = 6
+
 
     public static isValid(password: string): boolean {
         return password.length >= this.minLenght

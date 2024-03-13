@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express'
+import argon2 from 'argon2'
 
 import { Users, getUserInfo } from '../../models/user'
-import { hashPassword, createToken } from '../../authentication'
+import { createToken } from '../../authentication'
 import { FieldValidator, areFieldStrings, areFieldDefined } from '../../validations'
 
 const router = express.Router()
@@ -10,7 +11,7 @@ router.post('/', async (req: Request, res: Response) => {
 
     const fullName = req.body.fullName
     const email = req.body.email
-    const password = req.body.password
+    const password = req.body.password 
 
     if(!areFieldStrings(req.body)) {
         return res.status(422).json({error: 'All fields must be of type string.'})
@@ -30,7 +31,7 @@ router.post('/', async (req: Request, res: Response) => {
     if(!FieldValidator.password.isValid(password)) {
         return res.status(422).json({error: FieldValidator.password.requirement})
     }
-    const hashedPassword = hashPassword(password)
+    const hashedPassword = await argon2.hash(password)
 
     const user = new Users({
         email: email,
@@ -38,7 +39,11 @@ router.post('/', async (req: Request, res: Response) => {
         fullName: fullName,
         addresses: []
     })
-    await user.save()
+    try {
+        await user.save()
+    } catch (error) {
+        return res.status(500).json({error: 'An error occured with the database.'})
+    }
 
     const token: string = createToken(user._id.toString())
     return res.status(201).json({ token: token, user: getUserInfo(user)})
