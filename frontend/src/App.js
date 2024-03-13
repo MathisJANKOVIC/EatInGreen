@@ -1,6 +1,12 @@
+import { Route, Routes, BrowserRouter } from "react-router-dom"
+import Register from "./screens/Register"
 function App() {
   return (
-    <h1>Hello, World!</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
