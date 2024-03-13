@@ -11,7 +11,7 @@ import getUserDetails from './routes/user/get_details'
 const serverPort: string = process.env.SERVER_PORT || '3000'
 const dbHost: string = process.env.DB_HOST || 'localhost'
 const dbPort: string = process.env.DB_PORT || '27017'
-const dbPassword: string = process.env.DB_PASSWORD || ''
+const dbPassword: string = process.env.DB_PASSWORD || 'pass'
 const dbUser: string  = process.env.DB_USER || 'root'
 const dbName: string = process.env.DB_NAME || 'shopingreen'
 
@@ -47,15 +47,15 @@ async function connectToDbAndRetryIfFails() {
             })
             break
         } catch (error) {
-            console.error(error)
-            console.error(`failed to connect to MongoDB, retrying in ${settings.db.reconnectionDelaySEC} sec`)
+            // console.error(error)
+            console.log(`[express] failed to connect to MongoDB, retrying in ${settings.db.reconnectionDelaySEC} sec`)
             await new Promise(resolve => setTimeout(resolve, settings.db.reconnectionDelaySEC * 1000))
         }
     }
     isConnected = true
     isConnecting = false
 
-    console.log('successfully connected to MongoDB')
+    console.log('[express] successfully connected to MongoDB')
 }
 (async () => {
     await connectToDbAndRetryIfFails()
@@ -64,11 +64,11 @@ async function connectToDbAndRetryIfFails() {
 mongoose.connection.on('disconnected', () => {
     if(isConnected) {
         isConnected = false
-        console.log('disconnected from MongoDB, reconnecting...')
+        console.log('[express] disconnected from MongoDB, reconnecting...')
     }
     connectToDbAndRetryIfFails()
 })
 
 app.listen(serverPort, () => {
-    console.log('express server is up and running')
+    console.log('[express] server is up and running')
 })
