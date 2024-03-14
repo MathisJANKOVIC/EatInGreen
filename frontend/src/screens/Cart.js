@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'; // Importez useEffect depuis React
-import HomeContainer from '../containers/HomeContainer';
 import { useAuth } from '../services/auth';
 import { useNavigate } from 'react-router-dom';
-import '../styles/home.css'; // Importez votre fichier CSS
+import CartContainer from '../containers/CartContainer';
 
-function Home(){
+function Cart(){
     const { isLoggedIn, login } = useAuth();
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -24,9 +22,9 @@ function Home(){
 
     return (
         <div>
-            <HomeContainer />
+            <CartContainer />
         </div>
     );
 };
 
-export default Home;
+export default Cart;

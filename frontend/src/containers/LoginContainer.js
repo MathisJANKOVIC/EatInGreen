@@ -28,7 +28,6 @@ function LoginContainer(){
 
     return (
         <div>
-        <h1>Login Page</h1>
         <LoginForm onLogin={handleLogin} />
         </div>
     );

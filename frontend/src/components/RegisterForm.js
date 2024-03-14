@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/authForm.css'; // Importez votre fichier CSS
+
 
 function RegisterForm({ onRegister }) {
     const [email, setEmail] = useState('');
@@ -19,45 +22,59 @@ function RegisterForm({ onRegister }) {
         onRegister(data);
     };
 
+    
+
     return (
-        <div>
-        <h2>Registration Form</h2>
-        <form>
-            <label>
+        <form class="containerForm">
+
+        <img class="logoAuth" src="images/logoShopInGreen.png"/>
+
+        <p class="text">Create a account with your mail, your name and a secure password </p>
+
+        <label>
             Username:
             <input
+            class="inputAuth"
                 type="text"
+                placeholder="Your name"
+
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
             </label>
-            <br />
 
-            <label>
+        <label>
             Email:
             <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+            class="inputAuth"
+            type="email"
+            value={email}
+            placeholder='youremail@gmail.com'
+            onChange={(e) => setEmail(e.target.value)}
             />
-            </label>
-            <br />
+        </label>
 
-            <label>
+        <label>
             Password:
             <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+            class="inputAuth"
+            type="password"
+            placeholder='********'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             />
-            </label>
-            <br />
+            <p class="forgot">forgot password?</p>
+        </label>
 
-            <button type="button" onClick={handleRegistration}>
-            Register
-            </button>
+        <button type="button" onClick={handleRegistration} class="buttonAuth">
+            <p class="buttonText">Sign up</p>
+        </button>
+
+        <Link to="/login" class="redirection">
+            You have already a  account? <span style={{ color: "#A07E53" }}>Login</span>
+        </Link>
+
         </form>
-        </div>
     );
 
 }

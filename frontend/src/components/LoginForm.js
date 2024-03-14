@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import '../styles/authForm.css'; // Importez votre fichier CSS
+import { Link } from 'react-router-dom';
 
 function LoginForm({ onLogin }){
   const [email, setEmail] = useState('');
@@ -18,35 +20,44 @@ function LoginForm({ onLogin }){
   };
 
   return (
-    <div>
-      <h2>Login Form</h2>
-      <form>
+        <form class="containerForm">
 
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <br />
+          <img class="logoAuth" src="images/logoShopInGreen.png"/>
 
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <br />
+          <p class="text">Sign in with your data that you have entered during your registration</p>
 
-        <button type="button" onClick={handleLogin}>
-          Login
-        </button>
-      </form>
-    </div>
+          <label>
+            Email:
+            <input
+              class="inputAuth"
+              type="email"
+              value={email}
+              placeholder='youremail@gmail.com'
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+
+          <label>
+            Password:
+            <input
+              class="inputAuth"
+              type="password"
+              placeholder='********'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <p class="forgot">forgot password?</p>
+          </label>
+
+          <button type="button" onClick={handleLogin} class="buttonAuth">
+            <p class="buttonText">Sign In</p>
+          </button>
+
+          <Link to="/register" class="redirection">
+            You don’t have an account? <span style={{ color: "#A07E53" }}>Register</span>
+          </Link>
+
+        </form>
   );
 
 }

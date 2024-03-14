@@ -6,6 +6,8 @@ import Register from './screens/Register';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import Profil from './screens/Profil';
+import Product from './screens/Product';
+import Cart from './screens/Cart';
 
 function App() {
   return (
@@ -17,8 +19,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
           <Route path="/profil" element={<Profil />} />
+          <Route path="/cart" element={<Cart />} />
 
-
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/search/:searchText" element={<Home />} />
 
 
           {/* Ajoutez d'autres itinéraires si nécessaire */}
