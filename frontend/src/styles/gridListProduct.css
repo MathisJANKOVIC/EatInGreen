@@ -9,10 +9,10 @@
 .containerGrid {
     padding: 5vw;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* définir la mise en page en grille avec des colonnes flexibles */
-    gap: 7.5vw; /* spécifier l'espacement entre les éléments */
-    justify-content: center; /* Centrer les éléments horizontalement */
-    align-items: center; /* Centrer les éléments verticalement */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 5vw;
+    justify-content: center; 
+    align-items: center; 
 }
 
 .miniInfo{

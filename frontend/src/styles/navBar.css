@@ -79,9 +79,16 @@ li{
     margin-right: 40px;
 }
 
-input{
+.inputNav{
     border: none;
-    padding-left: 15px;
+    padding-left: 30px;
+    border-radius: 50px;
+    padding: 10px;
+}
+
+.inputNav:focus{
+    border: none;
+    outline: none;
 }
 
 button{

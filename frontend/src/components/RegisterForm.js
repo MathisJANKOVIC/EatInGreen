@@ -27,13 +27,14 @@ function RegisterForm({ onRegister }) {
     return (
         <form class="containerForm">
 
-        <img class="logo" src="images/logoShopInGreen.png"/>
+        <img class="logoAuth" src="images/logoShopInGreen.png"/>
 
         <p class="text">Create a account with your mail, your name and a secure password </p>
 
         <label>
             Username:
             <input
+            class="inputAuth"
                 type="text"
                 placeholder="Your name"
 
@@ -45,6 +46,7 @@ function RegisterForm({ onRegister }) {
         <label>
             Email:
             <input
+            class="inputAuth"
             type="email"
             value={email}
             placeholder='youremail@gmail.com'
@@ -55,6 +57,7 @@ function RegisterForm({ onRegister }) {
         <label>
             Password:
             <input
+            class="inputAuth"
             type="password"
             placeholder='********'
             value={password}

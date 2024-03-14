@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import '../styles/profil.css'; // Importez votre fichier CSS
+
 
 function ProfilForm({ userData, onProfil }) {
     const [email, setEmail] = useState(userData.user.email);
@@ -30,12 +32,13 @@ function ProfilForm({ userData, onProfil }) {
     };
 
     return (
-        <div>
-            <h2>Profil Form</h2>
-            <form>
-                <label>
+        <div class="containerUserPage">
+            <form class="containerFormUser">
+                <img class="imgPageProfil" src="../images/gamer.png"/>
+                <label class="labelInfoUser">
                     Username:
                     <input
+                        class="inputProfilPage"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -43,9 +46,10 @@ function ProfilForm({ userData, onProfil }) {
                 </label>
                 <br />
 
-                <label>
+                <label class="labelInfoUser">
                     Email:
                     <input
+                        class="inputProfilPage"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -53,9 +57,10 @@ function ProfilForm({ userData, onProfil }) {
                 </label>
                 <br />
 
-                <label>
+                <label class="labelInfoUser">
                     Password:
                     <input
+                        class="inputProfilPage"
                         type="password"
                         placeholder="change password"
                         onChange={(e) => setPassword(e.target.value)}
@@ -63,10 +68,21 @@ function ProfilForm({ userData, onProfil }) {
                 </label>
                 <br />
 
-                <button type="button" onClick={handleProfil}>
+                <button class="buttonProfilPage" type="button" onClick={handleProfil}>
                     Modifier
                 </button>
             </form>
+
+            <div class="containerRight">
+                <div class="containerPanier">
+                    <img class="imgPaCo" src="../images/shopping-basket.png"></img>
+                    <p class="textPaCo">Mon panier</p>
+                </div>
+                <div class="containerCommande">
+                    <img class="imgPaCo" src="../images/history.png"></img>
+                    <p class="textPaCo">Mes commandes</p>
+                </div>
+            </div>
         </div>
     );
 }

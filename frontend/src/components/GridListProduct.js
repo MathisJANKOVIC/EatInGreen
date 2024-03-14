@@ -12,7 +12,7 @@ function GridListProduct({listProduct}){
                         <img class="imgProduct" src="images/phone.jpg"/>
                         <div class="miniInfo">
                             <p class="title">{product.title}</p>
-                            <p class="price">{product.price}$</p>
+                            <p class="price">{product.price}<span style={{color:"#66A865"}}>$</span></p>
                         </div>
                     </div>
                 </Link>

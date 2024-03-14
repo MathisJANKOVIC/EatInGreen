@@ -22,13 +22,14 @@ function LoginForm({ onLogin }){
   return (
         <form class="containerForm">
 
-          <img class="logo" src="images/logoShopInGreen.png"/>
+          <img class="logoAuth" src="images/logoShopInGreen.png"/>
 
           <p class="text">Sign in with your data that you have entered during your registration</p>
 
           <label>
             Email:
             <input
+              class="inputAuth"
               type="email"
               value={email}
               placeholder='youremail@gmail.com'
@@ -39,6 +40,7 @@ function LoginForm({ onLogin }){
           <label>
             Password:
             <input
+              class="inputAuth"
               type="password"
               placeholder='********'
               value={password}

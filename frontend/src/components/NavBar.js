@@ -27,7 +27,7 @@ function NavBar({onSearch}) {
     return (
         <header>
             <div className="containerLogo">
-                <img class="logo" src="images/logoShopInGreen.png"/>
+                <img class="logo" src="../images/logoShopInGreen.png"/>
             </div>
 
             <div className="navBar">
@@ -56,19 +56,20 @@ function NavBar({onSearch}) {
 
             <div className="containerSearch">
                 <input
+                    class="inputNav"
                     type="text"
                     value={searchText}
                     onChange={handleInputChange}
                     placeholder="Search..."
                 />
                 <button onClick={handleSearch}>
-                <img class="imgSearch" src="images/magnifying-glass.png" alt="Profil" />
+                <img class="imgSearch" src="../images/magnifying-glass.png" alt="Profil" />
                 </button>            
             </div>
 
             <div className="containerProfil">
                 <Link to="/profil" onClick={() => handleNavigation('/profil')}>
-                        <img class="imgProfil" src="images/gamer.png" alt="Profil" />
+                        <img class="imgProfil" src="../images/gamer.png" alt="Profil" />
                 </Link>           
             </div>
         </header>

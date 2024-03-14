@@ -32,7 +32,6 @@ function ProfilContainer() {
     return (
         <div>
             <NavBar />
-            <h1>Profil Page</h1>
             {userData && (
                 <ProfilForm userData={userData} onProfil={handleProfil} /> 
             )}
