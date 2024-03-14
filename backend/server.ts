@@ -12,6 +12,7 @@ import populateProducts from './routes/product/populate'
 import searchProducts from './routes/product/search'
 import addProductToCart from './routes/user/add_product_to_cart'
 import rmProductFromCart from './routes/user/rm_product_from_cart'
+import getProduct from './routes/product/getproduct'
 
 const serverPort: string = process.env.SERVER_PORT || '3000'
 const dbHost: string = process.env.DB_HOST || 'localhost'
@@ -37,6 +38,7 @@ app.use('/user/update', updateUser)
 app.use('/user/add-to-cart/:productId', addProductToCart)
 app.use('/user/remove-from-cart/', rmProductFromCart)
 
+app.use('/product', getProduct)
 app.use('/product', getProducts)
 app.use('/product/populate', populateProducts)
 app.use('/product/search', searchProducts)
