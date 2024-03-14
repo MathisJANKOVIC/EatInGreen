@@ -22,6 +22,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
 
           <Route path="/product/:id" element={<Product />} />
+          <Route path="/search/:searchText" element={<Home />} />
+
 
           {/* Ajoutez d'autres itinéraires si nécessaire */}
         </Routes>

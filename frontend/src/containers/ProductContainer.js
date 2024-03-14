@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { callApi } from '../services/api';
 import NavBar from '../components/NavBar';
-import GridListProduct from '../components/GridListProduct';
 import { useParams } from 'react-router-dom';
 import DisplayProduct from '../components/DisplayProduct';
 
