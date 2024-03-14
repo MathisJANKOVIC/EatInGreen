@@ -17,7 +17,6 @@ function LoginContainer(){
         const token = response.token
 
         console.log('User data:', response.json);
-        console.log(token)
 
         if(token){
             login(token)
