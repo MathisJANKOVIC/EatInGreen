@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'; // Importez useEffect depuis React
-import HomeContainer from '../containers/HomeContainer';
+import ProductContainer from '../containers/ProductContainer';
 import { useAuth } from '../services/auth';
 import { useNavigate } from 'react-router-dom';
-import '../styles/home.css'; // Importez votre fichier CSS
 
-function Home(){
+function Product(){
     const { isLoggedIn, login } = useAuth();
     const navigate = useNavigate();
 
-
+    console.log("testttt")
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -24,9 +23,9 @@ function Home(){
 
     return (
         <div>
-            <HomeContainer />
+            <ProductContainer />
         </div>
     );
 };
 
-export default Home;
+export default Product;

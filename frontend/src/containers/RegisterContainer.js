@@ -28,7 +28,6 @@ function RegisterContainer(){
 
     return (
         <div>
-        <h1>Register Page</h1>
         <RegisterForm onRegister={handleRegistration} />
         </div>
     );
