@@ -1,10 +1,10 @@
 import React from 'react';
-import RegisterPageContainer from '../containers/RegisterPageContainer';
+import RegisterContainer from '../containers/RegisterContainer';
 
-const Register = () => {
+function Register(){
   return (
     <div>
-      <RegisterPageContainer />
+      <RegisterContainer />
     </div>
   );
 };
