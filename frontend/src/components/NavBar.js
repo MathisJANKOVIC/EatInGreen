@@ -40,6 +40,9 @@ function NavBar({onSearch}) {
                         <li>
                             <Link to="/secondHand" onClick={() => handleNavigation('/secondHand')}>Second-Hand</Link>
                         </li>
+                        <li>
+                            <Link to="/Cart" onClick={() => handleNavigation('/Cart')}>Cart</Link>
+                        </li>
                     </ul>
                 </nav>
             </div>

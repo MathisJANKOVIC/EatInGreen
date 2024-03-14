@@ -28,12 +28,18 @@ function ProductContainer(){
         fetchProduct();
     }, []);
 
+    async function addToCart(data, productId){
+        const response = await callApi(`http://localhost:3000/user/add-to-cart/${productId}`,'POST', data, token);
+
+        console.log('User data:', response.json);
+
+    };
 
     return (
         <div>
             <NavBar />
             {productData && (
-                <DisplayProduct productData={productData}/> 
+                <DisplayProduct productData={productData} onCart={addToCart}/> 
             )}
         </div>
     );

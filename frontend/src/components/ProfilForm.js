@@ -10,7 +10,6 @@ function ProfilForm({ userData, onProfil }) {
         // Validation des champs ici si nécessaire
 
         // Rassemblez les données de l'utilisateur
-        console.log('password : ' + password)
         if(password == undefined || password == ""){
             data = {
                 newFullName: name,

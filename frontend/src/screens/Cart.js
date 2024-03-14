@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'; // Importez useEffect depuis React
-import ProductContainer from '../containers/ProductContainer';
 import { useAuth } from '../services/auth';
 import { useNavigate } from 'react-router-dom';
+import CartContainer from '../containers/CartContainer';
 
-function Product(){
+function Cart(){
     const { isLoggedIn, login } = useAuth();
     const navigate = useNavigate();
 
@@ -22,9 +22,9 @@ function Product(){
 
     return (
         <div>
-            <ProductContainer />
+            <CartContainer />
         </div>
     );
 };
 
-export default Product;
+export default Cart;
