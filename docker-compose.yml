@@ -2,7 +2,7 @@ version: '3'
 services:
   backend:
     image: 'express-js'
-    container_name: shopingreen-express-js
+    container_name: shopingreen-express
     build:
       context: ./backend
     ports:
@@ -37,8 +37,7 @@ services:
 
   frontend:
     image: 'react-js'
-    container_name: shopingreen-react-js
-    stdin_open: true
+    container_name: shopingreen-react
     build:
       context: ./frontend
     ports:
