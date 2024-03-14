@@ -1,53 +1,123 @@
 import mongoose, { Document } from 'mongoose'
+import validator from 'validator'
+import argon2 from 'argon2'
 
-const Schema = new mongoose.Schema({
-    email: { type: String, required: true, unique: true },
-    fullName: { type: String, required: true },
-    password: { type: String, required: true },
+const schema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: [true, 'email field is required'],
+        unique: true,
+        immutable: true,
+        lowercase: true,
+        validate: [validator.isEmail, 'invalid email addres']
+    },
+    fullName: {
+        type: String,
+        required: [true, 'fullName field is required'],
+        minLength: [3, 'full name must have at least 3 characters'],
+        maxLength: [32, 'full name cannot have more than 32 characters'],
+        validate: {
+            message: 'invalid full name',
+            validator: (fullName: string) => /^[a-zA-Z\s-]+$/.test(fullName),
+        }
+    },
+    password: { type: String, required: [true, 'password field is required'] },
+    createdAt: { type: Date, immutable: true, default: () => Date.now() },
     addresses: [{
-        fullName: { type: String, required: true},
-        tel: { type: String, required: true },
-        additionalInfo: { type: String, default: ""},
-        street: { type: String, required: true},
-        city: { type: String, required: true},
-        zip: { type: String, required: true},
-        country: { type: String, required: true},
-        isDefault: { type: Boolean, required: true}
+        fullName: {
+            type: String,
+            required: [true, 'fullName field is required for an address'],
+            minLength: [3, 'full name must have at least 3 characters'],
+            maxLength: [32, 'full name cannot have more than 32 characters'],
+            validate: {
+                message: 'invalid full name',
+                validator: (fullName: string) => /^[a-zA-Z\s-]+$/.test(fullName),
+            }
+        },
+        tel: {
+            type: String,
+            required: [true, 'tel field is required for an address'],
+            validate: [validator.isMobilePhone, 'invalid phone number']
+        },
+        street: {
+            type: String,
+            required: [true, 'street field is required for an address'],
+            minLength: [5, 'street must have at least 5 characters'],
+            maxLength: [64, 'street cannot have more than 64 characters'],
+            validate: [validator.isAlphanumeric, 'invalid street']
+        },
+        city: {
+            type: String,
+            required: [true, 'city field is required for an address'],
+            minLength: [3, 'city must have at least 3 characters'],
+            maxLength: [32, 'city cannot have more than 32 characters'],
+            validate: [validator.isAlpha, 'invalid city']
+        },
+        zip: {
+            type: String,
+            required: [true, 'zip field is required for an address'],
+            validate: [validator.isPostalCode, 'invalid zip code']
+        },
+        country: {
+            type: String,
+            required: [true, 'country field is required for an address'],
+            minLength: [3, 'country must have at least 3 characters'],
+            maxLength: [32, 'country cannot have more than 32 characters'],
+            validate: [validator.isAlpha, 'invalid country']
+        },
+        additionalInfo: {
+            type: String,
+            maxLength: [128, 'additional info cannot have more than 128 characters'],
+            default: ""
+        },
+        isDefault: { type: Boolean, default: false}
     }]
 }, { versionKey: false })
 
+schema.pre('save', async function(next) {
+    const user = this as User
+
+    if (user.isModified('password')) {
+        user.password = await argon2.hash(user.password)
+    }
+    next()
+})
+
 interface User extends Document {
-    fullName: string
     email: string
+    fullName: string
     password: string
+    createdAt: Date
     addresses: Array<{
         fullName: string
         tel: string
-        additionalInfo: string
         street: string
         city: string
         zip: string
         country: string
+        additionalInfo: string
         isDefault: boolean
     }>
 }
 
+/** Return only the necessary information of a user */
 function getUserInfo(user: User) {
     return {
         email: user.email,
         fullName: user.fullName,
+        createdAt: user.createdAt,
         addresses: user.addresses.map(address => ({
             fullName: address.fullName,
             tel: address.tel,
-            additionalInfo: address.additionalInfo,
             street: address.street,
             city: address.city,
             zip: address.zip,
             country: address.country,
+            additionalInfo: address.additionalInfo,
             isDefault: address.isDefault
         }))
     }
 }
 
-const Users = mongoose.model('User', Schema)
+const Users = mongoose.model('User', schema)
 export { User, Users, getUserInfo }

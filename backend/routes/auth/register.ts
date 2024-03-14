@@ -1,52 +1,34 @@
 import express, { Request, Response } from 'express'
-import argon2 from 'argon2'
 
-import { Users, getUserInfo } from '../../models/user'
 import { createToken } from '../../authentication'
-import { FieldValidator, areFieldStrings, areFieldDefined } from '../../validations'
+import { Users, getUserInfo } from '../../models/user'
+import { handleMongoError, handleGenericError } from '../../error_handling'
 
 const router = express.Router()
 
 router.post('/', async (req: Request, res: Response) => {
-
-    const fullName = req.body.fullName
-    const email = req.body.email
-    const password = req.body.password 
-
-    if(!areFieldStrings(req.body)) {
-        return res.status(422).json({error: 'All fields must be of type string.'})
-    }
-    if(!areFieldDefined({ fullName, email, password })) {
-        return res.status(422).json({error: "Fields 'fullName', 'email' and 'password' are required to register."})
-    }
-    if(!FieldValidator.fullName.isValid(fullName)) {
-        return res.status(422).json({error: FieldValidator.fullName.requirement})
-    }
-    if(!FieldValidator.email.isValid(email)) {
-        return res.status(422).json({error: FieldValidator.email.requirement})
-    }
-    if(await Users.findOne({email})){
-        return res.status(409).json({error: 'User with this email already exists.'})
-    }
-    if(!FieldValidator.password.isValid(password)) {
-        return res.status(422).json({error: FieldValidator.password.requirement})
-    }
-    const hashedPassword = await argon2.hash(password)
-
-    const user = new Users({
-        email: email,
-        password: hashedPassword,
-        fullName: fullName,
-        addresses: []
-    })
     try {
-        await user.save()
-    } catch (error) {
-        return res.status(500).json({error: 'An error occured with the database.'})
-    }
+        const fullName = req.body.fullName
+        const email = req.body.email
+        const password = req.body.password
 
-    const token: string = createToken(user._id.toString())
-    return res.status(201).json({ token: token, user: getUserInfo(user)})
+        if(password != undefined && password.toString().length < 6) {
+            return res.status(422).json({ error: 'password must be at least 6 characters long' })
+        }
+
+        const user = new Users({ fullName, email, password })
+        try {
+            await user.save()
+        } catch (error) {
+            return handleMongoError(error, res)
+        }
+
+        const token = createToken(user._id.toString())
+        return res.status(201).json({ token: token, user: getUserInfo(user)})
+    }
+    catch(error) {
+        return handleGenericError(error, res)
+    }
 })
 
 export default router
