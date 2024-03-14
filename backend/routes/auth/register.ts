@@ -12,7 +12,7 @@ router.post('/', async (req: Request, res: Response) => {
         const email = req.body.email
         const password = req.body.password
 
-        if(password != undefined && password.toString().length < 6) {
+        if(password !== undefined && String(password).length < 6) {
             return res.status(422).json({ error: 'password must be at least 6 characters long' })
         }
 
@@ -23,7 +23,7 @@ router.post('/', async (req: Request, res: Response) => {
             return handleMongoError(error, res)
         }
 
-        const token = createToken(user._id.toString())
+        const token = createToken(String(user._id))
         return res.status(201).json({ token: token, user: getUserInfo(user)})
     }
     catch(error) {

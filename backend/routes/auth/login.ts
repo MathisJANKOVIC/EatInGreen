@@ -12,17 +12,17 @@ router.post('/', async (req: Request, res: Response) => {
         const email = req.body.email
         const password = req.body.password
 
-        if(email == undefined || password == undefined) {
-            return res.status(422).json({ error: 'email and password fields are required' })
+        if(email === undefined || password === undefined) {
+            return res.status(422).json({ error: 'fields email and password are required' })
         }
 
-        const user: User | null = await Users.findOne({email})
+        const user: User | null = await Users.findOne({ email })
 
-        if(user == null || !await argon2.verify(user.password, password.toString())) {
-            return res.status(404).json({error: 'Wrong email or password.'})
+        if(user == null || !await argon2.verify(user.password, String(password))) {
+            return res.status(404).json({ error: 'wrong email or password' })
         }
 
-        const token = createToken(user._id.toString())
+        const token = createToken(String(user._id))
         return res.status(200).json({ token: token, user: getUserInfo(user) })
     }
     catch(error) {

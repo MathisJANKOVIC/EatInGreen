@@ -1,30 +1,30 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
+import mongoose, { Document, Schema, Types } from 'mongoose'
 import validator from 'validator'
 import argon2 from 'argon2'
 
 interface Address {
-    fullName: string;
-    tel: string;
-    street: string;
-    city: string;
-    zip: string;
-    country: string;
-    additionalInfo?: string;
-    isDefault: boolean;
+    fullName: string
+    tel: string
+    street: string
+    city: string
+    zip: string
+    country: string
+    additionalInfo: string
+    isDefault: boolean
 }
 
 interface CartItem {
-    productId: Types.ObjectId;
-    quantity: number;
+    productId: Types.ObjectId
+    quantity: number
 }
 
 interface User extends Document {
-    email: string;
-    fullName: string;
-    password: string;
-    createdAt: Date;
-    addresses: Address[];
-    cart: CartItem[];
+    email: string
+    fullName: string
+    password: string
+    createdAt: Date
+    addresses: Address[]
+    cart: CartItem[]
 }
 
 const addressSchema = new mongoose.Schema({
@@ -105,15 +105,15 @@ const userSchema = new mongoose.Schema({
     createdAt: { type: Date, immutable: true, default: () => Date.now() },
     addresses: [addressSchema],
     cart: [cartItemSchema]
-}, { versionKey: false });
+}, { versionKey: false })
 
 userSchema.pre('save', async function(next) {
-    const user = this as User;
+    const user = this as User
 
     if (user.isModified('password')) {
         user.password = await argon2.hash(user.password);
     }
-    next();
+    next()
 });
 
 function getUserInfo(user: User) {
@@ -138,6 +138,5 @@ function getUserInfo(user: User) {
     };
 }
 
-const Users = mongoose.model<User>('User', userSchema);
-
-export { User, Users, getUserInfo };
+const Users = mongoose.model<User>('User', userSchema)
+export { User, Users, getUserInfo }

@@ -1,8 +1,8 @@
 import express, {Request, Response} from 'express'
 import mongoose from 'mongoose'
-import { Users, User } from '../../models/user'
-import { authenticate } from '../../authentication'
-import { UserRequest } from '../../authentication'
+import { Users, User } from '../../../models/user'
+import { authenticate } from '../../../authentication'
+import { UserRequest } from '../../../authentication'
 
 const router = express.Router();
 
