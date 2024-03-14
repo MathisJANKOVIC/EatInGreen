@@ -11,6 +11,7 @@ import getUserDetails from './routes/user/get_details'
 import populateProducts from './routes/product/populate'
 import searchProducts from './routes/product/search'
 import addProductToCart from './routes/user/add_product_to_cart'
+import rmProductFromCart from './routes/user/rm_product_from_cart'
 
 const serverPort: string = process.env.SERVER_PORT || '3000'
 const dbHost: string = process.env.DB_HOST || 'localhost'
@@ -34,6 +35,7 @@ app.use('/register', register)
 app.use('/user', getUserDetails)
 app.use('/user/update', updateUser)
 app.use('/user/add-to-cart/:productId', addProductToCart)
+app.use('/user/remove-from-cart/', rmProductFromCart)
 
 app.use('/product', getProducts)
 app.use('/product/populate', populateProducts)

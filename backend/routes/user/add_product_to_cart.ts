@@ -14,11 +14,6 @@ router.post('/', authenticate, async (req, res) => {
     const { quantity } = req.body;
 
     try {
-        const user = await Users.findById(userId);
-        if (!user) {
-            return res.status(404).send({ message: 'User not found' });
-        }
-
         const productExists = user.cart.some(item => item.productId.toString() === productId);
         if (productExists) {
             user.cart = user.cart.map(item =>
