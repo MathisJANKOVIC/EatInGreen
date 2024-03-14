@@ -38,10 +38,11 @@ app.use('/user/update', updateUser)
 app.use('/user/add-to-cart/:productId', addProductToCart)
 app.use('/user/remove-from-cart/', rmProductFromCart)
 
+app.use('/product/search', searchProducts)
 app.use('/product', getProduct)
 app.use('/product', getProducts)
 app.use('/product/populate', populateProducts)
-app.use('/product/search', searchProducts)
+
 
 let isConnected = false
 let isConnecting = false
