@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/profil.css'; // Importez votre fichier CSS
+import { Link } from 'react-router-dom'; // Importez Link depuis react-router-dom
 
 
 function ProfilForm({ userData, onProfil }) {
@@ -74,10 +75,12 @@ function ProfilForm({ userData, onProfil }) {
             </form>
 
             <div class="containerRight">
+                <Link style={{color:"black"}} to='/cart'>
                 <div class="containerPanier">
                     <img class="imgPaCo" src="../images/shopping-basket.png"></img>
                     <p class="textPaCo">Mon panier</p>
                 </div>
+                </Link>
                 <div class="containerCommande">
                     <img class="imgPaCo" src="../images/history.png"></img>
                     <p class="textPaCo">Mes commandes</p>

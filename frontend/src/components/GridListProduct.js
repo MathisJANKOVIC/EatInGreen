@@ -9,7 +9,7 @@ function GridListProduct({listProduct}){
             {listProduct.map(product =>(
                 <Link to={`/product/${product.id}`} key={product.id} style={{ textDecoration: 'none' }}>
                     <div class="containerProduct" >
-                        <img class="imgProduct" src="images/phone.jpg"/>
+                        <img class="imgProduct" src="../images/phone.jpg"/>
                         <div class="miniInfo">
                             <p class="title">{product.title}</p>
                             <p class="price">{product.price}<span style={{color:"#66A865"}}>$</span></p>

@@ -1,6 +1,9 @@
 import React from 'react';
 
 function CartListProduct({ listProductCart, onCart }) {
+    let listProductCartParse = JSON.stringify(listProductCart)
+    listProductCartParse = JSON.parse(listProductCartParse)
+
 
     const removeFromCart = (productId) => {
         // Appeler la fonction onCart pour supprimer le produit du panier
@@ -9,12 +12,12 @@ function CartListProduct({ listProductCart, onCart }) {
 
     return (
         <div>
-            {listProductCart.map(product => (
-                <div key={product.id}>
+            {listProductCartParse.map(product => (
+            <div key={product.productId}>
                     <h2>{product.title}</h2>
                     <p>{product.description}</p>
                     <p>Price: {product.price}</p>
-                    <button onClick={() => removeFromCart(product.id)}>Remove from Cart</button>
+                    <button onClick={() => removeFromCart(product.productId)}>Remove from Cart</button>
                 </div>
             ))}
         </div>

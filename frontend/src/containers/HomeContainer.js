@@ -18,11 +18,9 @@ function HomeContainer(){
                 if (searchText === undefined) {
                     response = await callApi('http://localhost:3000/product', 'GET', null, token);
                 } else {
-                    const data = {
-                        title: searchText
-                    };
+                    
                     console.log("okkkk")
-                    response = await callApi('http://localhost:3000/product/search', 'GET', data, token);
+                    response = await callApi(`http://localhost:3000/product/search?title=${searchText}`, 'GET', null, token);
                 }
 
                 const data = await response;
