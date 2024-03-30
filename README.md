@@ -1,4 +1,4 @@
-# GreenBuy Fonctionnalités
+# ShopInGreen Fonctionnalités
 
 ## Authentification
 
