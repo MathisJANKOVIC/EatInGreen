@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import DisplayProduct from '../components/DisplayProduct';
 
 
-function ProductContainer(){   
+function ProductContainer(){
     const [productData, setProductData] = useState(null);
 
     const token = localStorage.getItem('token');
@@ -16,7 +16,7 @@ function ProductContainer(){
     useEffect(() => {
         async function fetchProduct() {
             try {
-                const response = await callApi(`http://localhost:3000/product/${id}`, 'GET', null, token);
+                const response = await callApi(`http://localhost:3030/product/${id}`, 'GET', null, token);
                 const data = await response;
                 console.log('Success:', data); // Vérifiez les données pour vous assurer qu'elles sont correctes
                 setProductData(data); // Mettez à jour uniquement les données de l'utilisateur
@@ -28,7 +28,7 @@ function ProductContainer(){
     }, []);
 
     async function addToCart(data, productId){
-        const response = await callApi(`http://localhost:3000/user/add-to-cart/${productId}`,'POST', data, token);
+        const response = await callApi(`http://localhost:3030/user/add-to-cart/${productId}`,'POST', data, token);
 
         console.log('User data:', response.json);
 
@@ -38,7 +38,7 @@ function ProductContainer(){
         <div>
             <NavBar />
             {productData && (
-                <DisplayProduct productData={productData} onCart={addToCart}/> 
+                <DisplayProduct productData={productData} onCart={addToCart}/>
             )}
         </div>
     );

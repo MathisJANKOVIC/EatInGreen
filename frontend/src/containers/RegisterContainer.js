@@ -13,7 +13,7 @@ function RegisterContainer(){
 
 
     async function handleRegistration(data){
-        const response = await callApi('http://localhost:3000/register/','POST',data);
+        const response = await callApi('http://localhost:3030/register/','POST',data);
         const token = response.token
 
         console.log('User data:', response.json);

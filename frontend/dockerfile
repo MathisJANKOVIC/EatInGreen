@@ -1,9 +1,11 @@
 FROM node:20
 
 WORKDIR /app
-COPY . .
+
+COPY package*.json .
 
 RUN npm install
 
-EXPOSE 80
+COPY . .
+
 CMD ["npm", "start"]

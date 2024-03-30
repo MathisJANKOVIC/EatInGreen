@@ -43,7 +43,6 @@ app.use('/product', getProduct)
 app.use('/product', getProducts)
 app.use('/product/populate', populateProducts)
 
-
 let isConnected = false
 let isConnecting = false
 

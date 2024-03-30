@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar';
 import GridListProduct from '../components/GridListProduct';
 import { useParams } from 'react-router-dom'; // Assurez-vous d'importer useParams
 
-function HomeContainer(){   
+function HomeContainer(){
     const [listProduct, setListProduct] = useState(null);
     const token = localStorage.getItem('token');
     const { searchText } = useParams(); // Utilisez useParams pour obtenir le texte de recherche
@@ -16,11 +16,11 @@ function HomeContainer(){
 
                 console.log(searchText);
                 if (searchText === undefined) {
-                    response = await callApi('http://localhost:3000/product', 'GET', null, token);
+                    response = await callApi('http://localhost:3030/product', 'GET', null, token);
                 } else {
-                    
+
                     console.log("okkkk")
-                    response = await callApi(`http://localhost:3000/product/search?title=${searchText}`, 'GET', null, token);
+                    response = await callApi(`http://localhost:3030/product/search?title=${searchText}`, 'GET', null, token);
                 }
 
                 const data = await response;
@@ -38,7 +38,7 @@ function HomeContainer(){
         <div>
             <NavBar />
             {listProduct && (
-                <GridListProduct listProduct={listProduct}/> 
+                <GridListProduct listProduct={listProduct}/>
             )}
         </div>
     );

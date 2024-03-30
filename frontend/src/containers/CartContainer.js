@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import CartListProduct from '../components/CartListProduct';
 
 
-function CartContainer(){   
+function CartContainer(){
     const [listProductCart, setListProductCart] = useState(null);
 
     const token = localStorage.getItem('token');
@@ -15,7 +15,7 @@ function CartContainer(){
     useEffect(() => {
         async function fetchListProductCart() {
             try {
-                const response = await callApi(`http://localhost:3000/user`, 'GET', null, token);
+                const response = await callApi(`http://localhost:3030/user`, 'GET', null, token);
                 const user = await response;
                 const data = user.user.cart
                 // console.log("test "+ data[0].productId)
@@ -29,8 +29,8 @@ function CartContainer(){
 
     async function removeFromCart(productId){
 
-        console.log(`http://localhost:3000/user/remove-from-cart/${productId}`)
-        const responsee = await callApi(`http://localhost:3000/user/remove-from-cart/${productId}`,'DELETE', null, token);
+        console.log(`http://localhost:3030/user/remove-from-cart/${productId}`)
+        const responsee = await callApi(`http://localhost:3030/user/remove-from-cart/${productId}`,'DELETE', null, token);
 
 
     };
@@ -39,7 +39,7 @@ function CartContainer(){
         <div>
             <NavBar />
             {listProductCart && (
-                <CartListProduct listProductCart={listProductCart} onCart={removeFromCart}/> 
+                <CartListProduct listProductCart={listProductCart} onCart={removeFromCart}/>
             )}
         </div>
     );

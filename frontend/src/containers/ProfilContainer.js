@@ -11,7 +11,7 @@ function ProfilContainer() {
     useEffect(() => {
         async function fetchUserData() {
             try {
-                const response = await callApi('http://localhost:3000/user', 'GET', null, token);
+                const response = await callApi('http://localhost:3030/user', 'GET', null, token);
                 const data = await response;
                 console.log('Success:', data); // Vérifiez les données pour vous assurer qu'elles sont correctes
                 setUserData(data); // Mettez à jour uniquement les données de l'utilisateur
@@ -23,7 +23,7 @@ function ProfilContainer() {
     }, []);
 
     async function handleProfil(data){
-        const response = await callApi('http://localhost:3000/user/update','PATCH',data, token);
+        const response = await callApi('http://localhost:3030/user/update','PATCH',data, token);
 
         console.log('User data:', response.json);
 
@@ -33,7 +33,7 @@ function ProfilContainer() {
         <div>
             <NavBar />
             {userData && (
-                <ProfilForm userData={userData} onProfil={handleProfil} /> 
+                <ProfilForm userData={userData} onProfil={handleProfil} />
             )}
         </div>
     );

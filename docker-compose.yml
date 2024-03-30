@@ -1,21 +1,23 @@
-version: '3'
 services:
   backend:
-    image: 'express-js'
+    image: shopingreen-express
     container_name: shopingreen-express
     build:
       context: ./backend
     ports:
-      - '3000:3000'
+      - '3030:3000'
     volumes:
       - ./backend:/app
+      - /app/node_modules
     environment:
       - SERVER_PORT=3000
-      - DB_USER=root
-      - DB_PASSWORD=pass
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
       - DB_HOST=db
       - DB_PORT=27017
       - DB_NAME=shopingreen
+    env_file:
+      - .env
     depends_on:
       - db
     networks:
@@ -29,19 +31,21 @@ services:
     volumes:
       - database:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: pass
       MONGO_INITDB_DATABASE: shopingreen
+      MONGO_INITDB_ROOT_USERNAME: $DB_USER
+      MONGO_INITDB_ROOT_PASSWORD: $DB_PASSWORD
     networks:
       - shopingreen-network
 
   frontend:
-    image: 'react-js'
+    image: shopingreen-react
     container_name: shopingreen-react
     build:
       context: ./frontend
     ports:
-      - '5500:3000'
+      - '5000:3000'
+    depends_on:
+      - backend
     networks:
       - shopingreen-network
 
