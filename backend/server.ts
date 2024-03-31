@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
-import fs from 'fs'
 
+import { db } from './settings'
 import login from './routes/auth/login'
 import register from './routes/auth/register'
 import updateUser from './routes/user/update'
@@ -20,8 +20,6 @@ const dbPort: string = process.env.DB_PORT || '27017'
 const dbPassword: string = process.env.DB_PASSWORD || 'pass'
 const dbUser: string  = process.env.DB_USER || 'root'
 const dbName: string = process.env.DB_NAME || 'shopingreen'
-
-const settings = JSON.parse(fs.readFileSync('./settings.json').toString())
 
 const app = express()
 
@@ -55,14 +53,14 @@ async function connectToDbAndRetryIfFails() {
     while(true) {
         try {
             await mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`, {
-                serverSelectionTimeoutMS: settings.db.connectionTimeoutSEC * 1000,
+                serverSelectionTimeoutMS: db.connectionTimeoutSEC * 1000,
                 connectTimeoutMS: 2000,
             })
             break
         } catch (error) {
             // console.error(error)
-            console.log(`[express] failed to connect to MongoDB, retrying in ${settings.db.reconnectionDelaySEC} sec`)
-            await new Promise(resolve => setTimeout(resolve, settings.db.reconnectionDelaySEC * 1000))
+            console.log(`[express] failed to connect to MongoDB, retrying in ${db.reconnectionDelaySEC} sec`)
+            await new Promise(resolve => setTimeout(resolve, db.reconnectionDelaySEC * 1000))
         }
     }
     isConnected = true
