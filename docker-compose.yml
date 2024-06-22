@@ -1,7 +1,7 @@
 services:
   backend:
-    image: shopingreen-express
-    container_name: shopingreen-express
+    image: eatingreen-express
+    container_name: eatingreen-express
     build:
       context: ./backend
     ports:
@@ -15,31 +15,31 @@ services:
       - DB_PASSWORD=$DB_PASSWORD
       - DB_HOST=db
       - DB_PORT=27017
-      - DB_NAME=shopingreen
+      - DB_NAME=eatingreen
     env_file:
       - .env
     depends_on:
       - db
     networks:
-      - shopingreen-network
+      - eatingreen-network
 
   db:
     image: 'mongo'
-    container_name: shopingreen-mongo
+    container_name: eatingreen-mongo
     ports:
       - '27017:27017'
     volumes:
       - database:/data/db
     environment:
-      MONGO_INITDB_DATABASE: shopingreen
+      MONGO_INITDB_DATABASE: eatingreen
       MONGO_INITDB_ROOT_USERNAME: $DB_USER
       MONGO_INITDB_ROOT_PASSWORD: $DB_PASSWORD
     networks:
-      - shopingreen-network
+      - eatingreen-network
 
   frontend:
-    image: shopingreen-react
-    container_name: shopingreen-react
+    image: eatingreen-react
+    container_name: eatingreen-react
     build:
       context: ./frontend
     ports:
@@ -47,10 +47,10 @@ services:
     depends_on:
       - backend
     networks:
-      - shopingreen-network
+      - eatingreen-network
 
 volumes:
   database:
 
 networks:
-  shopingreen-network:
+  eatingreen-network:
