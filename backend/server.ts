@@ -13,6 +13,7 @@ import searchProducts from './routes/product/search'
 import addProductToCart from './routes/user/cart/add_product'
 import rmProductFromCart from './routes/user/cart/delete_product'
 import getProduct from './routes/product/getproduct'
+import { MongoDBService } from './database'
 
 const serverPort: string = process.env.SERVER_PORT || '3000'
 const dbHost: string = process.env.DB_HOST || 'localhost'
@@ -20,6 +21,8 @@ const dbPort: string = process.env.DB_PORT || '27017'
 const dbPassword: string = process.env.DB_PASSWORD || 'pass'
 const dbUser: string  = process.env.DB_USER || 'root'
 const dbName: string = process.env.DB_NAME || 'shopingreen'
+
+const database = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, db.connectionTimeoutSEC)
 
 const app = express()
 
@@ -52,10 +55,7 @@ async function connectToDbAndRetryIfFails() {
 
     while(true) {
         try {
-            await mongoose.connect(`mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=admin`, {
-                serverSelectionTimeoutMS: db.connectionTimeoutSEC * 1000,
-                connectTimeoutMS: 2000,
-            })
+            database.connect(2000)
             break
         } catch (error) {
             // console.error(error)
