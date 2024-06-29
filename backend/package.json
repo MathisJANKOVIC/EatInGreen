@@ -1,8 +1,8 @@
 {
-  "main": "app.ts",
+  "main": "app",
   "scripts": {
-    "start": "ts-node app.ts",
-    "dev": "nodemon app.ts --ext ts,json --legacy-watch"
+    "start": "ts-node ./src/app.ts",
+    "dev": "nodemon ./src/app.ts --ext ts --legacy-watch"
   },
   "dependencies": {
     "argon2": "^0.40.1",

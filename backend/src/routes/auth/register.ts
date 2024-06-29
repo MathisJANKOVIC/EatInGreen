@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 
 import User from '../../entities/User'
-import { createToken } from '../../authentication' 
+import { createToken } from '../../middlewares/authentication'
 import { handleMongoError, handleGenericError } from '../../error_handling'
 
 const router = express.Router()

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import argon2 from 'argon2'
 
-import { createToken } from '../../authentication'
+import { createToken } from '../../middlewares/authentication'
 import { handleGenericError } from '../../error_handling'
 import User from '../../entities/User'
 

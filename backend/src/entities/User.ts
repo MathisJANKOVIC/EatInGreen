@@ -7,11 +7,11 @@ import RepositoryFactory from '../repositories/RepositoryFactory'
 class User implements Entity {
     private static readonly repository = RepositoryFactory.createUserRepository()
 
-    public readonly id: string
+    private readonly id: string
     private firstName: string
     private lastName: string
     private email: string
-    public password: string
+    private password: string
     private readonly createdAt: Date
 
     constructor(firstName: string, lastName: string, email: string, password: string, id?: string, createdAt?: Date) {

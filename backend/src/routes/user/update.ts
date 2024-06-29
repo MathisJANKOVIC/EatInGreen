@@ -1,7 +1,7 @@
 import express, { Request, Response} from 'express'
 
 import { handleGenericError, handleMongoError } from '../../error_handling'
-import { UserRequest, authenticate } from '../../authentication'
+import { UserRequest, authenticate } from '../../middlewares/authentication'
 
 const router = express.Router()
 
