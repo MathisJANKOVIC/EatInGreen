@@ -6,16 +6,17 @@ import login from './routes/auth/login'
 import register from './routes/auth/register'
 import updateUser from './routes/user/update'
 import getUserDetails from './routes/user/getDetails'
-import { MongoDBService } from './dbService'
+import DBService from './database/DBService'
+import MongoDBService from './database/MongoDBService'
 
-const serverPort: string = process.env.SERVER_PORT || '3000'
-const dbHost: string = process.env.DB_HOST || 'localhost'
-const dbPort: string = process.env.DB_PORT || '27017'
-const dbPassword: string = process.env.DB_PASSWORD || 'pass'
-const dbUser: string  = process.env.DB_USER || 'root'
-const dbName: string = process.env.DB_NAME || 'shopingreen'
+const serverPort = process.env.SERVER_PORT || '3000'
+const dbHost = process.env.DB_HOST || 'localhost'
+const dbPort = process.env.DB_PORT || '27017'
+const dbPassword = process.env.DB_PASSWORD || 'pass'
+const dbUser = process.env.DB_USER || 'root'
+const dbName = process.env.DB_NAME || 'shopingreen'
 
-const database = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, 5000)
+const database: DBService = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, 5000)
 
 const app = express()
 
