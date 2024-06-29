@@ -1,8 +1,7 @@
-import { v4 as uuidv4 } from 'uuid'
-
-import Entity from './Entity'
-import IUser from '../interfaces/IUser'
 import RepositoryFactory from '../repositories/RepositoryFactory'
+import IDGenerator from '../lib/IDGenerator'
+import IUser from '../interfaces/IUser'
+import Entity from './Entity'
 
 class User implements Entity {
     private static readonly repository = RepositoryFactory.createUserRepository()
@@ -15,7 +14,7 @@ class User implements Entity {
     private readonly createdAt: Date
 
     constructor(firstName: string, lastName: string, email: string, password: string, id?: string, createdAt?: Date) {
-        this.id = id || uuidv4()
+        this.id = id || IDGenerator.generateId('user')
         this.firstName = firstName
         this.lastName = lastName
         this.email = email
