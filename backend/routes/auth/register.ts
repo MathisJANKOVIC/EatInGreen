@@ -1,14 +1,15 @@
 import express, { Request, Response } from 'express'
 
-import { createToken } from '../../authentication'
-import { Users, getUserInfo } from '../../models/user'
+import User from '../../entities/User'
+import { createToken } from '../../authentication' 
 import { handleMongoError, handleGenericError } from '../../error_handling'
 
 const router = express.Router()
 
 router.post('/', async (req: Request, res: Response) => {
     try {
-        const fullName = req.body.fullName
+        const firstName = req.body.firstName
+        const lastName = req.body.lastName
         const email = req.body.email
         const password = req.body.password
 
@@ -16,15 +17,16 @@ router.post('/', async (req: Request, res: Response) => {
             return res.status(422).json({ error: 'password must be at least 6 characters long' })
         }
 
-        const user = new Users({ fullName, email, password })
+        const user = new User(firstName, lastName, email, password)
         try {
             await user.save()
         } catch (error) {
             return handleMongoError(error, res)
         }
 
-        const token = createToken(String(user._id))
-        return res.status(201).json({ token: token, user: getUserInfo(user)})
+        const token = createToken(String(user.id))
+
+        return res.status(201).json({ token: token, user: user.serialize()})
     }
     catch(error) {
         return handleGenericError(error, res)

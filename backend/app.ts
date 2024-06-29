@@ -5,14 +5,8 @@ import cors from 'cors'
 import login from './routes/auth/login'
 import register from './routes/auth/register'
 import updateUser from './routes/user/update'
-import getProducts from './routes/product/get_all'
-import getUserDetails from './routes/user/get_details'
-import populateProducts from './routes/product/populate'
-import searchProducts from './routes/product/search'
-import addProductToCart from './routes/user/cart/add_product'
-import rmProductFromCart from './routes/user/cart/delete_product'
-import getProduct from './routes/product/getproduct'
-import { MongoDBService } from './database'
+import getUserDetails from './routes/user/getDetails'
+import { MongoDBService } from './dbService'
 
 const serverPort: string = process.env.SERVER_PORT || '3000'
 const dbHost: string = process.env.DB_HOST || 'localhost'
@@ -21,7 +15,7 @@ const dbPassword: string = process.env.DB_PASSWORD || 'pass'
 const dbUser: string  = process.env.DB_USER || 'root'
 const dbName: string = process.env.DB_NAME || 'shopingreen'
 
-const database = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, 5)
+const database = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, 5000)
 
 const app = express()
 
@@ -35,13 +29,6 @@ app.use('/register', register)
 
 app.use('/user', getUserDetails)
 app.use('/user/update', updateUser)
-app.use('/user/add-to-cart/:productId', addProductToCart)
-app.use('/user/remove-from-cart/', rmProductFromCart)
-
-app.use('/product/search', searchProducts)
-app.use('/product', getProduct)
-app.use('/product', getProducts)
-app.use('/product/populate', populateProducts)
 
 let isConnected = false
 let isConnecting = false
