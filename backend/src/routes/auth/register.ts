@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express'
 
 import User from '../../entities/User'
 import { createToken } from '../../middlewares/authentication'
-import { handleMongoError, handleGenericError } from '../../error_handling'
+import { handleMongoError, handleGenericError } from '../../utils/errorHandling'
 
 const router = express.Router()
 

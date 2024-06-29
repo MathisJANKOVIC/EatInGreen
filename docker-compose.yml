@@ -29,7 +29,7 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - database:/data/db
+      - db:/data/db
     environment:
       MONGO_INITDB_DATABASE: eatingreen
       MONGO_INITDB_ROOT_USERNAME: $DB_USER
@@ -50,7 +50,7 @@ services:
       - eatingreen-network
 
 volumes:
-  database:
+  db:
 
 networks:
   eatingreen-network:

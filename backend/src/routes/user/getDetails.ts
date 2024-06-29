@@ -1,6 +1,6 @@
 import express, { Request, Response} from 'express'
 
-import { handleGenericError } from '../../error_handling'
+import { handleGenericError } from '../../utils/errorHandling'
 import User from '../../entities/User'
 import { UserRequest, authenticate } from '../../middlewares/authentication'
 
