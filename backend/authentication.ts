@@ -1,6 +1,7 @@
 import { Response, NextFunction, Request } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import { jwtSecret } from './settings'
+
+const jwtSecret = '5f4dcc3b5aa765d61d8327deb882cf99'
 
 interface UserRequest extends Request {
     userId: string

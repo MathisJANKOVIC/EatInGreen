@@ -2,7 +2,6 @@ import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
 
-import { db } from './settings'
 import login from './routes/auth/login'
 import register from './routes/auth/register'
 import updateUser from './routes/user/update'
@@ -22,7 +21,7 @@ const dbPassword: string = process.env.DB_PASSWORD || 'pass'
 const dbUser: string  = process.env.DB_USER || 'root'
 const dbName: string = process.env.DB_NAME || 'shopingreen'
 
-const database = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, db.connectionTimeoutSEC)
+const database = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, 5)
 
 const app = express()
 
@@ -59,8 +58,8 @@ async function connectToDbAndRetryIfFails() {
             break
         } catch (error) {
             // console.error(error)
-            console.log(`[express] failed to connect to MongoDB, retrying in ${db.reconnectionDelaySEC} sec`)
-            await new Promise(resolve => setTimeout(resolve, db.reconnectionDelaySEC * 1000))
+            console.log(`[express] failed to connect to MongoDB, retrying in 15 sec`)
+            await new Promise(resolve => setTimeout(resolve, 15 * 1000))
         }
     }
     isConnected = true
