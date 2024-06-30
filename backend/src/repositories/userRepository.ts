@@ -1,4 +1,4 @@
-import MongoUser, { IUserDocument } from '../models/User.model'
+import MongoUser, { IUserDocument } from '../database/models/User.model'
 import IUser from '../interfaces/IUser'
 
 interface UserRepository {
