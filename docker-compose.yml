@@ -3,11 +3,11 @@ services:
     image: eatingreen-express
     container_name: eatingreen-express
     build:
-      context: ./backend
+      context: ./app/backend
     ports:
       - '3030:3000'
     volumes:
-      - ./backend:/app
+      - ./app/backend:/app
       - /app/node_modules
     environment:
       - SERVER_PORT=3000
@@ -41,7 +41,7 @@ services:
     image: eatingreen-react
     container_name: eatingreen-react
     build:
-      context: ./frontend
+      context: ./app/frontend
     ports:
       - '5000:3000'
     depends_on:
