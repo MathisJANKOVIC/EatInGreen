@@ -1,6 +1,6 @@
 import { Document, Schema, model } from 'mongoose'
 
-import IUser from '../interfaces/IUser'
+import IUser from '../../interfaces/IUser'
 
 export interface IUserDocument extends Omit<IUser, 'id'>, Document {
     publicId: string
