@@ -1,10 +1,11 @@
 import { v4 as uuid } from 'uuid'
 
-class IDGenerator {
-    public static generateId(prefix: string): string {
-        const truncatedUuid = uuid().slice(0, 18)
-        return `${prefix}-${truncatedUuid}`
+class IdGenerator {
+    public static generateId(entity: string): string {
+        entity = entity.toLowerCase()
+        const shortenedUuid = uuid().slice(0, 18)
+        return `${entity}-${shortenedUuid}`
     }
 }
 
-export default IDGenerator
+export default IdGenerator

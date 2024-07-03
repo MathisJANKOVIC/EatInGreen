@@ -1,12 +1,12 @@
 import RepositoryFactory from '../repositories/RepositoryFactory'
-import IDGenerator from '../lib/IDGenerator'
+import IdGenerator from '../lib/IdGenerator'
 import IUser from '../interfaces/IUser'
 import Entity from './Entity'
 
 class User implements Entity {
     private static readonly repository = RepositoryFactory.createUserRepository()
 
-    private readonly id: string
+    public readonly id: string
     private firstName: string
     private lastName: string
     private email: string
@@ -14,7 +14,7 @@ class User implements Entity {
     private readonly createdAt: Date
 
     constructor(firstName: string, lastName: string, email: string, password: string, id?: string, createdAt?: Date) {
-        this.id = id || IDGenerator.generateId('user')
+        this.id = id || IdGenerator.generateId('User')
         this.firstName = firstName
         this.lastName = lastName
         this.email = email
