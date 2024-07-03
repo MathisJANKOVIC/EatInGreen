@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 
 import User from '../../entities/User'
-import { createToken } from '../../middlewares/authentication'
+import JsonWebToken from '../../lib/JsonWebToken'
 import { handleMongoError, handleGenericError } from '../../lib/errorHandling'
 
 const router = express.Router()
@@ -24,9 +24,9 @@ router.post('/', async (req: Request, res: Response) => {
             return handleMongoError(error, res)
         }
 
-        const token = createToken(String(user.id))
+        const jwt = JsonWebToken.createFromPayload({ userId: user.id })
 
-        return res.status(201).json({ token: token, user: user.serialize()})
+        return res.status(201).json({ token: jwt.token, user: user.serialize()})
     }
     catch(error) {
         return handleGenericError(error, res)

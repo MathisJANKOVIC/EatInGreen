@@ -1,7 +1,9 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
+import Env from './Env'
+
 class JsonWebToken {
-    private static readonly secretKey = '5f4dcc3b5aa765d61d8327deb882cf99'
+    private static readonly secretKey = Env.get('JWT_SECRET_KEY')
     private static readonly tokenLifetime = '20m'
 
     public readonly token: string
@@ -12,8 +14,7 @@ class JsonWebToken {
 
     public static createFromPayload(payload: object): JsonWebToken {
         const token = jwt.sign(payload, JsonWebToken.secretKey, { expiresIn: JsonWebToken.tokenLifetime })
-        const jsonWebToken = new JsonWebToken(token)
-        return jsonWebToken
+        return new JsonWebToken(token)
     }
 
     public extractPayload(): JwtPayload {

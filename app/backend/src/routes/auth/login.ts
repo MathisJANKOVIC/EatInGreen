@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import argon2 from 'argon2'
 
-import { createToken } from '../../middlewares/authentication'
+import JsonWebToken from '../../lib/JsonWebToken'
 import { handleGenericError } from '../../lib/errorHandling'
 import User from '../../entities/User'
 
@@ -22,8 +22,8 @@ router.post('/', async (req: Request, res: Response) => {
             return res.status(404).json({ error: 'wrong email or password' })
         }
 
-        const token = createToken(String(user.id))
-        return res.status(200).json({ token: token, user: user.serialize() })
+        const jwt = JsonWebToken.createFromPayload({ userId: user.id })
+        return res.status(200).json({ token: jwt.token, user: user.serialize() })
     }
     catch(error) {
         return handleGenericError(error, res)
