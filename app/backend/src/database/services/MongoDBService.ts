@@ -5,7 +5,7 @@ import DBService from './DBService'
 class MongoDBService extends DBService {
     private readonly requestsTimeoutMS: number
 
-    constructor(host: string, port: string, user: string, password: string, dbName: string, requestsTimeoutMS: number) {
+    constructor(host: string, port: number, user: string, password: string, dbName: string, requestsTimeoutMS: number) {
         super(host, port, user, password, dbName)
         this.requestsTimeoutMS = requestsTimeoutMS
     }
