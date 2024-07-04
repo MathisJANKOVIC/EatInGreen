@@ -1,4 +1,4 @@
-import RepositoryFactory from '../repositories/RepositoryFactory'
+import RepositoryFactory from '../database/repositories/RepositoryFactory'
 import IdGenerator from '../lib/IdGenerator'
 import IUser from '../interfaces/IUser'
 import Entity from './Entity'
