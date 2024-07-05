@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express'
-import argon2 from 'argon2'
 
-import JsonWebToken from '../../lib/JsonWebToken'
 import { handleGenericError } from '../../lib/errorHandling'
+import JsonWebToken from '../../lib/JsonWebToken'
+import Encrypter from '../../lib/Encrypter'
 import User from '../../entities/User'
 
 const router = express.Router()
@@ -18,7 +18,7 @@ router.post('/', async (req: Request, res: Response) => {
 
         const user = await User.findByEmail(email)
 
-        if(user == null || !await argon2.verify(user.password, String(password))) {
+        if(user == null || !await Encrypter.matchHash(password, user.password)) {
             return res.status(404).json({ error: 'wrong email or password' })
         }
 

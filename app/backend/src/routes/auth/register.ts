@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 
 import User from '../../entities/User'
+import Encrypter from '../../lib/Encrypter'
 import JsonWebToken from '../../lib/JsonWebToken'
 import { handleMongoError, handleGenericError } from '../../lib/errorHandling'
 
@@ -17,7 +18,8 @@ router.post('/', async (req: Request, res: Response) => {
             return res.status(422).json({ error: 'password must be at least 6 characters long' })
         }
 
-        const user = new User(firstName, lastName, email, password)
+        const hashedPassword = await Encrypter.hash(password)
+        const user = new User(firstName, lastName, email, hashedPassword)
         try {
             await user.save()
         } catch (error) {
