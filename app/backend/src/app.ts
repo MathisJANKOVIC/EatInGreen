@@ -9,21 +9,23 @@ import getUserDetails from './routes/user/getDetails'
 import DBService from './database/services/DBService'
 import MongoDBService from './database/services/MongoDBService'
 import Env from './lib/Env'
+import { requestsLogger, appLoger } from './config/logging'
 
 const serverPort = Env.get('SERVER_PORT')
 const dbHost = Env.get('DB_HOST')
-const dbPort = parseInt(Env.get('DB_PORT'))
+const dbPort = Env.get('DB_PORT')
 const dbUser = Env.get('DB_USER')
 const dbPassword = Env.get('DB_PASSWORD')
 const dbName = Env.get('DB_NAME')
 
-const database: DBService = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, 5000)
+const dbService: DBService = new MongoDBService(dbHost, parseInt(dbPort), dbUser, dbPassword, dbName, 5000)
 
 const app = express()
 
 // Middlewares
 app.use(cors())
 app.use(express.json())
+app.use(requestsLogger)
 
 // Routes
 app.use('/login', login)
@@ -31,6 +33,8 @@ app.use('/register', register)
 
 app.use('/user', getUserDetails)
 app.use('/user/update', updateUser)
+
+app.use(appLoger)
 
 let isConnected = false
 let isConnecting = false
@@ -43,7 +47,7 @@ async function connectToDbAndRetryIfFails() {
 
     while(true) {
         try {
-            database.connect(2000)
+            dbService.connect(2000)
             break
         } catch (error) {
             // console.error(error)
