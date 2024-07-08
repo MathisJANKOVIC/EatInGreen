@@ -6,8 +6,8 @@ import login from './routes/auth/login'
 import register from './routes/auth/register'
 import getUserDetails from './routes/user/getDetails'
 import DBService from './database/services/DBService'
+import { httpRequestsLogger } from './config/logging'
 import MongoDBService from './database/services/MongoDBService'
-import { requestsLogger, appLoger } from './config/logging'
 
 const serverPort = Env.get('SERVER_PORT')
 const dbHost = Env.get('DB_HOST')
@@ -16,20 +16,20 @@ const dbUser = Env.get('DB_USER')
 const dbPassword = Env.get('DB_PASSWORD')
 const dbName = Env.get('DB_NAME')
 
-const dbService: DBService = new MongoDBService(dbHost, parseInt(dbPort), dbUser, dbPassword, dbName, 5000)
+const database: DBService = new MongoDBService(dbHost, parseInt(dbPort), dbUser, dbPassword, dbName, 5000)
 
 const app = express()
 
 // Middlewares
 app.use(cors())
 app.use(express.json())
-app.use(requestsLogger)
+app.use(httpRequestsLogger)
 
 // Routes
-app.use('/login', login)
-app.use('/register', register)
-app.use('/user', getUserDetails)
+// app.use('/login', login)
+// app.use('/register', register)
+// app.use('/user', getUserDetails)
 
-dbService.connect(2000)
+database.connect(2000)
 
-app.listen(serverPort)
+app.listen(serverPort, () => console.log(`Server is running successfully`))

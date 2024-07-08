@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 class Env {
     /**
      * Retrieves the value of an environment variable.
