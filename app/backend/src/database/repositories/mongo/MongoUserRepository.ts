@@ -1,11 +1,6 @@
-import MongoUser, { IUserDocument } from '../models/User.model'
-import IUser from '../../interfaces/IUser'
-
-interface UserRepository {
-    create(user: IUser): Promise<void>
-    findById(id: string): Promise<IUser | null>
-    findByEmail(email: string): Promise<IUser | null>
-}
+import UserRepository from '../../../interfaces/repositories/UserRepository'
+import MongoUser, { IUserDocument } from '../../models/mongo/User.model'
+import IUser from '../../../interfaces/dto/IUser'
 
 class MongoUserRepository implements UserRepository {
     public async create(user: IUser): Promise<void> {
@@ -39,4 +34,4 @@ class MongoUserRepository implements UserRepository {
     }
 }
 
-export { UserRepository, MongoUserRepository }
+export default MongoUserRepository

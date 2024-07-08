@@ -1,6 +1,6 @@
 import { Document, Schema, model } from 'mongoose'
 
-import IUser from '../../interfaces/IUser'
+import IUser from '../../../interfaces/dto/IUser'
 
 export interface IUserDocument extends Omit<IUser, 'id'>, Document {
     publicId: string
@@ -17,6 +17,6 @@ const userSchema = new Schema<IUserDocument>({
 { versionKey: false }
 )
 
-const MongoUser = model<IUserDocument>('User', userSchema)
+const User = model<IUserDocument>('User', userSchema)
 
-export default MongoUser
+export default User

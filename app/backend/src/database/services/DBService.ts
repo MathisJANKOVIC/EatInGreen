@@ -4,7 +4,7 @@ abstract class DBService {
     protected readonly user: string
     protected readonly password: string
     protected readonly dbName: string
-;
+
     constructor(host: string, port: number, user: string, password: string, dbName: string) {
         this.host = host
         this.port = port
