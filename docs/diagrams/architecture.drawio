@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="TJxXni8sXmh9WfkrQiVw" name="Page-1">
-        <mxGraphModel dx="1698" dy="758" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="#FFFFFF" math="1" shadow="0">
+        <mxGraphModel dx="1867" dy="540" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="#FFFFFF" math="1" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -82,7 +82,7 @@
                 <mxCell id="112" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;strokeColor=#990000;fontSize=22;fontColor=#1A3300;fillColor=none;arcSize=2;imageAspect=0;pointerEvents=0;" parent="134" vertex="1">
                     <mxGeometry x="40" y="200" width="1480" height="460" as="geometry"/>
                 </mxCell>
-                <mxCell id="113" value="&lt;font&gt;Node.js Backend&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;glass=0;dashed=1;dashPattern=8 8;sketch=0;fontSize=22;fontColor=#FF3838;" parent="134" vertex="1">
+                <mxCell id="113" value="&lt;font&gt;Node.js Backend&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;glass=0;dashed=1;dashPattern=8 8;sketch=0;fontSize=22;fontColor=#990000;" parent="134" vertex="1">
                     <mxGeometry x="1338" y="622" width="177" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="7" value="&lt;font style=&quot;font-size: 22px;&quot; color=&quot;#333333&quot;&gt;MongoDB Database&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
