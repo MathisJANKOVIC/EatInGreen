@@ -14,6 +14,7 @@ abstract class DBService {
     }
 
     abstract connect(timeoutMS: number): Promise<void>
+    abstract disconnect(): Promise<void>
 }
 
 export default DBService

@@ -10,13 +10,17 @@ class MongoDBService extends DBService {
         this.requestsTimeoutMS = requestsTimeoutMS
     }
 
-    public async connect(timeoutMS: number) {
+    public async connect(timeoutMS: number): Promise<void> {
         await mongoose.connect(
             `mongodb://${this.user}:${this.password}@${this.host}:${this.port}/${this.dbName}?authSource=admin`, {
                 serverSelectionTimeoutMS: timeoutMS,
                 connectTimeoutMS: this.requestsTimeoutMS,
             }
         )
+    }
+
+    public async disconnect(): Promise<void> {
+        await mongoose.disconnect()
     }
 }
 

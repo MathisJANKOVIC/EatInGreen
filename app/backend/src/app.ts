@@ -1,14 +1,12 @@
-import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
 
+import Env from './lib/Env'
 import login from './routes/auth/login'
 import register from './routes/auth/register'
-import updateUser from './routes/user/update'
 import getUserDetails from './routes/user/getDetails'
 import DBService from './database/services/DBService'
 import MongoDBService from './database/services/MongoDBService'
-import Env from './lib/Env'
 import { requestsLogger, appLoger } from './config/logging'
 
 const serverPort = Env.get('SERVER_PORT')
@@ -30,48 +28,8 @@ app.use(requestsLogger)
 // Routes
 app.use('/login', login)
 app.use('/register', register)
-
 app.use('/user', getUserDetails)
-app.use('/user/update', updateUser)
 
-app.use(appLoger)
+dbService.connect(2000)
 
-let isConnected = false
-let isConnecting = false
-
-async function connectToDbAndRetryIfFails() {
-    if(isConnecting) {
-        return
-    }
-    isConnecting = true
-
-    while(true) {
-        try {
-            dbService.connect(2000)
-            break
-        } catch (error) {
-            // console.error(error)
-            console.log(`[express] failed to connect to MongoDB, retrying in 15 sec`)
-            await new Promise(resolve => setTimeout(resolve, 15 * 1000))
-        }
-    }
-    isConnected = true
-    isConnecting = false
-
-    console.log('[express] successfully connected to MongoDB')
-}
-(async () => {
-    await connectToDbAndRetryIfFails()
-})()
-
-mongoose.connection.on('disconnected', () => {
-    if(isConnected) {
-        isConnected = false
-        console.log('[express] disconnected from MongoDB, reconnecting...')
-    }
-    connectToDbAndRetryIfFails()
-})
-
-app.listen(serverPort, () => {
-    console.log('[express] server is up and running')
-})
+app.listen(serverPort)
