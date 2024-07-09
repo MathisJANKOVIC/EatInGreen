@@ -1,6 +1,6 @@
 import path from 'path'
 
-const timestampFormat = 'YYYY-MM-DD HH:mm:ss'
-const logDirPath = path.join(__dirname, '../../../logs')
+const TIMESTAMP_FORMAT = 'YYYY-MM-DD HH:mm:ss'
+const LOG_DIRECTORY = path.join(__dirname, '../../../logs')
 
-export { timestampFormat, logDirPath }
+export { TIMESTAMP_FORMAT, LOG_DIRECTORY }

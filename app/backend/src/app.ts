@@ -2,12 +2,11 @@ import express from 'express'
 import cors from 'cors'
 
 import Env from './lib/Env'
-import login from './routes/auth/login'
-import register from './routes/auth/register'
-import getUserDetails from './routes/user/getDetails'
+import log from './config/logging/appLogger'
+import errorHandler from './middlewares/errorHandler'
 import DBService from './database/services/DBService'
-import { httpRequestsLogger } from './config/logging'
 import MongoDBService from './database/services/MongoDBService'
+import httpRequestsLogger from './config/logging/httpRequestLogger'
 
 const serverPort = Env.get('SERVER_PORT')
 const dbHost = Env.get('DB_HOST')
@@ -26,10 +25,14 @@ app.use(express.json())
 app.use(httpRequestsLogger)
 
 // Routes
-// app.use('/login', login)
-// app.use('/register', register)
-// app.use('/user', getUserDetails)
+app.use("/error", (req, res, next) => {
+    const a: any = 1
+    const b = a.toUpperCase()
+    res.sendStatus(200)
+})
+
+app.use(errorHandler)
 
 database.connect(2000)
 
-app.listen(serverPort, () => console.log(`Server is running successfully`))
+app.listen(serverPort, () => log.info('server is up and running'))

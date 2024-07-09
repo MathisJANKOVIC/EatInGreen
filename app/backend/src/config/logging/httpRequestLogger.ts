@@ -3,9 +3,9 @@ import { TransformableInfo } from 'logform'
 import expressWinston from 'express-winston'
 import { Request, Response } from 'express'
 
-import { timestampFormat, logDirPath } from './constants'
+import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
 
-class RequestLogFormatter {
+class HTTPRequestLogFormatter {
     public static console = ({ level, timestamp, meta }: TransformableInfo) => {
         const { ip, port } = meta.extra
         const { method, url, httpVersion } = meta.req
@@ -27,18 +27,17 @@ const httpRequestsLogger = expressWinston.logger({
             level: 'info',
             format: format.combine(
                 format.json(),
-                format.timestamp({ format: timestampFormat }),
-                format.printf(RequestLogFormatter.console)
+                format.timestamp({ format: TIMESTAMP_FORMAT }),
+                format.printf(HTTPRequestLogFormatter.console)
             )
-
         }),
         new transports.File({
             level: 'info',
-            filename: `${logDirPath}/http-requests.log`,
+            filename: `${LOG_DIRECTORY}/http-requests.log`,
             format: format.combine(
                 format.json(),
-                format.timestamp({ format: timestampFormat }),
-                format.printf(RequestLogFormatter.file)
+                format.timestamp({ format: TIMESTAMP_FORMAT }),
+                format.printf(HTTPRequestLogFormatter.file)
             )
         })
     ],

@@ -1,21 +1,15 @@
 import express, { Request, Response} from 'express'
 
-import { handleGenericError } from '../../lib/errorHandling'
 import User from '../../entities/User'
-import { UserRequest, authenticate } from '../../middlewares/authentication'
+import authenticate, { UserRequest } from '../../middlewares/authenticate'
 
 const router = express.Router()
 
 router.get('/', authenticate, async (req: Request, res: Response) => {
-    try {
-        const userId = (req as UserRequest).userId
-        const user = await User.findById(userId) as User
+    const userId = (req as UserRequest).userId
+    const user = await User.findById(userId) as User
 
-        return res.status(200).json({user: user.serialize()})
-    }
-    catch (error) {
-        handleGenericError(error, res)
-    }
+    return res.status(200).json({user: user.serialize()})
 })
 
 export default router
