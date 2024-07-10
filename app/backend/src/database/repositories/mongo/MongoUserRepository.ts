@@ -1,5 +1,6 @@
 import UserRepository from '../../../interfaces/repositories/UserRepository'
-import MongoUser, { IUserDocument } from '../../models/mongo/User.model'
+import MongoUser from '../../models/mongo/user/MongoUser'
+import UserDocument from '../../models/mongo/user/UserDocument'
 import IUser from '../../../interfaces/dto/IUser'
 
 class MongoUserRepository implements UserRepository {
@@ -24,11 +25,11 @@ class MongoUserRepository implements UserRepository {
         return null
     }
 
-    private serialize(user: IUser): Partial<IUserDocument> {
+    private serialize(user: IUser): Partial<UserDocument> {
         return { publicId: user.id, ...user }
     }
 
-    private deserialize(mongoUser: IUserDocument): IUser {
+    private deserialize(mongoUser: UserDocument): IUser {
         const { publicId, ...userWithoutPublicId } = mongoUser.toObject()
         return { id: publicId, ...userWithoutPublicId }
     }

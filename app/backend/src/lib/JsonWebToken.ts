@@ -1,10 +1,10 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
-import Env from './Env'
+import { Env } from './env'
 
 class JsonWebToken {
-    private static readonly secretKey = Env.get('JWT_SECRET_KEY')
-    private static readonly tokenLifetime = '20m'
+    private static readonly SECRET_KEY = Env.get('JWT_SECRET_KEY')
+    private static readonly TOKEN_LIFETIME = '20m'
 
     public readonly token: string
 
@@ -13,13 +13,13 @@ class JsonWebToken {
     }
 
     public static createFromPayload(payload: object): JsonWebToken {
-        const token = jwt.sign(payload, JsonWebToken.secretKey, { expiresIn: JsonWebToken.tokenLifetime })
+        const token = jwt.sign(payload, JsonWebToken.SECRET_KEY, { expiresIn: JsonWebToken.TOKEN_LIFETIME })
         return new JsonWebToken(token)
     }
 
     public extractPayload(): JwtPayload {
         try {
-            return jwt.verify(this.token, JsonWebToken.secretKey) as JwtPayload
+            return jwt.verify(this.token, JsonWebToken.SECRET_KEY) as JwtPayload
         } catch {
             throw new Error('failed to extract payload due to invalid token')
         }
