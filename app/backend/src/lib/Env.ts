@@ -2,6 +2,12 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+enum NodeEnv {
+    DEV = 'dev',
+    TEST = 'test',
+    PROD = 'production'
+}
+
 class Env {
     /**
      * Retrieves the value of an environment variable.
@@ -17,6 +23,16 @@ class Env {
         }
         return value
     }
+
+    /**
+     * Sets the value of an environment variable.
+     *
+     * @param {string} key - The key of the environment variable to set.
+     * @param {string} value - The value to set for the environment variable.
+     */
+    public static set(key: string, value: string): void {
+        process.env[key] = value
+    }
 }
 
-export default Env
+export { NodeEnv, Env }

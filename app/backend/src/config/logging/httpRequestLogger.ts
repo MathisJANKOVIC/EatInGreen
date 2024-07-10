@@ -4,7 +4,7 @@ import expressWinston from 'express-winston'
 import { Request, Response } from 'express'
 
 import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
-
+ 
 class HTTPRequestLogFormatter {
     public static console = ({ level, timestamp, meta }: TransformableInfo) => {
         const { ip, port } = meta.extra
@@ -21,7 +21,7 @@ class HTTPRequestLogFormatter {
     }
 }
 
-const httpRequestsLogger = expressWinston.logger({
+const httpRequestLogger = expressWinston.logger({
     transports: [
         new transports.Console({
             level: 'info',
@@ -52,4 +52,4 @@ const httpRequestsLogger = expressWinston.logger({
     },
 })
 
-export default httpRequestsLogger
+export default httpRequestLogger
