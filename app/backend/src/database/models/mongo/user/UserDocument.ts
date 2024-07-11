@@ -1,8 +1,8 @@
 import { Document } from "mongoose"
 
-import IUser from "../../../../interfaces/dto/IUser"
+import UserDTO from "../../../../interfaces/dto/UserDTO"
 
-interface UserDocument extends Omit<IUser, 'id'>, Document {
+interface UserDocument extends Omit<UserDTO, 'id'>, Document {
     publicId: string
 }
 

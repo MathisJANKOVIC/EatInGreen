@@ -26,7 +26,7 @@ router.post('/', async (req: Request, res: Response) => {
 
     const jwt = JsonWebToken.createFromPayload({ userId: user.id })
 
-    return res.status(201).json({ token: jwt.token, user: user.serialize()})
+    return res.status(201).json({ token: jwt.token, user: user.serializeDTO()})
 })
 
 export default router

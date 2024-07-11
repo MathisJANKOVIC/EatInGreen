@@ -1,9 +1,9 @@
-import IUser from '../dto/IUser'
+import UserDTO from '../dto/UserDTO'
 
 interface UserRepository {
-    create(user: IUser): Promise<void>
-    findById(id: string): Promise<IUser | null>
-    findByEmail(email: string): Promise<IUser | null>
+    create(user: UserDTO): Promise<void>
+    findById(id: string): Promise<UserDTO | null>
+    findByEmail(email: string): Promise<UserDTO | null>
 }
 
 export default UserRepository

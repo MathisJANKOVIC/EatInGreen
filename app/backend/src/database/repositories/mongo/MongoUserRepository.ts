@@ -1,37 +1,37 @@
 import UserRepository from '../../../interfaces/repositories/UserRepository'
-import MongoUser from '../../models/mongo/user/MongoUser'
 import UserDocument from '../../models/mongo/user/UserDocument'
-import IUser from '../../../interfaces/dto/IUser'
+import UserModel from '../../models/mongo/user/UserModel'
+import UserDTO from '../../../interfaces/dto/UserDTO'
 
 class MongoUserRepository implements UserRepository {
-    public async create(user: IUser): Promise<void> {
-        const mongoUser = this.serialize(user)
-        new MongoUser(mongoUser).save()
+    public async create(userDto: UserDTO): Promise<void> {
+        const userDoc = this.toDocument(userDto)
+        new UserModel(userDoc).save()
     }
 
-    public async findById(id: string): Promise<IUser | null> {
-        const mongoUser = await MongoUser.findOne({ publicId: id }).exec()
-        if (mongoUser) {
-            return this.deserialize(mongoUser)
+    public async findById(id: string): Promise<UserDTO | null> {
+        const userDoc = await UserModel.findOne({ publicId: id }).exec()
+        if (userDoc) {
+            return this.toDto(userDoc)
         }
         return null
     }
 
-    public async findByEmail(email: string): Promise<IUser | null> {
-        const mongoUser = await MongoUser.findOne({ email: email }).exec()
-        if (mongoUser) {
-            return this.deserialize(mongoUser)
+    public async findByEmail(email: string): Promise<UserDTO | null> {
+        const userDoc = await UserModel.findOne({ email: email }).exec()
+        if (userDoc) {
+            return this.toDto(userDoc)
         }
         return null
     }
 
-    private serialize(user: IUser): Partial<UserDocument> {
-        return { publicId: user.id, ...user }
+    private toDocument(userDto: UserDTO): Partial<UserDocument> {
+        return { publicId: userDto.id, ...userDto }
     }
 
-    private deserialize(mongoUser: UserDocument): IUser {
-        const { publicId, ...userWithoutPublicId } = mongoUser.toObject()
-        return { id: publicId, ...userWithoutPublicId }
+    private toDto(userDoc: UserDocument): UserDTO {
+        const { publicId, ...userWithoutId } = userDoc.toObject()
+        return { id: publicId, ...userWithoutId }
     }
 }
 

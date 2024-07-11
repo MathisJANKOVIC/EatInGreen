@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
 
 import UserDocument from './UserDocument'
 
@@ -13,4 +13,6 @@ const userSchema = new Schema<UserDocument>({
 { versionKey: false }
 )
 
-export default userSchema
+const UserModel = model<UserDocument>('User', userSchema)
+
+export default UserModel

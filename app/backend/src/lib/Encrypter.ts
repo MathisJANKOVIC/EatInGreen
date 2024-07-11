@@ -1,7 +1,7 @@
 import argon2 from 'argon2'
 
 /**
- * Utility class for data encryption and hashing.
+ * A utility class for data encryption and hashing.
  */
 class Encrypter {
     /** Creates a secure hash for a given string.*/

@@ -1,4 +1,4 @@
-interface IUser {
+interface UserDTO {
     id: string
     firstName: string
     lastName: string
@@ -7,4 +7,4 @@ interface IUser {
     createdAt: Date
 }
 
-export default IUser
+export default UserDTO

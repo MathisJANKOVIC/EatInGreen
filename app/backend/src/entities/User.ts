@@ -1,56 +1,63 @@
 import RepositoryFactory from '../database/repositories/RepositoryFactory'
 import IdGenerator from '../lib/IdGenerator'
-import IUser from '../interfaces/dto/IUser'
+import UserDTO from '../interfaces/dto/UserDTO'
 import Entity from './Entity'
 
-class User implements Entity {
+class User implements Entity<UserDTO> {
     private static readonly repository = RepositoryFactory.createUserRepository()
 
-    public readonly id: string
+    public id: string
     private firstName: string
     private lastName: string
     private email: string
     private password: string
-    private readonly createdAt: Date
+    private createdAt: Date
 
-    constructor(firstName: string, lastName: string, email: string, password: string, id?: string, createdAt?: Date) {
-        this.id = id || IdGenerator.generateId('User')
+    constructor(firstName: string, lastName: string, email: string, password: string) {
+        this.id = IdGenerator.generateId('User')
         this.firstName = firstName
         this.lastName = lastName
         this.email = email
         this.password = password
-        this.createdAt = createdAt || new Date()
+        this.createdAt = new Date()
     }
 
     public static async findById(id: string): Promise<User | null> {
-        const user = await User.repository.findById(id)
-        if (user) {
-            return User.fromObject(user)
+        const userDto = await User.repository.findById(id)
+        if (userDto) {
+            return User.fromDto(userDto)
         }
         return null
     }
+
     public static async findByEmail(email: string): Promise<User | null> {
-        const user = await User.repository.findByEmail(email)
-        if (user) {
-            return User.fromObject(user)
+        const userDto = await User.repository.findByEmail(email)
+        if (userDto) {
+            return User.fromDto(userDto)
         }
         return null
     }
 
     public async save() {
-        await User.repository.create(this.toObject())
+        await User.repository.create(this.toDto())
     }
 
-    public serialize(): Omit<IUser, 'password'> {
-        return { id: this.id, firstName: this.firstName, lastName: this.lastName, email: this.email, createdAt: this.createdAt }
+    public toDto(): UserDTO {
+        return {
+            id: this.id,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            password: this.password,
+            createdAt: this.createdAt
+        }
     }
 
-    private toObject(): IUser {
-        return { ...this.serialize(), password: this.password }
-    }
-
-    private static fromObject(user: IUser): User {
-        return new User(user.firstName, user.lastName, user.email, user.password, user.id, user.createdAt)
+    public static fromDto(userDto: UserDTO): User {
+        const user = new User(userDto.firstName, userDto.lastName, userDto.email, userDto.password)
+        user.id = userDto.id
+        user.createdAt = userDto.createdAt
+        return user
     }
 }
 

@@ -12,7 +12,7 @@ enum NodeEnv {
 }
 
 /**
- * Utility class for environment variable manipulations.
+ * A utility class for environment variable manipulations.
  */
 class Env {
     /** Retrieves the value of an environment variable if it exists, otherwise throws an exception. */
@@ -24,7 +24,10 @@ class Env {
         return value
     }
 
-    /** Sets the value of an environment variable. Updates the value if the variable exists, otherwise creates a new one. */
+    /**
+     * Sets the value of an environment variable.
+     * Updates the value if the variable exists, otherwise creates a new one.
+     */
     public static set(key: string, value: string): void {
         process.env[key] = value
     }

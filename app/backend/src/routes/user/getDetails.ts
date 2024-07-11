@@ -9,7 +9,7 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
     const userId = (req as UserRequest).userId
     const user = await User.findById(userId) as User
 
-    return res.status(200).json({user: user.serialize()})
+    return res.status(200).json({user: user.serializeDTO()})
 })
 
 export default router
