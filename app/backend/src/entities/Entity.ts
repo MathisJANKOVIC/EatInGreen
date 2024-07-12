@@ -1,5 +1,5 @@
-interface Entity<DTO> {
-    toDto(): DTO
+interface Entity<EntityDTO> {
+    toDto(): EntityDTO
     save(): Promise<void>
 }
 

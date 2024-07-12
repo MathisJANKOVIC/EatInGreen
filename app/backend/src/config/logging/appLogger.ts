@@ -1,8 +1,8 @@
-import { createLogger, transports, format } from 'winston'
+import winston, { createLogger, transports, format } from 'winston'
 
 import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
 
-const appLogger = createLogger({
+const appLogger = winston.createLogger({
     transports: [
         new transports.Console({
             level: 'debug',

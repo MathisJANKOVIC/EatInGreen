@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 
-import { Env, NodeEnv } from './lib/Envs'
+import { Env, NodeEnv } from './lib/env'
 import log from './config/logging/appLogger'
 import errorHandler from './middlewares/errorHandler'
 import DBService from './database/services/DBService'
@@ -22,6 +22,7 @@ const app = express()
 // Middlewares
 app.use(cors())
 app.use(express.json())
+app.set('trust proxy', true)
 app.use(httpRequestLogger)
 
 // Routes

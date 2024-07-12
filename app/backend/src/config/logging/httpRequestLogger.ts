@@ -4,7 +4,7 @@ import expressWinston from 'express-winston'
 import { Request, Response } from 'express'
 
 import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
- 
+
 class HTTPRequestLogFormatter {
     public static console = ({ level, timestamp, meta }: TransformableInfo) => {
         const { ip, port } = meta.extra
@@ -42,12 +42,11 @@ const httpRequestLogger = expressWinston.logger({
         })
     ],
     dynamicMeta: (req: Request, res: Response) => {
-        let ip = req.socket.remoteAddress as string
-        const port = req.socket.remotePort
+        const port = req.socket.remotePort || 'undefined'
+        const rawIp = req.socket.remoteAddress || 'undefined'
 
-        if (ip.startsWith('::ffff:')) {
-            ip = ip.substring(7)
-        }
+        const ip = rawIp.replace(/^.*:/, '') // Keep only the IPv4 address part from the raw address
+
         return { extra: { ip, port } }
     },
 })

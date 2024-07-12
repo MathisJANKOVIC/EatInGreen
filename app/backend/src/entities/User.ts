@@ -1,5 +1,5 @@
 import RepositoryFactory from '../database/repositories/RepositoryFactory'
-import IdGenerator from '../lib/UIDGenerator'
+import IdGenerator from '../lib/IdGenerator'
 import UserDTO from '../interfaces/dto/UserDTO'
 import Entity from './Entity'
 
