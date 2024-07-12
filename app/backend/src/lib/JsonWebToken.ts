@@ -1,6 +1,6 @@
 import { JwtPayload, sign, verify } from 'jsonwebtoken'
 
-import { Env } from './env'
+import { Env } from './Envs'
 
 /**
  * A wrapper class for managing and manipulating JSON Web Tokens (JWT).

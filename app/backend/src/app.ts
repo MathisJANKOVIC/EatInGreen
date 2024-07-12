@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 
-import { Env, NodeEnv } from './lib/env'
+import { Env, NodeEnv } from './lib/Envs'
 import log from './config/logging/appLogger'
 import errorHandler from './middlewares/errorHandler'
 import DBService from './database/services/DBService'
