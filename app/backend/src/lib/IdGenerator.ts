@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 class IdGenerator {
     /**
      * Generates a unique identifier for an entity.
-     * The entity name in lowercase is used as a prefix of the identifier.
+     * The entity name in lowercase is used as the prefix of the identifier.
      */
     public static generateId(entityName: string): string {
         const shortenedUuid = uuidv4().slice(0, 18)

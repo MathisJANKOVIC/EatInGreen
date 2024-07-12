@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 /**
- * Enumeration of the different Node.js server environments.
+ * An enumeration of the different Node.js server environments.
  */
 enum NodeEnv {
     DEV = 'dev',

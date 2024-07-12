@@ -7,6 +7,7 @@ import errorHandler from './middlewares/errorHandler'
 import DBService from './database/services/DBService'
 import MongoDBService from './database/services/MongoDBService'
 import httpRequestLogger from './config/logging/httpRequestLogger'
+import {JsonWebToken} from './lib/jwt'
 
 const serverPort = Env.get('SERVER_PORT')
 const dbHost = Env.get('DB_HOST')
@@ -27,6 +28,8 @@ app.use(httpRequestLogger)
 
 // Routes
 app.use('/', (req, res) => {
+    const a = new JsonWebToken("sdfqsdfqs")
+    const b: any = a.extractPayload()
     res.send("Welcome to EatInGreen")
 })
 
