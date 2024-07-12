@@ -3,7 +3,7 @@ import { JwtPayload, sign, verify } from 'jsonwebtoken'
 import { Env } from './env'
 
 /**
- * An error class for representing an invalid token error.
+ * An exception thrown when a JWT is invalid.
  */
 class InvalidTokenError extends Error {
     constructor(message: string) {
@@ -25,13 +25,21 @@ class JsonWebToken {
         this.token = token
     }
 
-    /** Creates a new JWT from the given payload. */
+    /**
+     * Creates a new JWT from the given payload.
+     * @param payload The payload to be stored in the JWT.
+     * @returns A new JWT instance.
+     */
     public static createFromPayload(payload: object): JsonWebToken {
         const token = sign(payload, JsonWebToken.SECRET_KEY, { expiresIn: JsonWebToken.TOKEN_LIFETIME })
         return new JsonWebToken(token)
     }
 
-    /** Extracts the payload from the JWT. Throws an exception if the token is invalid. */
+    /**
+     * Extracts the payload from the JWT.
+     * @throws {InvalidTokenError} If the token is invalid.
+     * @returns The payload of the JWT.
+     */
     public extractPayload(): JwtPayload {
         try {
             return verify(this.token, JsonWebToken.SECRET_KEY) as JwtPayload

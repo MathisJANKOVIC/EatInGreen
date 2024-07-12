@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express'
 
 import User from '../../entities/User'
 import Encrypter from '../../lib/Encrypter'
-import JsonWebToken from '../../lib/jwt'
+import JsonWebToken from '../../lib/jsonWebToken'
 
 const router = express.Router()
 

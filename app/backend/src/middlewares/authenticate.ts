@@ -1,6 +1,6 @@
 import { Response, NextFunction, Request } from 'express'
 
-import {JsonWebToken} from '../lib/jwt'
+import {JsonWebToken} from '../lib/jsonWebToken'
 
 export interface UserRequest extends Request {
     userId: string
