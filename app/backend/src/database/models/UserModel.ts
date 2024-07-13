@@ -1,4 +1,4 @@
-import UserDTO from '../../../types/dto/UserDTO'
+import UserDTO from '../../interfaces/dto/UserDTO'
 
 import mongoose, { Document, Schema, Model } from 'mongoose'
 
@@ -16,7 +16,7 @@ const userSchema = new Schema<UserDocument>({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    passwordHash: { type: String, required: true },
     createdAt: { type: Date, required: true, immutable: true}
 },
 { versionKey: false }

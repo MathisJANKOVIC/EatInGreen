@@ -1,9 +1,9 @@
+import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
+
 import { transports, format } from 'winston'
 import { TransformableInfo } from 'logform'
 import expressWinston from 'express-winston'
 import { Request, Response } from 'express'
-
-import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
 
 class HTTPRequestLogFormatter {
     public static console = ({ level, timestamp, meta }: TransformableInfo) => {
@@ -41,6 +41,7 @@ const httpRequestLogger = expressWinston.logger({
             )
         })
     ],
+    // Extend the logging metadata with the client IP address and port
     dynamicMeta: (req: Request, res: Response) => {
         const port = req.socket.remotePort || 'undefined'
         const rawIp = req.socket.remoteAddress || 'undefined'

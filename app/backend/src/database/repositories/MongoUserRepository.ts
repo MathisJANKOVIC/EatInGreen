@@ -1,6 +1,6 @@
-import UserRepository from '../../../interfaces/repositories/UserRepository'
-import UserDTO from '../../../types/dto/UserDTO'
-import UserModel from '../../models/mongo/UserModel'
+import UserRepository from '../../interfaces/repositories/UserRepository'
+import UserDTO from '../../interfaces/dto/UserDTO'
+import UserModel from '../models/UserModel'
 
 class MongoUserRepository implements UserRepository {
     public async create(userDto: UserDTO): Promise<void> {

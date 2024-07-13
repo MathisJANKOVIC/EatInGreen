@@ -1,25 +1,45 @@
 import RepositoryFactory from '../database/repositories/RepositoryFactory'
-import IdGenerator from '../lib/IdGenerator'
-import UserDTO from '../types/dto/UserDTO'
+import UserDTO from '../interfaces/dto/UserDTO'
+import encrypt from '../lib/encrypt'
 import Entity from './Entity'
+import uid from '../lib/uid'
 
 class User implements Entity<UserDTO> {
     private static readonly repository = RepositoryFactory.createUserRepository()
 
-    public id: string
-    private firstName: string
-    private lastName: string
-    private email: string
-    public password: string
-    private createdAt: Date
+    private _id: string
+    private _firstName: string
+    private _lastName: string
+    private _email: string
+    private _passwordHash: string
+    private _createdAt: Date
+
+    public get id(): string {
+        return this._id
+    }
+    public get firstName(): string {
+        return this._firstName
+    }
+    public get lastName(): string {
+        return this._lastName
+    }
+    public get email(): string {
+        return this._email
+    }
+    public get passwordHash(): string {
+        return this._passwordHash
+    }
+    public get createdAt(): Date {
+        return this._createdAt
+    }
 
     constructor(firstName: string, lastName: string, email: string, password: string) {
-        this.id = IdGenerator.generateId('User')
-        this.firstName = firstName
-        this.lastName = lastName
-        this.email = email
-        this.password = password
-        this.createdAt = new Date()
+        this._id = uid.generateId('User')
+        this._firstName = firstName
+        this._lastName = lastName
+        this._email = email
+        this._passwordHash = encrypt.hash(password)
+        this._createdAt = new Date()
     }
 
     public static async findById(id: string): Promise<User | null> {
@@ -38,26 +58,27 @@ class User implements Entity<UserDTO> {
         return null
     }
 
-    public async save() {
-        await User.repository.create(this.toDto())
+    public static fromDto(userDto: UserDTO): User {
+        const user = new User(userDto.firstName, userDto.lastName, userDto.email, '')
+        user._id = userDto.id
+        user._passwordHash = userDto.passwordHash
+        user._createdAt = userDto.createdAt
+        return user
     }
 
     public toDto(): UserDTO {
         return {
-            id: this.id,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            email: this.email,
-            password: this.password,
-            createdAt: this.createdAt
+            id: this._id,
+            firstName: this._firstName,
+            lastName: this._lastName,
+            email: this._email,
+            passwordHash: this._passwordHash,
+            createdAt: this._createdAt
         }
     }
 
-    public static fromDto(userDto: UserDTO): User {
-        const user = new User(userDto.firstName, userDto.lastName, userDto.email, userDto.password)
-        user.id = userDto.id
-        user.createdAt = userDto.createdAt
-        return user
+    public async save() {
+        await User.repository.create(this.toDto())
     }
 }
 

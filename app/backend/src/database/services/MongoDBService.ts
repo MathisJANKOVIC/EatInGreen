@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
-
 import DBService from './DBService'
+
+import mongoose from 'mongoose'
 
 class MongoDBService extends DBService {
     private readonly requestsTimeoutMS: number

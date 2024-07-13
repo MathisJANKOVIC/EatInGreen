@@ -2,7 +2,7 @@ interface UserDTO {
     id: string
     firstName: string
     lastName: string
-    password: string
+    passwordHash: string
     email: string
     createdAt: Date
 }

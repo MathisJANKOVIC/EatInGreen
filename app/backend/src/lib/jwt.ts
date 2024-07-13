@@ -36,4 +36,4 @@ class JsonWebToken {
     }
 }
 
-export { JsonWebToken, JwtPayload as JWTPayload }
+export { JsonWebToken, JwtPayload }

@@ -1,6 +1,6 @@
-import winston, { transports, format } from 'winston'
-
 import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
+
+import winston, { transports, format } from 'winston'
 
 const appLogger = winston.createLogger({
     transports: [

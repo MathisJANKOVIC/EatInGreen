@@ -1,9 +1,9 @@
-import { Request, Response } from 'express'
-
-import HTTPError from '../lib/HTTPError'
+import { JsonWebToken } from '../lib/jwt'
+import encrypt from '../lib/encrypt'
+import HTTPError from '../http/HTTPError'
 import User from '../entities/User'
-import Encrypter from '../lib/Encrypter'
-import { JsonWebToken } from '../lib/jsonWebToken'
+
+import { Request, Response } from 'express'
 
 class AuthController {
     public static async register(req: Request, res: Response): Promise<void> {
@@ -16,8 +16,7 @@ class AuthController {
             throw new HTTPError(422, 'password must be at least 6 characters long')
         }
 
-        const hashedPassword = await Encrypter.hash(password)
-        const user = new User(firstName, lastName, email, hashedPassword)
+        const user = new User(firstName, lastName, email, password)
         await user.save()
 
         const jwt = JsonWebToken.createFromPayload({ userId: user.id })
@@ -35,7 +34,7 @@ class AuthController {
 
         const user = await User.findByEmail(email)
 
-        if(user == null || !await Encrypter.matchHash(password, user.password)) {
+        if(user == null || !await encrypt.matchHash(password, user.passwordHash)) {
             throw new HTTPError(401, 'invalid email or password')
         }
 
