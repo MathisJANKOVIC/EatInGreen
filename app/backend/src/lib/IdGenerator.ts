@@ -1,4 +1,4 @@
-import uuid from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 /**
  * A utility class for unique identifier generation.
@@ -9,7 +9,7 @@ class IdGenerator {
      * The entity name in lowercase is used as the prefix of the identifier.
      */
     public static generateId(entityName: string): string {
-        const shortenedUuid = uuid.v4().slice(0, 18)
+        const shortenedUuid = uuidv4().slice(0, 18)
         return `${entityName.toLowerCase()}-${shortenedUuid}`
     }
 }

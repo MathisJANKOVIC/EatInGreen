@@ -1,6 +1,6 @@
-import mongoose, { Document, Schema, Model } from 'mongoose'
-
 import UserDTO from '../../../types/dto/UserDTO'
+
+import mongoose, { Document, Schema, Model } from 'mongoose'
 
 interface UserDocument extends Omit<UserDTO, 'id'>, Document {
     publicId: string

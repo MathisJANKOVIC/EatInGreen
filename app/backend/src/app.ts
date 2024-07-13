@@ -1,6 +1,5 @@
 import express from 'express'
 import cors from 'cors'
-import { Jwt } from 'jsonwebtoken'
 
 import { Env, NodeEnv } from './lib/env'
 import log from './config/logging/appLogger'
@@ -10,6 +9,9 @@ import MongoDBService from './database/services/MongoDBService'
 import httpRequestLogger from './config/logging/httpRequestLogger'
 import {JsonWebToken} from './lib/jsonWebToken'
 import HTTPError from './lib/HTTPError'
+import AuthController from './controllers/AuthController'
+
+
 const serverPort = Env.get('SERVER_PORT')
 const dbHost = Env.get('DB_HOST')
 const dbPort = parseInt(Env.get('DB_PORT'))
@@ -28,6 +30,9 @@ app.set('trust proxy', true)
 app.use(httpRequestLogger)
 
 // Routes
+app.use('/login', AuthController.login)
+app.use('/register', AuthController.register)
+
 app.use('/test', (req, res) => {
     // throw new HTTPError(404, 'Route not found')
     // const jwt = new JsonWebToken("dfgds")

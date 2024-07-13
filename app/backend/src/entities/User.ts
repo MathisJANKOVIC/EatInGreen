@@ -10,7 +10,7 @@ class User implements Entity<UserDTO> {
     private firstName: string
     private lastName: string
     private email: string
-    private password: string
+    public password: string
     private createdAt: Date
 
     constructor(firstName: string, lastName: string, email: string, password: string) {
