@@ -1,16 +1,6 @@
-import { JwtPayload, sign, verify } from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
 import { Env } from './env'
-
-/**
- * An exception thrown when a JWT is invalid.
- */
-class InvalidTokenError extends Error {
-    constructor(message: string) {
-        super(message)
-        this.name = "InvalidTokenError"
-    }
-}
 
 /**
  * A wrapper class for managing and manipulating JSON Web Tokens (JWT).
@@ -25,26 +15,18 @@ class JsonWebToken {
         this.token = token
     }
 
-    /**
-     * Creates a new JWT from the given payload.
-     * @param payload The payload to be stored in the JWT.
-     * @returns A new JWT instance.
-     */
+    /** Creates a new JWT from the given payload.*/
     public static createFromPayload(payload: object): JsonWebToken {
-        const token = sign(payload, JsonWebToken.SECRET_KEY, { expiresIn: JsonWebToken.TOKEN_LIFETIME })
+        const token = jwt.sign(payload, JsonWebToken.SECRET_KEY, { expiresIn: JsonWebToken.TOKEN_LIFETIME })
         return new JsonWebToken(token)
     }
 
-    /**
-     * Extracts the payload from the JWT.
-     * @throws {InvalidTokenError} If the token is invalid.
-     * @returns The payload of the JWT.
-     */
+    /** Extracts the payload from the JWT. Throws an exception if the JWT is invalid. */
     public extractPayload(): JwtPayload {
         try {
-            return verify(this.token, JsonWebToken.SECRET_KEY) as JwtPayload
+            return jwt.verify(this.token, JsonWebToken.SECRET_KEY) as JwtPayload
         } catch {
-            throw new InvalidTokenError('failed to extract payload due to invalid token')
+            throw new Error('failed to extract the payload due to invalid JWT')
         }
     }
 
@@ -54,4 +36,4 @@ class JsonWebToken {
     }
 }
 
-export { JsonWebToken, InvalidTokenError }
+export { JsonWebToken, JwtPayload as JWTPayload }

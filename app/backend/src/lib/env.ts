@@ -12,41 +12,25 @@ enum NodeEnv {
 }
 
 /**
- * An exception thrown when an environment variable is not defined.
- */
-class UndefinedEnvError extends Error {
-    constructor(key: string) {
-        super(`environment variable '${key}' is not defined`)
-        this.name = 'UndefinedEnvError'
-    }
-}
-
-/**
  * A utility class for environment variable manipulations.
  */
 class Env {
     /**
      * Retrieves the value of an environment variable.
-     * @param key The name of the environment variable.
-     * @throws {UndefinedEnvError} If the environment variable is not defined.
-     * @returns The value of the environment variable.
+     * Throws an exception if the variable is not defined.
      */
     public static get(key: string): string {
         const value = process.env[key]
         if (value === undefined) {
-            throw new UndefinedEnvError(key)
+            throw new Error(`environment variable '${key}' is not defined`)
         }
         return value
     }
 
-    /**
-     * Sets the value of an environment variable.
-     * @param key The name of the environment variable.
-     * @param value The value of the environment variable.
-     */
+    /** Sets the value of an environment variable.*/
     public static set(key: string, value: string): void {
         process.env[key] = value
     }
 }
 
-export { Env, UndefinedEnvError, NodeEnv }
+export { Env, NodeEnv }

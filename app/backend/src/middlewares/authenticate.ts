@@ -1,27 +1,28 @@
-import { Response, NextFunction, Request } from 'express'
+import { Request, Response, NextFunction } from 'express'
 
-import {JsonWebToken} from '../lib/jsonWebToken'
+import HTTPError from '../lib/HTTPError'
+import { JsonWebToken } from '../lib/jsonWebToken'
 
-export interface UserRequest extends Request {
+export interface AuthRequest extends Request {
     userId: string
 }
 
 function authenticate(req: Request, res: Response, next: NextFunction) {
-    const authHeader: string | undefined = req.headers.authorization
+    const authHeader = req.headers.authorization
 
-    if(authHeader === undefined) {
-        return res.status(401).json({error: 'authentication credentials are required'})
+    if (authHeader === undefined) {
+        throw new HTTPError(401, 'Authentication credentials are required')
     }
-    const token: string = authHeader.split(' ')[1]
 
-    const jsonWebToken = new JsonWebToken(token)
-    let payload
+    const token = authHeader.split(' ')[1]
+    const jwt = new JsonWebToken(token)
+
     try {
-        payload = jsonWebToken.extractPayload()
+        const payload = jwt.extractPayload();
+        (req as AuthRequest).userId = payload.userId
     } catch {
-        return res.status(401).json({error: 'invalid credentials'})
+        throw new HTTPError(401, 'Invalid credentials')
     }
-    (req as UserRequest).userId = payload.userId
     next()
 }
 

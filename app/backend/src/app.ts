@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import { Jwt } from 'jsonwebtoken'
 
 import { Env, NodeEnv } from './lib/env'
 import log from './config/logging/appLogger'
@@ -8,7 +9,7 @@ import DBService from './database/services/DBService'
 import MongoDBService from './database/services/MongoDBService'
 import httpRequestLogger from './config/logging/httpRequestLogger'
 import {JsonWebToken} from './lib/jsonWebToken'
-
+import HTTPError from './lib/HTTPError'
 const serverPort = Env.get('SERVER_PORT')
 const dbHost = Env.get('DB_HOST')
 const dbPort = parseInt(Env.get('DB_PORT'))
@@ -27,8 +28,11 @@ app.set('trust proxy', true)
 app.use(httpRequestLogger)
 
 // Routes
-app.use('/', (req, res) => {
-    const a = Env.get("sdfqdf")
+app.use('/test', (req, res) => {
+    // throw new HTTPError(404, 'Route not found')
+    // const jwt = new JsonWebToken("dfgds")
+    // jwt.extractPayload()
+    const a = Env.get("var")
     res.send("Welcome to EatInGreen")
 })
 
@@ -42,6 +46,6 @@ app.listen(serverPort, () => {
     if (Env.get('NODE_ENV') === NodeEnv.PROD) {
         log.info(serverStartupMessage)
     } else {
-        log.debug(serverStartupMessage) // To not clutter log file because of nodemon auto reloading
+        log.debug(serverStartupMessage) // To not overwhelm log file because of nodemon auto reloading
     }
 })
