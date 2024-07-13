@@ -1,4 +1,4 @@
-import UserDTO from '../dto/UserDTO'
+import UserDTO from '../../types/dto/UserDTO'
 
 interface UserRepository {
     create(user: UserDTO): Promise<void>

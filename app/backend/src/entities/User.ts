@@ -1,6 +1,6 @@
 import RepositoryFactory from '../database/repositories/RepositoryFactory'
 import IdGenerator from '../lib/IdGenerator'
-import UserDTO from '../interfaces/dto/UserDTO'
+import UserDTO from '../types/dto/UserDTO'
 import Entity from './Entity'
 
 class User implements Entity<UserDTO> {

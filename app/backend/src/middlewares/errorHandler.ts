@@ -8,7 +8,7 @@ function errorHandler(error: Error | HTTPError, req: Request, res: Response, nex
         res.status(error.statusCode).json({ error: error.message })
     } else {
         log.error(error.message, { stack: error.stack })
-        res.status(500).json({ error: 'Something went wrong' })
+        res.status(500).json({ error: 'something went wrong' })
     }
 }
 
