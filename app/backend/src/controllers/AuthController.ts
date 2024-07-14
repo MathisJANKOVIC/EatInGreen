@@ -1,19 +1,18 @@
-import { JsonWebToken } from '../lib/jwt'
-import encrypt from '../lib/encrypt'
-import HTTPError from '../http/HTTPError'
+import { JWT } from '../lib/jwt'
+import * as encrypt from '../lib/encrypt'
+import HTTPError from '../utils/HTTPError'
 import User from '../entities/User'
 
 import { Request, Response } from 'express'
 
 class AuthController {
-    
     public static async register(req: Request, res: Response): Promise<void> {
         const { firstName, lastName, email, password } = req.body
 
         const user = new User(firstName, lastName, email, password)
         await user.save()
 
-        const jwt = JsonWebToken.createFromPayload({ userId: user.id })
+        const jwt = JWT.createFromPayload({ userId: user.id })
 
         res.status(201).json({ token: jwt.toString(), user: user.toDto()})
     }
@@ -27,7 +26,7 @@ class AuthController {
             throw new HTTPError(401, 'invalid email or password')
         }
 
-        const jwt = JsonWebToken.createFromPayload({ userId: user.id })
+        const jwt = JWT.createFromPayload({ userId: user.id })
         res.status(200).json({ token: jwt.toString(), user: user.toDto() })
     }
 }

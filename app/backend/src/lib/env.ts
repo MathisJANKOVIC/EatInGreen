@@ -5,32 +5,25 @@ dotenv.config()
 /**
  * An enumeration of the different Node.js server environments.
  */
-enum NodeEnv {
+export enum NodeEnv {
     DEV = 'dev',
     TEST = 'test',
     PROD = 'production'
 }
 
 /**
- * A utility class for environment variable manipulations.
+ * Retrieves the value of an environment variable.
+ * Throws an exception if the variable is not defined.
  */
-class Env {
-    /**
-     * Retrieves the value of an environment variable.
-     * Throws an exception if the variable is not defined.
-     */
-    public static get(key: string): string {
-        const value = process.env[key]
-        if (value === undefined) {
-            throw new Error(`environment variable '${key}' is not defined`)
-        }
-        return value
+export function get(key: string): string {
+    const value = process.env[key]
+    if (value === undefined) {
+        throw new Error(`environment variable '${key}' is not defined`)
     }
-
-    /** Sets the value of an environment variable.*/
-    public static set(key: string, value: string): void {
-        process.env[key] = value
-    }
+    return value
 }
 
-export { Env, NodeEnv }
+/** Sets the value of an environment variable.*/
+export function set(key: string, value: string): void {
+    process.env[key] = value
+}

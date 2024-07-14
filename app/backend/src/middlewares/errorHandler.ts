@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 
 import log from '../lib/log'
-import HTTPError from '../http/HTTPError'
+import HTTPError from '../utils/HTTPError'
 
 function errorHandler(error: Error | HTTPError, req: Request, res: Response, next: NextFunction) {
     if (error instanceof HTTPError) {

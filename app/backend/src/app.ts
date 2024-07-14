@@ -1,7 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 
-import { Env, NodeEnv } from './lib/env'
+import { NodeEnv } from './lib/env'
+import * as env from './lib/env'
 
 import log from './config/logging/appLogger'
 import errorHandler from './middlewares/errorHandler'
@@ -12,12 +13,12 @@ import * as authentication from './routes/auth'
 import AuthController from './controllers/AuthController'
 
 
-const serverPort = Env.get('SERVER_PORT')
-const dbHost = Env.get('DB_HOST')
-const dbPort = parseInt(Env.get('DB_PORT'))
-const dbUser = Env.get('DB_USER')
-const dbPassword = Env.get('DB_PASSWORD')
-const dbName = Env.get('DB_NAME')
+const serverPort = env.get('SERVER_PORT')
+const dbHost = env.get('DB_HOST')
+const dbPort = parseInt(env.get('DB_PORT'))
+const dbUser = env.get('DB_USER')
+const dbPassword = env.get('DB_PASSWORD')
+const dbName = env.get('DB_NAME')
 
 const database: DBService = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, 5000)
 
@@ -39,9 +40,9 @@ database.connect(2000)
 
 app.listen(serverPort, () => {
     const serverStartupMessage = 'Server startup complete.'
-    if (Env.get('NODE_ENV') === NodeEnv.PROD) {
+    if (env.get('NODE_ENV') === NodeEnv.PROD) {
         log.info(serverStartupMessage)
     } else {
-        log.debug(serverStartupMessage) // To not overwhelm log file because of nodemon auto reloading
+        log.debug(serverStartupMessage) // To not overwhelm log file because of nodemon auto restarting
     }
 })

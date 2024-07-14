@@ -1,12 +1,12 @@
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import * as env from './env'
 
-import { Env } from './env'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
 /**
  * A wrapper class for managing and manipulating JSON Web Tokens (JWT).
  */
-class JsonWebToken {
-    private static readonly SECRET_KEY = Env.get('JWT_SECRET_KEY')
+export class JWT {
+    private static readonly SECRET_KEY = env.get('JWT_SECRET_KEY')
     private static readonly TOKEN_LIFETIME = '20m'
 
     private readonly token: string
@@ -16,15 +16,15 @@ class JsonWebToken {
     }
 
     /** Creates a new JWT from the given payload.*/
-    public static createFromPayload(payload: object): JsonWebToken {
-        const token = jwt.sign(payload, JsonWebToken.SECRET_KEY, { expiresIn: JsonWebToken.TOKEN_LIFETIME })
-        return new JsonWebToken(token)
+    public static createFromPayload(payload: object): JWT {
+        const token = jwt.sign(payload, JWT.SECRET_KEY, { expiresIn: JWT.TOKEN_LIFETIME })
+        return new JWT(token)
     }
 
     /** Extracts the payload from the JWT. Throws an exception if the JWT is invalid. */
     public extractPayload(): JwtPayload {
         try {
-            return jwt.verify(this.token, JsonWebToken.SECRET_KEY) as JwtPayload
+            return jwt.verify(this.token, JWT.SECRET_KEY) as JwtPayload
         } catch {
             throw new Error('failed to extract the payload due to invalid JWT')
         }
@@ -36,4 +36,4 @@ class JsonWebToken {
     }
 }
 
-export { JsonWebToken, JwtPayload }
+export { JwtPayload as JWTPayload }

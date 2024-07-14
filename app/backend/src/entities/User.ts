@@ -1,8 +1,8 @@
 import RepositoryFactory from '../database/repositories/RepositoryFactory'
 import UserDTO from '../interfaces/dto/UserDTO'
-import encrypt from '../lib/encrypt'
+import * as encrypt from '../lib/encrypt'
 import Entity from './Entity'
-import uid from '../lib/uid'
+import * as uid from '../lib/uid'
 
 class User implements Entity<UserDTO> {
     private static readonly repository = RepositoryFactory.createUserRepository()

@@ -1,8 +1,8 @@
 import { Response, NextFunction } from 'express'
 
-import { JsonWebToken } from '../lib/jwt'
-import HTTPError from '../http/HTTPError'
-import AuthRequest from '../http/AuthRequest'
+import { JWT } from '../lib/jwt'
+import HTTPError from '../utils/HTTPError'
+import AuthRequest from '../interfaces/requests/AuthRequest'
 
 function authenticate(req: AuthRequest, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization
@@ -12,7 +12,7 @@ function authenticate(req: AuthRequest, res: Response, next: NextFunction) {
     }
 
     const token = authHeader.split(' ')[1]
-    const jwt = new JsonWebToken(token)
+    const jwt = new JWT(token)
 
     try {
         const payload = jwt.extractPayload()
