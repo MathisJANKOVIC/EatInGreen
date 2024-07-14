@@ -6,15 +6,9 @@ import User from '../entities/User'
 import { Request, Response } from 'express'
 
 class AuthController {
+    
     public static async register(req: Request, res: Response): Promise<void> {
-        const firstName = req.body.firstName
-        const lastName = req.body.lastName
-        const email = req.body.email
-        const password = req.body.password
-
-        if(password !== undefined && String(password).length < 6) {
-            throw new HTTPError(422, 'password must be at least 6 characters long')
-        }
+        const { firstName, lastName, email, password } = req.body
 
         const user = new User(firstName, lastName, email, password)
         await user.save()
@@ -25,16 +19,11 @@ class AuthController {
     }
 
     public static async login(req: Request, res: Response): Promise<void> {
-        const email = req.body.email
-        const password = req.body.password
-
-        if(email === undefined || password === undefined) {
-            throw new HTTPError(422, 'fields email and password are required')
-        }
+        const { email, password } = req.body
 
         const user = await User.findByEmail(email)
 
-        if(user == null || !await encrypt.matchHash(password, user.passwordHash)) {
+        if(user == null || encrypt.matchHash(password, user.passwordHash)) {
             throw new HTTPError(401, 'invalid email or password')
         }
 
