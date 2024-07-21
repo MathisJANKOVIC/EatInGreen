@@ -21,7 +21,7 @@ class AuthController {
 
         const jwt = JWT.createFromPayload({ userId: user.id })
 
-        res.status(201).json({ token: jwt.toString(), user: user.toDto()})
+        res.status(201).json({ token: jwt.toString(), user: user.toPublicDto() })
     }
 
     public async login(req: Request, res: Response): Promise<void> {
@@ -34,7 +34,7 @@ class AuthController {
         }
 
         const jwt = JWT.createFromPayload({ userId: user.id })
-        res.status(200).json({ token: jwt.toString(), user: user.toDto() })
+        res.status(200).json({ token: jwt.toString(), user: user.toPublicDto() })
     }
 }
 
