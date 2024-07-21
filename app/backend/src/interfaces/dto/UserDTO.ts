@@ -1,10 +1,10 @@
-interface IUser {
+interface UserDTO {
     id: string
     firstName: string
     lastName: string
-    password: string
+    passwordHash: string
     email: string
     createdAt: Date
 }
 
-export default IUser
+export default UserDTO

@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-CMD if [ "$ENV" = "prod" ]; then npm start; else npm run dev;fi
+CMD if [ "$NODE_ENV" = "prod" ]; then npm start; else npm run dev;fi

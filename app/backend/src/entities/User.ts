@@ -1,56 +1,61 @@
-import RepositoryFactory from '../database/repositories/RepositoryFactory'
-import IdGenerator from '../lib/IdGenerator'
-import IUser from '../interfaces/IUser'
+import UserDTO from '../interfaces/dto/UserDTO'
+import * as encrypt from '../lib/encrypt'
+import * as uid from '../lib/uid'
 import Entity from './Entity'
 
-class User implements Entity {
-    private static readonly repository = RepositoryFactory.createUserRepository()
+class User implements Entity<UserDTO> {
+    private _id: string
+    private _firstName: string
+    private _lastName: string
+    private _email: string
+    private _passwordHash: string
+    private _createdAt: Date
 
-    public readonly id: string
-    private firstName: string
-    private lastName: string
-    private email: string
-    private password: string
-    private readonly createdAt: Date
-
-    constructor(firstName: string, lastName: string, email: string, password: string, id?: string, createdAt?: Date) {
-        this.id = id || IdGenerator.generateId('User')
-        this.firstName = firstName
-        this.lastName = lastName
-        this.email = email
-        this.password = password
-        this.createdAt = createdAt || new Date()
+    public get id(): string {
+        return this._id
+    }
+    public get firstName(): string {
+        return this._firstName
+    }
+    public get lastName(): string {
+        return this._lastName
+    }
+    public get email(): string {
+        return this._email
+    }
+    public get passwordHash(): string {
+        return this._passwordHash
+    }
+    public get createdAt(): Date {
+        return this._createdAt
     }
 
-    public static async findById(id: string): Promise<User | null> {
-        const user = await User.repository.findById(id)
-        if (user) {
-            return User.fromObject(user)
+    constructor(firstName: string, lastName: string, email: string, password: string) {
+        this._id = uid.generateId('User')
+        this._firstName = firstName
+        this._lastName = lastName
+        this._email = email
+        this._passwordHash = encrypt.hash(password)
+        this._createdAt = new Date()
+    }
+
+    public static fromDto(userDto: UserDTO): User {
+        const user = new User(userDto.firstName, userDto.lastName, userDto.email, '')
+        user._id = userDto.id
+        user._passwordHash = userDto.passwordHash
+        user._createdAt = userDto.createdAt
+        return user
+    }
+
+    public toDto(): UserDTO {
+        return {
+            id: this._id,
+            firstName: this._firstName,
+            lastName: this._lastName,
+            email: this._email,
+            passwordHash: this._passwordHash,
+            createdAt: this._createdAt
         }
-        return null
-    }
-    public static async findByEmail(email: string): Promise<User | null> {
-        const user = await User.repository.findByEmail(email)
-        if (user) {
-            return User.fromObject(user)
-        }
-        return null
-    }
-
-    public async save() {
-        await User.repository.create(this.toObject())
-    }
-
-    public serialize(): Omit<IUser, 'password'> {
-        return { id: this.id, firstName: this.firstName, lastName: this.lastName, email: this.email, createdAt: this.createdAt }
-    }
-
-    private toObject(): IUser {
-        return { ...this.serialize(), password: this.password }
-    }
-
-    private static fromObject(user: IUser): User {
-        return new User(user.firstName, user.lastName, user.email, user.password, user.id, user.createdAt)
     }
 }
 

@@ -1,6 +1,5 @@
-interface Entity {
-    serialize(): object
-    save(): Promise<void>
+interface Entity<EntityDTO> {
+    toDto(): EntityDTO
 }
 
 export default Entity
