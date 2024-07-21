@@ -1,8 +1,7 @@
-import { parse } from 'dotenv'
 import httpRequestLogger from './config/logging/httpRequestLogger'
 import errorHandler from './middlewares/errorHandler'
 import { authRouter } from './routes/auth'
-import HTTPError from './utils/HTTPError'
+
 import cors from 'cors'
 import express from 'express'
 
