@@ -1,4 +1,4 @@
-import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
+import { LOG_TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
 
 import { transports, format } from 'winston'
 import { TransformableInfo } from 'logform'
@@ -27,7 +27,7 @@ const httpRequestLogger = expressWinston.logger({
             level: 'info',
             format: format.combine(
                 format.json(),
-                format.timestamp({ format: TIMESTAMP_FORMAT }),
+                format.timestamp({ format: LOG_TIMESTAMP_FORMAT }),
                 format.printf(HTTPRequestLogFormatter.console)
             )
         }),
@@ -36,7 +36,7 @@ const httpRequestLogger = expressWinston.logger({
             filename: `${LOG_DIRECTORY}/http-requests.log`,
             format: format.combine(
                 format.json(),
-                format.timestamp({ format: TIMESTAMP_FORMAT }),
+                format.timestamp({ format: LOG_TIMESTAMP_FORMAT }),
                 format.printf(HTTPRequestLogFormatter.file)
             )
         })

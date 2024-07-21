@@ -1,8 +1,8 @@
 {
   "main": "app",
   "scripts": {
-    "start": "ts-node ./src/app.ts",
-    "dev": "nodemon ./src/app.ts --ext ts --legacy-watch"
+    "start": "ts-node ./src/server.ts",
+    "dev": "nodemon ./src/server.ts --ext ts --legacy-watch"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

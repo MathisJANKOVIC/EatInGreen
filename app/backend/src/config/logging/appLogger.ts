@@ -1,4 +1,4 @@
-import { TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
+import { LOG_TIMESTAMP_FORMAT, LOG_DIRECTORY } from './constants'
 
 import winston, { transports, format } from 'winston'
 
@@ -11,7 +11,7 @@ const appLogger = winston.createLogger({
         })
     ],
     format: format.combine(
-        format.timestamp({ format: TIMESTAMP_FORMAT }),
+        format.timestamp({ format: LOG_TIMESTAMP_FORMAT }),
         format.printf(({ level, timestamp, message, stack }) => {
             return `${timestamp} - ${level.toUpperCase()} - ${stack || message}`
         })

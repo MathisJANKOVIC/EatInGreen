@@ -1,12 +1,9 @@
-import RepositoryFactory from '../database/repositories/RepositoryFactory'
 import UserDTO from '../interfaces/dto/UserDTO'
 import * as encrypt from '../lib/encrypt'
-import Entity from './Entity'
 import * as uid from '../lib/uid'
+import Entity from './Entity'
 
 class User implements Entity<UserDTO> {
-    private static readonly repository = RepositoryFactory.createUserRepository()
-
     private _id: string
     private _firstName: string
     private _lastName: string
@@ -42,22 +39,6 @@ class User implements Entity<UserDTO> {
         this._createdAt = new Date()
     }
 
-    public static async findById(id: string): Promise<User | null> {
-        const userDto = await User.repository.findById(id)
-        if (userDto) {
-            return User.fromDto(userDto)
-        }
-        return null
-    }
-
-    public static async findByEmail(email: string): Promise<User | null> {
-        const userDto = await User.repository.findByEmail(email)
-        if (userDto) {
-            return User.fromDto(userDto)
-        }
-        return null
-    }
-
     public static fromDto(userDto: UserDTO): User {
         const user = new User(userDto.firstName, userDto.lastName, userDto.email, '')
         user._id = userDto.id
@@ -75,10 +56,6 @@ class User implements Entity<UserDTO> {
             passwordHash: this._passwordHash,
             createdAt: this._createdAt
         }
-    }
-
-    public async save() {
-        await User.repository.create(this.toDto())
     }
 }
 

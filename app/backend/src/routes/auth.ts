@@ -1,10 +1,12 @@
 import AuthController from '../controllers/AuthController'
-
+import { userService } from '../services'
 import { Router } from 'express'
 
 const router = Router()
 
-router.post('/login', AuthController.login)
-router.post('/register', AuthController.register)
+const authController = new AuthController(userService)
 
-export { router }
+router.post('/login', authController.login.bind(authController))
+router.post('/register', authController.register.bind(authController))
+
+export { router as authRouter }

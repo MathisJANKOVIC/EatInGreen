@@ -1,8 +1,8 @@
-import { Response, NextFunction } from 'express'
-
-import { JWT } from '../lib/jwt'
-import HTTPError from '../utils/HTTPError'
 import AuthRequest from '../interfaces/requests/AuthRequest'
+import HTTPError from '../utils/HTTPError'
+import { JWT } from '../lib/jwt'
+
+import { Response, NextFunction } from 'express'
 
 function authenticate(req: AuthRequest, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization
