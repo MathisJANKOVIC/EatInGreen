@@ -1,10 +1,10 @@
+import UserService from '../services/UserService'
 import HTTPError from '../utils/HTTPError'
 import * as encrypt from '../lib/encrypt'
 import User from '../entities/User'
 import { JWT } from '../lib/jwt'
 
 import { Request, Response } from 'express'
-import UserService from '../services/UserService'
 
 class AuthController {
     private readonly userService: UserService

@@ -11,12 +11,18 @@ class MongoDBService extends DBService {
     }
 
     public async connect(timeoutMS: number): Promise<void> {
-        await mongoose.connect(
-            `mongodb://${this.user}:${this.password}@${this.host}:${this.port}/${this.dbName}?authSource=admin`, {
-                serverSelectionTimeoutMS: timeoutMS,
-                connectTimeoutMS: this.requestsTimeoutMS,
-            }
-        )
+        try {
+            await mongoose.connect(
+                `mongodb://${this.user}:${this.password}@${this.host}:${this.port}/${this.dbName}?authSource=admin`, {
+                    serverSelectionTimeoutMS: timeoutMS,
+                    connectTimeoutMS: this.requestsTimeoutMS,
+                }
+            )
+        } catch (error) {
+            throw new Error(
+                `Failed to connect to MongoDB \n${error}`
+            )
+        }
     }
 
     public async disconnect(): Promise<void> {

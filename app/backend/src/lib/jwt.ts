@@ -26,7 +26,7 @@ export class JWT {
         try {
             return jwt.verify(this.token, JWT.SECRET_KEY) as JwtPayload
         } catch {
-            throw new Error('failed to extract the payload due to invalid JWT')
+            throw new Error('Failed to extract the payload due to invalid JWT')
         }
     }
 
