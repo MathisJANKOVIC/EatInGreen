@@ -49,10 +49,7 @@ services:
       - /app/node_modules
     networks:
       - eatingreen-network
-    #entrypoint: /bin/sh
-    #working_dir: /srv/app
-    #tty: true
-
+      
 volumes:
   db:
 
