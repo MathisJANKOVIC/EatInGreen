@@ -57,6 +57,11 @@ class User implements Entity<UserDTO> {
             createdAt: this._createdAt
         }
     }
+
+    public toPublicDto(): Omit<UserDTO, 'passwordHash'> {
+        const { passwordHash, ...publicDto } = this.toDto()
+        return publicDto
+    }
 }
 
 export default User

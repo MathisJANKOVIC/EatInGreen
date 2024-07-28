@@ -18,7 +18,7 @@ export enum NodeEnv {
 export function get(key: string): string {
     const value = process.env[key]
     if (value === undefined) {
-        throw new Error(`environment variable '${key}' is not defined`)
+        throw new Error(`Environment variable '${key}' is not defined`)
     }
     return value
 }
