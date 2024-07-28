@@ -37,6 +37,22 @@ services:
     networks:
       - eatingreen-network
 
+  frontend:
+    image: eatingreen-react
+    container_name: eatingreen-react
+    build:
+      context: ./app/frontend
+    ports:
+      - '5000:5173'
+    volumes:
+      - ./app/frontend:/app
+      - /app/node_modules
+    networks:
+      - eatingreen-network
+    #entrypoint: /bin/sh
+    #working_dir: /srv/app
+    #tty: true
+
 volumes:
   db:
 

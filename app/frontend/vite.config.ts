@@ -4,7 +4,11 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5174, // Assurez-vous que Vite écoute sur le port 5174
-  },
+  // server: {
+  // //   port: 8000, // Assurez-vous que Vite écoute sur le port 5174
+  // //   host: true,
+  //   watch: {
+  //     usePolling: true
+  //   }
+  // },
 })
