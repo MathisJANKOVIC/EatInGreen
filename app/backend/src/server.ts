@@ -1,4 +1,4 @@
-import { dbService as database } from './services'
+import { dbService as database } from './main'
 import { NodeEnv } from './lib/env'
 import * as env from './lib/env'
 import log from './lib/log'
@@ -16,7 +16,7 @@ database.connect(5000)
             log.debug('Server startup complete.') // To not overwhelm log file because of nodemon auto restarts
         }
     })
-}) 
+})
 .catch((error) => {
     log.error(error)
     process.exit(1)

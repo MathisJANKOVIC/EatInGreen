@@ -1,4 +1,4 @@
-import UserService from '../services/UserService'
+import UserPersistenceService from '../services/UserPersistenceService'
 import HTTPError from '../utils/HTTPError'
 import * as encrypt from '../lib/encrypt'
 import User from '../entities/User'
@@ -7,9 +7,9 @@ import { JWT } from '../lib/jwt'
 import { Request, Response } from 'express'
 
 class AuthController {
-    private readonly userService: UserService
+    private readonly userService: UserPersistenceService
 
-    constructor(userService: UserService) {
+    constructor(userService: UserPersistenceService) {
         this.userService = userService
     }
 

@@ -3,11 +3,6 @@ import UserDTO from '../../interfaces/dto/UserDTO'
 import UserModel from '../models/UserModel'
 
 class MongoUserRepository implements UserRepository {
-    public async create(userDto: UserDTO): Promise<void> {
-        const userDoc = UserModel.fromDto(userDto)
-        userDoc.save()
-    }
-
     public async findById(id: string): Promise<UserDTO | null> {
         const userDoc = await UserModel.findOne({ publicId: id }).exec()
         if (userDoc) {
@@ -22,6 +17,11 @@ class MongoUserRepository implements UserRepository {
             return userDoc.toDto()
         }
         return null
+    }
+
+    public async save(userDto: UserDTO): Promise<void> {
+        const userDoc = UserModel.fromDto(userDto)
+        userDoc.save()
     }
 }
 
