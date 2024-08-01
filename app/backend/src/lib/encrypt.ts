@@ -1,11 +1,14 @@
 import * as bcrypt from 'bcrypt'
 
+const PASSWORD_HASH_SALT_ROUNDS = 10
+ 
 /** Creates a secure hash for a given string.*/
-export function hash(str: string): string {
-    return bcrypt.hashSync(str, 10)
+export function hash(data: string): string {
+    const salt = bcrypt.genSaltSync(PASSWORD_HASH_SALT_ROUNDS)
+    return bcrypt.hashSync(data, salt)
 }
 
 /** Verifies if a given string matches a given hash.*/
-export function matchHash(str: string, hash: string): boolean {
-    return bcrypt.compareSync(str, hash)
+export function matchHash(data: string, hash: string): boolean {
+    return bcrypt.compareSync(data, hash)
 }

@@ -1,6 +1,6 @@
 import httpRequestLogger from './config/logging/httpRequestLogger'
 import errorHandler from './middlewares/errorHandler'
-import { authRouter } from './routes/auth'
+import authRouter from './routers/authRouter'
 
 import cors from 'cors'
 import express from 'express'

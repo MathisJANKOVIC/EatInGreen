@@ -1,11 +1,10 @@
 import UserRepository from '../interfaces/repositories/UserRepository'
+import EntityPersistenceService from './EntityPersistenceService'
 import User from '../entities/User'
 
-class UserService {
-    private readonly repository: UserRepository
-
+class UserPersistenceService extends EntityPersistenceService<User, UserRepository> {
     constructor(repository: UserRepository) {
-        this.repository = repository
+        super(repository)
     }
 
     public async findById(id: string): Promise<User | null> {
@@ -25,8 +24,8 @@ class UserService {
     }
 
     public async save(user: User) {
-        await this.repository.create(user.toDto())
+        await this.repository.save(user.toDto())
     }
 }
 
-export default UserService
+export default UserPersistenceService

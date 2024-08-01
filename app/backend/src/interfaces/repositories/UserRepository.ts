@@ -1,8 +1,7 @@
+import EntityRepository from './EntityRepository'
 import UserDTO from '../dto/UserDTO'
 
-interface UserRepository {
-    create(user: UserDTO): Promise<void>
-    findById(id: string): Promise<UserDTO | null>
+interface UserRepository extends EntityRepository<UserDTO> {
     findByEmail(email: string): Promise<UserDTO | null>
 }
 

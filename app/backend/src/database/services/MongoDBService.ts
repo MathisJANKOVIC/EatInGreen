@@ -1,4 +1,4 @@
-import DBService from './DBService'
+import DBService from '../../services/DBService'
 
 import mongoose from 'mongoose'
 

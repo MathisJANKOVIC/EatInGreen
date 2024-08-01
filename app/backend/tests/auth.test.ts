@@ -1,13 +1,26 @@
 import request from 'supertest';
 import { v4 as uuidv4 } from 'uuid';
+import app from '../src/app';
+import { dbService } from '../src/main';
 
 describe('API Routes', () => {
-  const apiUrl = 'http://localhost:4000'; 
+
+  let uniqueEmail: string;
+  let uniquePassword: string;
+
+  beforeAll(() => {
+    dbService.connect(5000)
+    uniqueEmail = `test_${uuidv4()}@example.com`;
+    uniquePassword = `password_${uuidv4()}`;
+  });
+
+
+  /**    Tests pour la route Login       **/
 
   it('POST /auth/login - should login user', async () => {
     const userData = { email: 'Marilou.DuBuque@hotmail.com', password: 'test123' };
-    
-    const response = await request(apiUrl)
+
+    const response = await request(app)
       .post('/auth/login')
       .send(userData)
       .set('Accept', 'application/json');
@@ -19,7 +32,7 @@ describe('API Routes', () => {
    it('POST /auth/login - should return an error for incorrect email', async () => {
     const userData = { email: 'wrongemail@example.com', password: 'test123' };
 
-    const response = await request(apiUrl)
+    const response = await request(app)
       .post('/auth/login')
       .send(userData)
       .set('Accept', 'application/json');
@@ -31,7 +44,7 @@ describe('API Routes', () => {
   it('POST /auth/login - should return an error for incorrect password', async () => {
     const userData = { email: 'Marilou.DuBuque@hotmail.com', password: 'wrongpassword' };
 
-    const response = await request(apiUrl)
+    const response = await request(app)
       .post('/auth/login')
       .send(userData)
       .set('Accept', 'application/json');
@@ -40,19 +53,14 @@ describe('API Routes', () => {
     expect(response.body).toHaveProperty('error');
   });
 
-  let uniqueEmail: string;
-  let uniquePassword: string;
 
-  beforeAll(() => {
-    uniqueEmail = `test_${uuidv4()}@example.com`; 
-    uniquePassword = `password_${uuidv4()}`; 
-  });
 
+  /**    Tests pour la route Register       **/
 
   it('POST /auth/register - should register a new user', async () => {
-    const userData = { firstName:'test1', lastName:'test1', email: uniqueEmail, password: uniquePassword };
-    
-    const response = await request(apiUrl)
+    const userData = { firstName:'Integration', lastName:'Testing', email: 'mathis', password: uniquePassword };
+
+    const response = await request(app)
       .post('/auth/register')
       .send(userData)
       .set('Accept', 'application/json');
@@ -61,5 +69,5 @@ describe('API Routes', () => {
     expect(response.body).toHaveProperty('token');
   });
 
-  
+
 });
