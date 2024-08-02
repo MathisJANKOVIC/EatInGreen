@@ -10,7 +10,7 @@ const environment = env.get('NODE_ENV')
 database.connect(5000)
 .then(() => {
     app.listen(serverPort, () => {
-        if (environment === NodeEnv.PROD) {
+        if (environment === NodeEnv.PRODUCTION) {
             log.info('Server startup complete.')
         } else {
             log.debug('Server startup complete.') // To not overwhelm log file because of nodemon auto restarts

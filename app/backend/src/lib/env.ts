@@ -2,9 +2,9 @@
  * An enumeration of the different Node.js server environments.
  */
 export enum NodeEnv {
-    DEV = 'dev',
+    DEVELOPMENT = 'development',
     TEST = 'test',
-    PROD = 'production'
+    PRODUCTION = 'production'
 }
 
 /**
