@@ -1,12 +1,12 @@
-abstract class EntityPersistenceService<Entity, EntityRepository> {
-    protected readonly repository: EntityRepository
+abstract class EntityPersistenceService<TEntity, TEntityRepository> {
+    protected readonly repository: TEntityRepository
 
-    constructor(repository: EntityRepository) {
+    constructor(repository: TEntityRepository) {
         this.repository = repository
     }
 
-    abstract findById(id: string): Promise<Entity | null>
-    abstract save(entity: Entity): Promise<void>
+    abstract findById(id: string): Promise<TEntity | null>
+    abstract save(entity: TEntity): Promise<void>
 }
 
 export default EntityPersistenceService

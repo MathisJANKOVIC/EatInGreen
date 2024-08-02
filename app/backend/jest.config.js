@@ -3,11 +3,9 @@ module.exports = {
     testEnvironment: 'node',
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
     collectCoverage: false,
-
     globals: {
         'ts-jest': {
-          tsconfig: './tsconfig.json',
+            tsconfig: './tsconfig.json',
         },
-      },
-  };
-  
+    },
+}

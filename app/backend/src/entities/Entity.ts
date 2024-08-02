@@ -1,6 +1,6 @@
-interface Entity<EntityDTO> {
-    toDto(): EntityDTO
-    toPublicDto(): Partial<EntityDTO>
+interface Entity<TEntityDTO> {
+    toDto(): TEntityDTO
+    toPublicDto(): Partial<TEntityDTO>
 }
 
 export default Entity

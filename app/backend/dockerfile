@@ -1,11 +1,32 @@
-FROM node:20
+FROM node:20-alpine AS development
 
 WORKDIR /app
 
-COPY package*.json .
-
+COPY ./package*.json ./
 RUN npm install
 
-COPY . .
+COPY ./ ./
 
-CMD if [ "$NODE_ENV" = "prod" ]; then npm start; else npm run dev;fi
+CMD ["npm", "run", "dev"]
+# -------------------------------------------
+FROM node:20-alpine AS build
+
+WORKDIR /app
+
+COPY ./package*.json ./
+RUN npm install
+
+COPY ./ ./
+
+RUN npm run build
+# -------------------------------------------
+FROM node:20-alpine AS runtime
+
+WORKDIR /app
+
+COPY ./package*.json ./
+RUN npm clean-install --omit dev
+
+COPY --from=build /app/dist ./dist
+
+CMD ["npm", "start"]
