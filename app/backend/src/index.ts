@@ -9,7 +9,7 @@ const environment = env.get('NODE_ENV')
 
 database.connect(5000)
 .then(() => {
-    app.listen(serverPort, () => {
+    app.listen(parseInt(serverPort) ,'0.0.0.0', () => {
         if (environment === NodeEnv.PRODUCTION) {
             log.info('Server startup complete.')
         } else {
