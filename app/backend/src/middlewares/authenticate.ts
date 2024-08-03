@@ -10,8 +10,11 @@ function authenticate(req: AuthRequest, res: Response, next: NextFunction) {
     if (authHeader === undefined) {
         throw new HTTPError(401, 'authorization required')
     }
+    if (!authHeader.startsWith('Bearer ')) {
+        throw new HTTPError(401, 'invalid authorization header')
+    }
 
-    const token = authHeader.split(' ')[1]
+    const token = authHeader.split(' ')[1] as string
     const jwt = new JWT(token)
 
     try {
