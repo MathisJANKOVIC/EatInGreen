@@ -1,0 +1,33 @@
+name: API Integration Tests
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Create .env file
+      run: |
+        echo FRONTEND_PORT=5000 >> .env
+        echo BACKEND_PORT=4000 >> .env
+        echo DB_PORT=27017 >> .env
+        echo DB_USER=root >> .env
+        echo DB_PASSWORD=pass >> .env
+        echo JWT_SECRET_KEY=aazesqfdgmqrzesqldfkjg >> .env
+
+    - name: Setup services
+      run: docker compose -f docker-compose.dev.yml up backend db -d
+
+    - name: Run tests
+      run: docker exec eatingreen-express npm run test
+
+    - name: Stop services
+      run: docker compose down

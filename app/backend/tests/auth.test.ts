@@ -58,7 +58,7 @@ describe('API Routes', () => {
   /**    Tests pour la route Register       **/
 
   it('POST /auth/register - should register a new user', async () => {
-    const userData = { firstName:'Integration', lastName:'Testing', email: 'mathis', password: uniquePassword };
+    const userData = { firstName:'Integration', lastName:'Testing', email: 'Marilou.DuBuque@hotmail.com', password: 'test123' };
 
     const response = await request(app)
       .post('/auth/register')
