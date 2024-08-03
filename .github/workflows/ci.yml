@@ -27,7 +27,7 @@ jobs:
       run: docker compose -f docker-compose.dev.yml up backend db -d
 
     - name: Run tests
-      run: docker exec npm run test
+      run: docker exec eatingreen-express npm run test
 
     - name: Stop services
       run: docker compose down
