@@ -3,7 +3,6 @@ import SearchInputForm from '../../components/input/SearchBar';
 import Pdp from '../../assets/Pdp.png';
 import Panier from '../../assets/Panier.png'
 import Favoris from '../../assets/Favoris.png'
-import Filtre from '../../assets/Filtre.png'
 import HeaderLink from '../../components/link/HeaderLink'
 
 function Header() {
