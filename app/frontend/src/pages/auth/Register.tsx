@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TextInputForm from "../../components/input/TextInputForm";
+import { useNavigate } from 'react-router-dom';
 import PasswordInputForm from "../../components/input/PasswordInputForm";
 import ButtonForm from "../../components/button/ButtonForm";
 import useRegisterForm from '../../hooks/useRegisterForm';
@@ -15,8 +16,8 @@ const Register: React.FC = () => {
     });
 
     const [passwordsMatch, setPasswordsMatch] = useState(true);
-
     const { sendFormData, loading, error, response } = useRegisterForm();
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
@@ -44,12 +45,16 @@ const Register: React.FC = () => {
         }
 
         try {
-            await sendFormData({
+            const response = await sendFormData({
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 email: formData.email,
                 password: formData.password,
             });
+
+            if (response && response.token) { // Assuming response.success indicates success
+                navigate('/login');
+            }
         } catch (error) {
             console.error('Failed to send form data:', error);
         }
