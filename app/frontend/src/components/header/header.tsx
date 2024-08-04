@@ -1,4 +1,4 @@
-import Logo from '../../assets/Logo.png'; 
+import Logo from '../../assets/Logo.png';
 import SearchInputForm from '../../components/input/SearchBar';
 import Pdp from '../../assets/Pdp.png';
 import Panier from '../../assets/Panier.png'
@@ -11,15 +11,15 @@ function Header() {
 
       <div className="flex items-center space-x-4 w-full max-w-screen-lg mx-auto">
         <img src={Logo} alt="EatInGreen" className="h-16" />
-        
-        <SearchInputForm 
-          placeholder="Rechercher" 
-          id="search-input" 
+
+        <SearchInputForm
+          placeholder="Rechercher"
+          id="search-input"
         />
       </div>
 
       <div className="flex items-center object-right w-full">
-        <HeaderLink href="/favoris" url={Favoris} alt='favoris'/> 
+        <HeaderLink href="/favoris" url={Favoris} alt='favoris'/>
         <HeaderLink href="/panier" url={Panier} alt='Panier'/>
         <HeaderLink href="/profils" url={Pdp} alt='Profils'/>
       </div>

@@ -1,13 +1,27 @@
 import TextInputForm from "../../components/input/TextInputForm";
 import PasswordInputForm from "../../components/input/PasswordInputForm";
 import ButtonForm from "../../components/button/ButtonForm";
-import Logo from "../../assets/Logo.png"
+import Logo from "../../assets/Logo.png";
+import React, { useState } from 'react';
 
 const Login = () => {
 	
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+	  });
+
+	  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [id]: value
+        }));
+    };
+
 	const handleClick = () => {
-    alert('Button clicked!');
-  };
+    	alert('Button clicked!');
+  	};
 
 	return (
 		<div>
@@ -17,9 +31,9 @@ const Login = () => {
 					<label htmlFor="Logo" className="block text-center font-bold text-lg text-formtext">Connectez-vous à votre compte</label>
 				</div>
 				<div className="h-1/6 ">
-					<TextInputForm id="email" label="email" placeholder="Enter your email" />
-					<PasswordInputForm id="password" label="password" placeholder="Enter your password" />
-					<ButtonForm label="Click Me" onClick={handleClick}/>
+					<TextInputForm id="email" label="email" placeholder="Enter your email" value={formData.email} onChange={handleChange}/>
+					<PasswordInputForm id="password" label="password" placeholder="Enter your password" value={formData.password} onChange={handleChange}/>
+					<ButtonForm label="Connect" onClick={handleClick}/>
 				</div>
 			</main>
 		</div>

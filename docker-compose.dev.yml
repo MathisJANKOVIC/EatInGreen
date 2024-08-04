@@ -4,7 +4,7 @@ services:
     container_name: eatingreen-express
     build:
       context: ./app/backend
-      target: development
+      dockerfile: dockerfile.dev
     ports:
       - '$BACKEND_PORT:3000'
     volumes:
@@ -44,6 +44,7 @@ services:
     container_name: eatingreen-react
     build:
       context: ./app/frontend
+      dockerfile: dockerfile.dev
     ports:
       - '$FRONTEND_PORT:5173'
     volumes:
