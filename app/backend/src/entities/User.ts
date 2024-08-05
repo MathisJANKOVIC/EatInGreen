@@ -1,6 +1,6 @@
 import UserDTO from '../interfaces/dto/UserDTO'
-import * as encrypt from '../lib/encrypt'
-import * as uid from '../lib/uid'
+import { generateId } from '../lib/uid'
+import { hash } from '../lib/encrypt'
 import Entity from './Entity'
 
 class User implements Entity<UserDTO> {
@@ -31,11 +31,11 @@ class User implements Entity<UserDTO> {
     }
 
     constructor(firstName: string, lastName: string, email: string, password: string) {
-        this._id = uid.generateId('User')
+        this._id = generateId('User')
         this._firstName = firstName
         this._lastName = lastName
         this._email = email
-        this._passwordHash = encrypt.hash(password)
+        this._passwordHash = hash(password)
         this._createdAt = new Date()
     }
 

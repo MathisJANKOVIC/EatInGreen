@@ -3,13 +3,13 @@ import UserRepository from './interfaces/repositories/UserRepository'
 import UserPersistenceService from './services/UserPersistenceService'
 import MongoDBService from './database/services/MongoDBService'
 import DBService from './services/DBService'
-import * as env from './lib/env'
+import { getEnv } from './lib/env'
 
-const dbHost = env.get('DB_HOST')
-const dbPort = parseInt(env.get('DB_PORT'))
-const dbUser = env.get('DB_USER')
-const dbPassword = env.get('DB_PASSWORD')
-const dbName = env.get('DB_NAME')
+const dbHost = getEnv('DB_HOST')
+const dbPort = Number(getEnv('DB_PORT'))
+const dbUser = getEnv('DB_USER')
+const dbPassword = getEnv('DB_PASSWORD')
+const dbName = getEnv('DB_NAME')
 
 // Repositories
 const userRepository: UserRepository = new MongoUserRepository()
