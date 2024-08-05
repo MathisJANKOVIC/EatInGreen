@@ -1,6 +1,6 @@
 import NavBar from "../../components/header/NavBar";
 // import Product from "../../components/Product";
-import Filtre from "../../assets/Filtre.png";
+// import Filtre from "../../assets/Filtre.png";
 
 const Home = () => {
     return (
