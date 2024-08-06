@@ -1,4 +1,4 @@
-import * as env from './env'
+import { getEnv } from './env'
 
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
@@ -6,7 +6,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
  * A wrapper class for managing and manipulating JSON Web Tokens (JWT).
  */
 export class JWT {
-    private static readonly SECRET_KEY = env.get('JWT_SECRET_KEY')
+    private static readonly SECRET_KEY = getEnv('JWT_SECRET_KEY')
     private static readonly TOKEN_LIFETIME = '20m'
 
     private readonly token: string

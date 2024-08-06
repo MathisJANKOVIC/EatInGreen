@@ -2,11 +2,12 @@ services:
   proxy:
     image: eatingreen-nginx
     container_name: eatingreen-nginx
-    build: ./app/proxy
+    build:
+      context: ./app/proxy
     ports:
       - '80:80'
     environment:
-      - SERVER_NAME=$DOMAIN
+      - SERVER_NAME=$APP_DOMAIN
       - SERVER_PORT=80
       - BACKEND_PATH=/api
       - FRONTEND_HOST=frontend
@@ -24,9 +25,9 @@ services:
     container_name: eatingreen-react
     build:
       context: ./app/frontend
-      target: runtime
+      target: deploy
     expose:
-      - 80
+      - '80'
     networks:
       - eatingreen-network
 
@@ -35,9 +36,9 @@ services:
     container_name: eatingreen-express
     build:
       context: ./app/backend
-      target: runtime
+      target: deploy
     expose:
-      - 3000
+      - '3000'
     volumes:
       - ./app/backend/logs:/app/logs
     environment:
@@ -48,8 +49,7 @@ services:
       - DB_HOST=db
       - DB_PORT=$DB_PORT
       - DB_NAME=eatingreen
-    env_file:
-      - .env
+      - JWT_SECRET_KEY=$JWT_SECRET_KEY
     depends_on:
       - db
     networks:

@@ -1,6 +1,6 @@
 import UserPersistenceService from '../services/UserPersistenceService'
 import HTTPError from '../utils/HTTPError'
-import * as encrypt from '../lib/encrypt'
+import { matchHash } from '../lib/encrypt'
 import User from '../entities/User'
 import { JWT } from '../lib/jwt'
 
@@ -29,7 +29,7 @@ class AuthController {
 
         const user = await this.userService.findByEmail(email)
 
-        if(user == null || !encrypt.matchHash(password, user.passwordHash)) {
+        if(user == null || !matchHash(password, user.passwordHash)) {
             throw new HTTPError(401, 'invalid email or password')
         }
 
