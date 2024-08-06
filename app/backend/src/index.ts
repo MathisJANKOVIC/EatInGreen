@@ -1,11 +1,10 @@
 import { dbService as database } from './main'
-import { NodeEnv } from './lib/env'
-import * as env from './lib/env'
+import { getEnv, NodeEnv } from './lib/env'
 import log from './lib/log'
 import app from './app'
 
-const serverPort = env.get('SERVER_PORT')
-const environment = env.get('NODE_ENV')
+const serverPort = getEnv('SERVER_PORT')
+const environment = getEnv('NODE_ENV')
 
 database.connect(5000)
 .then(() => {
