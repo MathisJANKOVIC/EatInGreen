@@ -10,7 +10,7 @@ function Header() {
     <header className="absolute top-0 left-0 w-full flex justify-between items-center p-4 bg-customWhite z-10">
 
       <div className="flex items-center space-x-4 w-full max-w-screen-lg mx-auto">
-        <img src={Logo} alt="EatInGreen" className="h-16" />
+        <a href="/"><img src={Logo} alt="EatInGreen" className="h-16" /></a> 
 
         <SearchInputForm
           placeholder="Rechercher"
@@ -21,7 +21,7 @@ function Header() {
       <div className="flex items-center object-right w-full">
         <HeaderLink href="/favoris" url={Favoris} alt='favoris'/>
         <HeaderLink href="/panier" url={Panier} alt='Panier'/>
-        <HeaderLink href="/profils" url={Pdp} alt='Profils'/>
+        <HeaderLink href="/Profil" url={Pdp} alt='Profils'/>
       </div>
     </header>
   );
