@@ -3,12 +3,12 @@ import { getEnv, NodeEnv } from './lib/env'
 import log from './lib/log'
 import app from './app'
 
-const serverPort = getEnv('SERVER_PORT')
+const serverPort = Number(getEnv('SERVER_PORT'))
 const environment = getEnv('NODE_ENV')
 
 database.connect(5000)
 .then(() => {
-    app.listen(parseInt(serverPort) ,'0.0.0.0', () => {
+    app.listen(serverPort, () => {
         if (environment === NodeEnv.PRODUCTION) {
             log.info('Server startup complete.')
         } else {

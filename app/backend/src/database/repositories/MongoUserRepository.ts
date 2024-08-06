@@ -21,7 +21,7 @@ class MongoUserRepository implements UserRepository {
 
     public async save(userDto: UserDTO): Promise<void> {
         const userDoc = UserModel.fromDto(userDto)
-        userDoc.save()
+        await userDoc.save()
     }
 }
 
