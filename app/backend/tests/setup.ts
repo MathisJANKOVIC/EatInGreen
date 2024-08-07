@@ -9,12 +9,17 @@ const dbPassword = getEnv('DB_PASSWORD')
 const dbName = getEnv('DB_NAME')
 
 let client: ExpressClient
+let mongoMemoryService: MongoMemoryService
 
 beforeAll(async () => {
-    const mongoMemoryService = new MongoMemoryService("localhost", dbPort, dbUser, dbPassword, dbName, 5000)
+    mongoMemoryService = new MongoMemoryService("localhost", dbPort, dbUser, dbPassword, dbName, 5000)
     await mongoMemoryService.connect(1000)
 
     client = new ExpressClient(app)
+})
+
+afterAll(async () => {
+    mongoMemoryService.disconnect()
 })
 
 

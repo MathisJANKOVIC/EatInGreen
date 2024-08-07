@@ -23,7 +23,8 @@ class MongoMemoryService extends DBService {
     }
 
     public async disconnect(): Promise<void> {
-        mongoose.disconnect()
+        await mongoose.disconnect()
+        await mongoose.connection.close()
     }
 }
 

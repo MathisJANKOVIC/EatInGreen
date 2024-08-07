@@ -3,7 +3,7 @@
     "build": "rimraf ./dist && tsc  --project tsconfig.build.json",
     "start": "node ./dist/index.js",
     "dev": "nodemon ./src/index.ts --legacy-watch",
-    "tests": "jest --verbose --forceExit --detectOpenHandles"
+    "tests": "jest --verbose"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
