@@ -1,16 +1,18 @@
-import { MongoMemoryServer } from 'mongodb-memory-server'
-import { ExpressClient } from './expressClient'
+import MongoMemoryService from '../src/database/services/MongoMemoryService'
+import { ExpressClient } from './utils/expressClient'
+import { getEnv } from '../src/lib/env'
 import app from '../src/app'
- 
-import mongoose from 'mongoose'
+
+const dbPort = Number(getEnv('DB_PORT'))
+const dbUser = getEnv('DB_USER')
+const dbPassword = getEnv('DB_PASSWORD')
+const dbName = getEnv('DB_NAME')
 
 let client: ExpressClient
 
 beforeAll(async () => {
-    const mongoMemoryServer = await MongoMemoryServer.create()
-
-    const mongoMemoryUri = mongoMemoryServer.getUri()
-    mongoose.connect(mongoMemoryUri)
+    const mongoMemoryService = new MongoMemoryService("localhost", dbPort, dbUser, dbPassword, dbName, 5000)
+    await mongoMemoryService.connect(1000)
 
     client = new ExpressClient(app)
 })
