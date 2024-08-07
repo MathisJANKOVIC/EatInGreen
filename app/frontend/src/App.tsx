@@ -6,14 +6,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/auth/Login.tsx'
 import Register from './pages/auth/Register.tsx'
 import Home from './pages/home/Home.tsx'
-import Profil from './pages/profil/profil.tsx'
-
+import Profil from './pages/profil/Profil.tsx'
+import Panier from './pages/panier/Panier.tsx'
 const router = createBrowserRouter([
   {path: "/login",element: <Login/>},
   {path: "/register",element: <Register/>},
   {path: "/",element: <Main/>,children: [
     {path: "/",element: <Home/>},
-    {path: "/profil",element: <Profil/>}
+    {path: "/profil",element: <Profil/>},
+    {path: "/panier",element: <Panier/>}
+
 
   ]}
 ])
