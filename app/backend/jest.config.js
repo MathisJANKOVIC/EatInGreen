@@ -1,11 +1,13 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-  collectCoverage: false,
-  globals: {
-    'ts-jest': {
+  testMatch: ['**/tests/**/*.test.ts'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  forceExit: true,
+  detectOpenHandles: true,
+  transform: {
+    '^.+\\.ts$': ['ts-jest', {
       tsconfig: './tsconfig.json',
-    },
+    }],
   },
 }
