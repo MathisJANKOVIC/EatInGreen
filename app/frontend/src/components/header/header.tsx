@@ -21,7 +21,7 @@ function Header() {
       <div className="flex items-center object-right w-full">
         <HeaderLink href="/favoris" url={Favoris} alt='favoris'/>
         <HeaderLink href="/panier" url={Panier} alt='Panier'/>
-        <HeaderLink href="/Profil" url={Pdp} alt='Profils'/>
+        <HeaderLink href="/profil" url={Pdp} alt='Profils'/>
       </div>
     </header>
   );
