@@ -1,7 +1,7 @@
 import { EntityDocument, EntityModel, entitySchema } from "./baseEntityModel"
-import ProductDTO from "../../interfaces/dto/internal/ProductDTO"
+import ProductDTO from "../../types/dto/internal/ProductDTO"
 
-import mongoose, { Schema } from "mongoose"
+import { Schema, model } from "mongoose"
 
 type ProductDocument = EntityDocument<ProductDTO> & Omit<ProductDTO, 'id'>
 type ProductModel = EntityModel<ProductDocument, ProductDTO>
@@ -16,6 +16,6 @@ const productSchema = new Schema<ProductDocument>({
 })
 productSchema.add(entitySchema)
 
-const ProductModel = mongoose.model<ProductDocument, ProductModel>('Product', productSchema)
+const ProductModel = model<ProductDocument, ProductModel>('Product', productSchema)
 
 export default ProductModel

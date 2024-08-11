@@ -1,4 +1,4 @@
-interface EntityDTO {
+type EntityDTO = {
     id: string
     createdAt: Date
 }

@@ -1,8 +1,8 @@
 import { EntityDocument, EntityModel, entitySchema } from "./baseEntityModel"
-import UserDTO from '../../interfaces/dto/internal/UserDTO'
+import UserDTO from '../../types/dto/internal/UserDTO'
 import { HASH_REGEX } from '../../lib/encrypt'
 
-import mongoose, { Schema } from 'mongoose'
+import { Schema, model } from "mongoose"
 
 const BASIC_EMAIL_REGEX = /^\S+@\S+\.\S+$/
 
@@ -26,6 +26,6 @@ const userSchema = new Schema<UserDocument>({
 })
 userSchema.add(entitySchema)
 
-const UserModel = mongoose.model<UserDocument, UserModel>('User', userSchema)
+const UserModel = model<UserDocument, UserModel>('User', userSchema)
 
 export default UserModel

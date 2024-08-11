@@ -2,7 +2,7 @@
 * This module provides a simple way to import the app logger throughout the application.
 */
 
-import appLogger from '../config/logging/appLogger'
+import appLogger from '../logging/appLogger'
 
 const log = appLogger
 

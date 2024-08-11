@@ -1,6 +1,7 @@
 import UserDTO from "../internal/UserDTO"
 
-interface PublicUserDTO extends Omit<UserDTO, 'passwordHash' | 'cart'> {
+
+type PublicUserDTO = Omit<UserDTO, 'passwordHash' | 'cart'> & {
     cartItemCount: number
 }
 

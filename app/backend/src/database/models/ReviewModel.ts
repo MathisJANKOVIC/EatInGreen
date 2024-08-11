@@ -1,7 +1,7 @@
 import { EntityDocument, EntityModel, entitySchema } from "./baseEntityModel"
-import ReviewDTO from "../../interfaces/dto/internal/ReviewDTO"
+import ReviewDTO from "../../types/dto/internal/ReviewDTO"
 
-import mongoose, { Schema } from "mongoose"
+import { Schema, model } from "mongoose"
 
 type ReviewDocument = EntityDocument<ReviewDTO> & Omit<ReviewDTO, 'id'>
 type ReviewModel = EntityModel<ReviewDocument, ReviewDTO>
@@ -16,6 +16,6 @@ const reviewSchema = new Schema<ReviewDocument>({
 })
 reviewSchema.add(entitySchema)
 
-const ReviewModel = mongoose.model<ReviewDocument, ReviewModel>('Review', reviewSchema)
+const ReviewModel = model<ReviewDocument, ReviewModel>('Review', reviewSchema)
 
 export default ReviewModel

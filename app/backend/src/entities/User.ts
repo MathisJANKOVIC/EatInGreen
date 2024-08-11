@@ -1,4 +1,5 @@
-import UserDTO from '../interfaces/dto/internal/UserDTO'
+import UserDTO from '../types/dto/internal/UserDTO'
+import PublicUserDTO from '../types/dto/public/PublicUserDTO'
 import Entity from './Entity'
 
 class User implements Entity<UserDTO> {
@@ -45,6 +46,19 @@ class User implements Entity<UserDTO> {
             createdAt: this.createdAt,
             connectedAt: this.connectedAt,
             cart: this.cart
+        }
+    }
+
+    public toPublicDto(): PublicUserDTO {
+        return {
+            id: this.id,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            phoneNumber: this.phoneNumber,
+            email: this.email,
+            createdAt: this.createdAt,
+            connectedAt: this.connectedAt,
+            cartItemCount: this.cart.length
         }
     }
 }

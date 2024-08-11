@@ -1,4 +1,4 @@
-import EntityDTO from "../../interfaces/dto/internal/EntityDTO"
+import EntityDTO from "../../types/dto/internal/EntityDTO"
 
 import { Document, Model, Schema } from "mongoose"
 

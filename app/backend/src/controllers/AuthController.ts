@@ -21,7 +21,7 @@ class AuthController {
 
         const jwt = JWT.createFromPayload({ userId: user.id })
 
-        res.status(201).json({ token: jwt.toString(), user: user.toDto() })
+        res.status(201).json({ token: jwt.toString(), user: user.toPublicDto() })
     }
 
     public async login(req: Request, res: Response): Promise<void> {
@@ -29,12 +29,12 @@ class AuthController {
 
         const user = await this.userService.findByEmail(email)
 
-        if(user === null || !matchHash(password, user.passwordHash)) {
+        if(!user || !matchHash(password, user.passwordHash)) {
             throw new HTTPError(401, 'invalid email or password')
         }
 
         const jwt = JWT.createFromPayload({ userId: user.id })
-        res.status(200).json({ token: jwt.toString(), user: user.toDto() })
+        res.status(200).json({ token: jwt.toString(), user: user.toPublicDto() })
     }
 }
 

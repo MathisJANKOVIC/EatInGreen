@@ -1,4 +1,4 @@
-import UserRepository from '../interfaces/repositories/UserRepository'
+import UserRepository from '../repositories/UserRepository'
 import EntityPersistenceService from './EntityPersistenceService'
 import UserFactory from '../factories/UserFactory'
 import User from '../entities/User'

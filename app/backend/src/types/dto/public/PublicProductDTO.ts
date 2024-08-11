@@ -1,5 +1,5 @@
 import ProductDTO from "../internal/ProductDTO"
 
-interface PublicProductDTO extends Omit<ProductDTO, 'userId'> {}
+type PublicProductDTO = Omit<ProductDTO, 'userId'>
 
 export default PublicProductDTO
