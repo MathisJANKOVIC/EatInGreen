@@ -1,66 +1,51 @@
-import UserDTO from '../interfaces/dto/UserDTO'
-import { generateId } from '../lib/uid'
-import { hash } from '../lib/encrypt'
+import UserDTO from '../interfaces/dto/internal/UserDTO'
 import Entity from './Entity'
 
 class User implements Entity<UserDTO> {
     private _id: string
     private _firstName: string
     private _lastName: string
+    private _phoneNumber: string
     private _email: string
     private _passwordHash: string
     private _createdAt: Date
+    private _connectedAt: Date
+    private _cart: { productId: string, quantity: number }[]
 
-    public get id(): string {
-        return this._id
-    }
-    public get firstName(): string {
-        return this._firstName
-    }
-    public get lastName(): string {
-        return this._lastName
-    }
-    public get email(): string {
-        return this._email
-    }
-    public get passwordHash(): string {
-        return this._passwordHash
-    }
-    public get createdAt(): Date {
-        return this._createdAt
-    }
+    public get id() { return this._id }
+    public get firstName() { return this._firstName }
+    public get lastName() { return this._lastName }
+    public get phoneNumber() { return this._phoneNumber }
+    public get email() { return this._email }
+    public get passwordHash() { return this._passwordHash }
+    public get createdAt() { return this._createdAt }
+    public get connectedAt() { return this._connectedAt }
+    public get cart() { return this._cart }
 
-    constructor(firstName: string, lastName: string, email: string, password: string) {
-        this._id = generateId('User')
-        this._firstName = firstName
-        this._lastName = lastName
-        this._email = email
-        this._passwordHash = hash(password)
-        this._createdAt = new Date()
-    }
-
-    public static fromDto(userDto: UserDTO): User {
-        const user = new User(userDto.firstName, userDto.lastName, userDto.email, '')
-        user._id = userDto.id
-        user._passwordHash = userDto.passwordHash
-        user._createdAt = userDto.createdAt
-        return user
+    constructor(user: UserDTO) {
+        this._id = user.id
+        this._firstName = user.firstName
+        this._lastName = user.lastName
+        this._phoneNumber = user.phoneNumber
+        this._email = user.email
+        this._passwordHash = user.passwordHash
+        this._createdAt = user.createdAt
+        this._connectedAt = user.connectedAt
+        this._cart = user.cart
     }
 
     public toDto(): UserDTO {
         return {
-            id: this._id,
-            firstName: this._firstName,
-            lastName: this._lastName,
-            email: this._email,
-            passwordHash: this._passwordHash,
-            createdAt: this._createdAt
+            id: this.id,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            phoneNumber: this.phoneNumber,
+            email: this.email,
+            passwordHash: this.passwordHash,
+            createdAt: this.createdAt,
+            connectedAt: this.connectedAt,
+            cart: this.cart
         }
-    }
-
-    public toPublicDto(): Omit<UserDTO, 'passwordHash'> {
-        const { passwordHash, ...publicDto } = this.toDto()
-        return publicDto
     }
 }
 

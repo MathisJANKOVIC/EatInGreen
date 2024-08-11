@@ -1,5 +1,6 @@
 import UserRepository from '../interfaces/repositories/UserRepository'
 import EntityPersistenceService from './EntityPersistenceService'
+import UserFactory from '../factories/UserFactory'
 import User from '../entities/User'
 
 class UserPersistenceService extends EntityPersistenceService<User, UserRepository> {
@@ -10,7 +11,7 @@ class UserPersistenceService extends EntityPersistenceService<User, UserReposito
     public async findById(id: string): Promise<User | null> {
         const userDto = await this.repository.findById(id)
         if (userDto) {
-            return User.fromDto(userDto)
+            return UserFactory.constructUserFromDto(userDto)
         }
         return null
     }
@@ -18,7 +19,7 @@ class UserPersistenceService extends EntityPersistenceService<User, UserReposito
     public async findByEmail(email: string): Promise<User | null> {
         const userDto = await this.repository.findByEmail(email)
         if (userDto) {
-            return User.fromDto(userDto)
+            return UserFactory.constructUserFromDto(userDto)
         }
         return null
     }

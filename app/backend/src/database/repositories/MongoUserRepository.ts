@@ -1,5 +1,5 @@
 import UserRepository from '../../interfaces/repositories/UserRepository'
-import UserDTO from '../../interfaces/dto/UserDTO'
+import UserDTO from '../../interfaces/dto/internal/UserDTO'
 import UserModel from '../models/UserModel'
 
 class MongoUserRepository implements UserRepository {
