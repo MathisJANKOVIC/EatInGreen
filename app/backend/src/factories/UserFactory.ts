@@ -1,10 +1,10 @@
 import UserDTO from '../types/dto/internal/UserDTO'
-import { generateId } from '../lib/uid'
+import { createEntityId } from '../lib/uid'
 import { hash } from '../lib/encrypt'
 import User from '../entities/User'
 
 class UserFactory {
-    public static createUser(user: {
+    public static createUser(userData: {
         firstName: string,
         lastName: string,
         phoneNumber: string,
@@ -12,13 +12,13 @@ class UserFactory {
         password: string
     }): User {
         return new User({
-            id: generateId("User"),
+            id: createEntityId("User"),
             createdAt: new Date(),
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            email: user.email,
-            passwordHash: hash(user.password),
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            phoneNumber: userData.phoneNumber,
+            email: userData.email,
+            passwordHash: hash(userData.password),
             connectedAt: new Date(),
             cart: []
         })

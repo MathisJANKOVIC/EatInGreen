@@ -1,6 +1,6 @@
 import { EntityDocument, EntityModel, entitySchema } from "./baseEntityModel"
 import UserDTO from '../../types/dto/internal/UserDTO'
-import { HASH_REGEX } from '../../lib/encrypt'
+import { HASH_PATTERN_REGEX } from '../../lib/encrypt'
 
 import { Schema, model } from "mongoose"
 
@@ -14,7 +14,7 @@ const userSchema = new Schema<UserDocument>({
     lastName: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     email: { type: String, required: true, unique: true, match: [BASIC_EMAIL_REGEX, 'invalid email format'] },
-    passwordHash: { type: String, required: true, match: [HASH_REGEX, 'invalid hash format'] },
+    passwordHash: { type: String, required: true, match: [HASH_PATTERN_REGEX, 'invalid hash format'] },
     connectedAt: { type: Date, required: true },
     cart: {
         type: [{

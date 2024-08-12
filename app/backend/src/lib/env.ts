@@ -1,7 +1,7 @@
 /**
- * An enumeration of the different Node.js server environments.
+ * An enumeration of the different server environments.
  */
-export enum NodeEnv {
+export const enum NodeEnv {
     DEVELOPMENT = 'development',
     TEST = 'test',
     PRODUCTION = 'production'
