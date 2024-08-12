@@ -14,17 +14,16 @@ interface EntityModel<TEntityDocument, TEntityDTO> extends Model<TEntityDocument
 const entitySchema = new Schema<EntityDocument<EntityDTO>>({
     publicId: { type: String, required: true, immutable: true, unique: true },
     createdAt: { type: Date, required: true, immutable: true},
-}, { versionKey: false }
-)
+}, { versionKey: false })
 
 entitySchema.methods.toDto = function(): EntityDTO {
-    const { publicId, ...entityWithoutId } = this.toObject()
-    return { id: publicId, ...entityWithoutId }
+    const { publicId, ...entityDtoWithoutId } = this.toObject()
+    return { id: publicId, ...entityDtoWithoutId }
 }
 
 entitySchema.statics.fromDto = function(entityDto: EntityDTO): EntityDocument<EntityDTO> {
-    const entityDoc = { publicId: entityDto.id, ...entityDto }
-    return new this(entityDoc)
+    const entityDocument = { publicId: entityDto.id, ...entityDto }
+    return new this(entityDocument)
 }
 
 export { entitySchema, EntityModel, EntityDocument }

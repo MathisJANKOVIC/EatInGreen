@@ -1,13 +1,20 @@
-import { DBService, DBServiceOptions } from '../../services/dbService'
+import DBService from '../../services/DBService'
 
 import mongoose from 'mongoose'
 
 class MongoDBService extends DBService {
-    constructor(dbServiceOptions: DBServiceOptions) {
-        super(dbServiceOptions)
+    constructor(config: {
+        host: string,
+        port: number,
+        user: string,
+        password: string,
+        dbName: string,
+        timeoutMS?: number
+    }) {
+        super(config)
     }
 
-    public override async connect() {
+    public async connect() {
         await mongoose.connect(
             `mongodb://${this.user}:${this.password}@${this.host}:${this.port}/${this.dbName}?authSource=admin`, {
                 serverSelectionTimeoutMS: this.timeoutMS,
@@ -15,7 +22,7 @@ class MongoDBService extends DBService {
         )
     }
 
-    public override async disconnect() {
+    public async disconnect() {
         await mongoose.disconnect()
     }
 }

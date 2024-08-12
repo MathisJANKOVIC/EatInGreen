@@ -1,12 +1,3 @@
-type DBServiceOptions = {
-    host: string
-    port: number
-    user: string
-    password: string
-    dbName: string
-    timeoutMS?: number
-}
-
 abstract class DBService {
     protected readonly host: string
     protected readonly port: number
@@ -15,17 +6,24 @@ abstract class DBService {
     protected readonly dbName: string
     protected readonly timeoutMS: number
 
-    constructor({ host, port, user, password, dbName, timeoutMS = 5000 }: DBServiceOptions) {
-        this.host = host
-        this.port = port
-        this.user = user
-        this.password = password
-        this.dbName = dbName
-        this.timeoutMS = timeoutMS
+    constructor(config: {
+        host: string
+        port: number
+        user: string
+        password: string
+        dbName: string
+        timeoutMS?: number
+    }) {
+        this.host = config.host
+        this.port = config.port
+        this.user = config.user
+        this.password = config.password
+        this.dbName = config.dbName
+        this.timeoutMS = config.timeoutMS ?? 1000
     }
 
-    abstract connect(): Promise<void>
-    abstract disconnect(): Promise<void>
+    public abstract connect(): Promise<void>
+    public abstract disconnect(): Promise<void>
 }
 
-export { DBService, DBServiceOptions }
+export default DBService
