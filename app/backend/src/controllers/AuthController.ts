@@ -14,9 +14,9 @@ class AuthController {
     }
 
     public async register(req: Request, res: Response): Promise<void> {
-        const { firstName, lastName, phoneNumber, email, password } = req.body
-
-        const user = UserFactory.createUser(firstName, lastName, phoneNumber, email, password)
+        const userData = req.body
+        
+        const user = UserFactory.createUser(userData)
         await this.userService.save(user)
 
         const jwt = JWT.createFromPayload({ userId: user.id })

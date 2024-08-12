@@ -4,22 +4,27 @@ import { hash } from '../lib/encrypt'
 import User from '../entities/User'
 
 class UserFactory {
-    public static createUser(firstName: string, lastName: string, phoneNumber: string, email: string, password: string): User {
-        const userDto: UserDTO = {
+    public static createUser(user: {
+        firstName: string,
+        lastName: string,
+        phoneNumber: string,
+        email: string,
+        password: string
+    }): User {
+        return new User({
             id: generateId("User"),
-            firstName: firstName,
-            lastName: lastName,
-            phoneNumber: phoneNumber,
-            email: email,
-            passwordHash: hash(password),
             createdAt: new Date(),
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
+            email: user.email,
+            passwordHash: hash(user.password),
             connectedAt: new Date(),
             cart: []
-        }
-        return new User(userDto)
+        })
     }
 
-    public static constructUserFromDto(userDto: UserDTO): User {
+    public static createUserFromDto(userDto: UserDTO): User {
         return new User(userDto)
     }
 }
