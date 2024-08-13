@@ -8,6 +8,7 @@ describe('Login route', () => {
         const response = await client.post('/auth/register', {
             firstName: 'Mathis',
             lastName: 'Jankovic',
+            phoneNumber: '+33 6 51 53 37 31',
             email: userEmail,
             password: userPassword,
         })

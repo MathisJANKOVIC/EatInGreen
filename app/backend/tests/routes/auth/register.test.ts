@@ -5,6 +5,7 @@ describe('Register route', () => {
         const userData = {
             firstName: 'John',
             lastName: 'Doe',
+            phoneNumber: '+1 123 456 7890',
             email: 'john.doe@gmail.com',
             password: 'john123',
         }
