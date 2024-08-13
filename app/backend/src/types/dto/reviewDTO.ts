@@ -8,6 +8,7 @@ interface ReviewDTO extends EntityDTO {
     productId: string
     userId: string
 }
+
 type PublicReviewDTO = Omit<ReviewDTO, 'userId'>
 
 export { ReviewDTO, PublicReviewDTO }
