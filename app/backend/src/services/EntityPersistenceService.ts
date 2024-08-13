@@ -1,4 +1,4 @@
-abstract class EntityPersistenceService<TEntity, TEntityRepository> {
+abstract class EntityPersistenceService<TEntityRepository, TEntity> {
     protected readonly repository: TEntityRepository
 
     constructor(repository: TEntityRepository) {

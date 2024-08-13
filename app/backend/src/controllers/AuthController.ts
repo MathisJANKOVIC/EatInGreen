@@ -15,7 +15,7 @@ class AuthController {
 
     public async register(req: Request, res: Response): Promise<void> {
         const userData = req.body
-        
+
         const user = UserFactory.createUser(userData)
         await this.userService.save(user)
 
@@ -30,7 +30,7 @@ class AuthController {
         const user = await this.userService.findByEmail(email)
 
         if(!user || !matchHash(password, user.passwordHash)) {
-            throw new HTTPError(401, 'invalid email or password')
+            throw new HTTPError(401, 'Invalid email or password')
         }
 
         const jwt = JWT.createFromPayload({ userId: user.id })

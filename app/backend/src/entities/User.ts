@@ -46,7 +46,7 @@ class User extends Entity<PublicUserDTO> implements UserDTO {
         this._cart = userDto.cart
     }
 
-    public override toDto() {
+    public override toDto(): UserDTO {
         return {
             ...super.toDto(),
             firstName: this._firstName,
@@ -56,11 +56,10 @@ class User extends Entity<PublicUserDTO> implements UserDTO {
             passwordHash: this._passwordHash,
             connectedAt: this._connectedAt,
             cart: this._cart,
-            pieces: 1
         }
     }
 
-    public toPublicDto() {
+    public toPublicDto(): PublicUserDTO {
         return {
             ...super.toDto(),
             firstName: this._firstName,
@@ -69,7 +68,6 @@ class User extends Entity<PublicUserDTO> implements UserDTO {
             email: this._email,
             connectedAt: this._connectedAt,
             cartItemCount: this.cartItemCount,
-            pieces: 1
         }
     }
 }
