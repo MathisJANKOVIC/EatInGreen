@@ -3,29 +3,26 @@ import DBService from '../../services/DBService'
 import mongoose from 'mongoose'
 
 class MongoDBService extends DBService {
-    private readonly requestsTimeoutMS: number
-
-    constructor(host: string, port: number, user: string, password: string, dbName: string, requestsTimeoutMS: number) {
-        super(host, port, user, password, dbName)
-        this.requestsTimeoutMS = requestsTimeoutMS
+    constructor(config: {
+        host: string,
+        port: number,
+        user: string,
+        password: string,
+        dbName: string,
+        timeoutMS?: number
+    }) {
+        super(config)
     }
 
-    public async connect(timeoutMS: number): Promise<void> {
-        try {
-            await mongoose.connect(
-                `mongodb://${this.user}:${this.password}@${this.host}:${this.port}/${this.dbName}?authSource=admin`, {
-                    serverSelectionTimeoutMS: timeoutMS,
-                    connectTimeoutMS: this.requestsTimeoutMS,
-                }
-            )
-        } catch (error) {
-            throw new Error(
-                `Failed to connect to MongoDB \n${error}`
-            )
-        }
+    public async connect() {
+        await mongoose.connect(
+            `mongodb://${this.user}:${this.password}@${this.host}:${this.port}/${this.dbName}?authSource=admin`, {
+                serverSelectionTimeoutMS: this.timeoutMS,
+            }
+        )
     }
 
-    public async disconnect(): Promise<void> {
+    public async disconnect() {
         await mongoose.disconnect()
     }
 }

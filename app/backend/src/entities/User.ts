@@ -1,66 +1,76 @@
-import UserDTO from '../interfaces/dto/UserDTO'
-import { generateId } from '../lib/uid'
-import { hash } from '../lib/encrypt'
-import Entity from './Entity'
+import { UserDTO, PublicUserDTO } from "../types/dto/userDTO"
+import Entity from "./Entity"
 
-class User implements Entity<UserDTO> {
-    private _id: string
+class User extends Entity<PublicUserDTO> implements UserDTO {
     private _firstName: string
     private _lastName: string
+    private _phoneNumber: string
     private _email: string
     private _passwordHash: string
-    private _createdAt: Date
+    private _connectedAt: Date
+    private _cart: { productId: string, quantity: number }[]
 
-    public get id(): string {
-        return this._id
-    }
-    public get firstName(): string {
+    public get firstName() {
         return this._firstName
     }
-    public get lastName(): string {
+    public get lastName() {
         return this._lastName
     }
-    public get email(): string {
+    public get phoneNumber() {
+        return this._phoneNumber
+    }
+    public get email() {
         return this._email
     }
-    public get passwordHash(): string {
+    public get passwordHash() {
         return this._passwordHash
     }
-    public get createdAt(): Date {
-        return this._createdAt
+    public get connectedAt() {
+        return this._connectedAt
+    }
+    public get cart() {
+        return this._cart
+    }
+    public get cartItemCount() {
+        return this._cart.reduce((acc, item) => acc + item.quantity, 0)
     }
 
-    constructor(firstName: string, lastName: string, email: string, password: string) {
-        this._id = generateId('User')
-        this._firstName = firstName
-        this._lastName = lastName
-        this._email = email
-        this._passwordHash = hash(password)
-        this._createdAt = new Date()
+    constructor(userDto: UserDTO) {
+        super({ id: userDto.id, createdAt: userDto.createdAt })
+        this._firstName = userDto.firstName
+        this._lastName = userDto.lastName
+        this._phoneNumber = userDto.phoneNumber
+        this._email = userDto.email
+        this._passwordHash = userDto.passwordHash
+        this._connectedAt = userDto.connectedAt
+        this._cart = userDto.cart
     }
 
-    public static fromDto(userDto: UserDTO): User {
-        const user = new User(userDto.firstName, userDto.lastName, userDto.email, '')
-        user._id = userDto.id
-        user._passwordHash = userDto.passwordHash
-        user._createdAt = userDto.createdAt
-        return user
-    }
-
-    public toDto(): UserDTO {
+    public override toDto() {
         return {
-            id: this._id,
+            ...super.toDto(),
             firstName: this._firstName,
             lastName: this._lastName,
+            phoneNumber: this._phoneNumber,
             email: this._email,
             passwordHash: this._passwordHash,
-            createdAt: this._createdAt
+            connectedAt: this._connectedAt,
+            cart: this._cart,
+            pieces: 1
         }
     }
 
-    public toPublicDto(): Omit<UserDTO, 'passwordHash'> {
-        const { passwordHash, ...publicDto } = this.toDto()
-        return publicDto
+    public toPublicDto() {
+        return {
+            ...super.toDto(),
+            firstName: this._firstName,
+            lastName: this._lastName,
+            phoneNumber: this._phoneNumber,
+            email: this._email,
+            connectedAt: this._connectedAt,
+            cartItemCount: this.cartItemCount,
+            pieces: 1
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-import httpRequestLogger from './config/logging/httpRequestLogger'
+import httpRequestLogger from './logging/httpRequestLogger'
 import errorHandler from './middlewares/errorHandler'
 import authRouter from './routers/authRouter'
 

@@ -1,37 +1,31 @@
-import UserDTO from '../../interfaces/dto/UserDTO'
+import { EntityDocument, EntityModel, entitySchema } from "./entityModel"
+import { UserDTO } from "../../types/dto/userDTO"
+import { HASH_PATTERN_REGEX } from '../../lib/encrypt'
 
-import mongoose, { Document, Schema, Model } from 'mongoose'
+import { Schema, model } from "mongoose"
 
-interface UserDocument extends Omit<UserDTO, 'id'>, Document {
-    publicId: string
-    toDto(): UserDTO
-}
+const EMAIL_PATTERN_REGEX = /^\S+@\S+\.\S+$/
 
-interface UserModel extends Model<UserDocument> {
-    fromDto(userDto: UserDTO): UserDocument
-}
+type UserDocument = EntityDocument<UserDTO> & Omit<UserDTO, 'id'>
+type UserModel = EntityModel<UserDocument, UserDTO>
 
 const userSchema = new Schema<UserDocument>({
-    publicId: { type: String, required: true, unique: true, immutable: true},
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
-    createdAt: { type: Date, required: true, immutable: true}
-},
-{ versionKey: false }
-)
+    phoneNumber: { type: String, required: true },
+    email: { type: String, required: true, unique: true, match: [EMAIL_PATTERN_REGEX, 'invalid email format'] },
+    passwordHash: { type: String, required: true, match: [HASH_PATTERN_REGEX, 'invalid hash format'] },
+    connectedAt: { type: Date, required: true },
+    cart: {
+        type: [{
+            productId: { type: String, required: true },
+            quantity: { type: Number, required: true, min: 1 }
+        }],
+        required: true,
+    }
+})
+userSchema.add(entitySchema)
 
-userSchema.methods.toDto = function(): UserDTO {
-    const { publicId, ...userWithoutId } = this.toObject()
-    return { id: publicId, ...userWithoutId }
-}
-
-userSchema.statics.fromDto = function(userDto: UserDTO): UserDocument {
-    const userDoc = { publicId: userDto.id, ...userDto }
-    return new this(userDoc)
-}
-
-const UserModel = mongoose.model<UserDocument, UserModel>('User', userSchema)
+const UserModel = model<UserDocument, UserModel>('User', userSchema)
 
 export default UserModel

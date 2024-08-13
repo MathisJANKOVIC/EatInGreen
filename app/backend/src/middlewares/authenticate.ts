@@ -1,4 +1,4 @@
-import AuthRequest from '../interfaces/utils/AuthRequest'
+import AuthRequest from '../types/utils/AuthRequest'
 import HTTPError from '../utils/HTTPError'
 import { JWT } from '../lib/jwt'
 

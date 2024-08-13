@@ -1,4 +1,4 @@
-import MongoMemoryService from '../src/database/services/MongoMemoryService'
+import MongoDBMemoryService from '../src/database/services/MongoDBMemoryService'
 import { ExpressClient } from './utils/expressClient'
 import { getEnv } from '../src/lib/env'
 import app from '../src/app'
@@ -9,10 +9,10 @@ const dbPassword = getEnv('DB_PASSWORD')
 const dbName = getEnv('DB_NAME')
 
 let client: ExpressClient
-let mongoMemoryService: MongoMemoryService
+let mongoMemoryService: MongoDBMemoryService
 
 beforeAll(async () => {
-    mongoMemoryService = new MongoMemoryService("localhost", dbPort, dbUser, dbPassword, dbName, 5000)
+    mongoMemoryService = new MongoDBMemoryService("localhost", dbPort, dbUser, dbPassword, dbName, 5000)
     await mongoMemoryService.connect(1000)
 
     client = new ExpressClient(app)

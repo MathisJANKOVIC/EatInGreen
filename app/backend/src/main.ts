@@ -1,5 +1,5 @@
 import MongoUserRepository from './database/repositories/MongoUserRepository'
-import UserRepository from './interfaces/repositories/UserRepository'
+import UserRepository from './repositories/UserRepository'
 import UserPersistenceService from './services/UserPersistenceService'
 import MongoDBService from './database/services/MongoDBService'
 import DBService from './services/DBService'
@@ -15,7 +15,14 @@ const dbName = getEnv('DB_NAME')
 const userRepository: UserRepository = new MongoUserRepository()
 
 // Services
-const dbService: DBService = new MongoDBService(dbHost, dbPort, dbUser, dbPassword, dbName, 5000)
 const userPersistenceService = new UserPersistenceService(userRepository)
+const dbService: DBService = new MongoDBService({
+    host: dbHost,
+    port: dbPort,
+    user: dbUser,
+    password: dbPassword,
+    dbName,
+    timeoutMS: 5000
+})
 
 export { dbService, userPersistenceService }
