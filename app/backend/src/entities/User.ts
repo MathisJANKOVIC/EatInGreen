@@ -1,8 +1,7 @@
-import PublicUserDTO from '../types/dto/public/PublicUserDTO'
-import UserDTO from '../types/dto/internal/UserDTO'
-import Entity from './Entity'
+import { UserDTO, PublicUserDTO } from "../types/dto/userDTO"
+import Entity from "./Entity"
 
-class User extends Entity<PublicUserDTO> {
+class User extends Entity<PublicUserDTO> implements UserDTO {
     private _firstName: string
     private _lastName: string
     private _phoneNumber: string
@@ -56,7 +55,8 @@ class User extends Entity<PublicUserDTO> {
             email: this._email,
             passwordHash: this._passwordHash,
             connectedAt: this._connectedAt,
-            cart: this._cart
+            cart: this._cart,
+            pieces: 1
         }
     }
 
@@ -68,7 +68,8 @@ class User extends Entity<PublicUserDTO> {
             phoneNumber: this._phoneNumber,
             email: this._email,
             connectedAt: this._connectedAt,
-            cartItemCount: this.cartItemCount
+            cartItemCount: this.cartItemCount,
+            pieces: 1
         }
     }
 }

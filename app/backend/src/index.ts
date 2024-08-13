@@ -5,10 +5,8 @@ import app from './app'
 
 const serverPort = Number(getEnv('SERVER_PORT'))
 const environment = getEnv('NODE_ENV')
-// database.connect()
-database.disconnect()
 
-database.connect()
+database.connect() 
 .then(() => {
     app.listen(serverPort, () => {
         if (environment === NodeEnv.PRODUCTION) {

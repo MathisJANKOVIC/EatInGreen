@@ -10,4 +10,8 @@ interface UserDTO extends EntityDTO {
     cart: { productId: string, quantity: number }[]
 }
 
-export default UserDTO
+type PublicUserDTO = Omit<UserDTO, 'passwordHash' | 'cart'> & {
+    cartItemCount: number
+}
+
+export { UserDTO, PublicUserDTO }

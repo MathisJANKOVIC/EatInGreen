@@ -1,6 +1,6 @@
-import EntityDTO from "../types/dto/internal/EntityDTO"
+import EntityDTO from "../types/dto/EntityDTO"
 
-abstract class Entity<TEntityPublicDTO> {
+abstract class Entity<TPublicEntityDTO> implements EntityDTO {
     protected readonly _id: string
     protected readonly _createdAt: Date
 
@@ -23,7 +23,7 @@ abstract class Entity<TEntityPublicDTO> {
         }
     }
 
-    public abstract toPublicDto(): TEntityPublicDTO
+    public abstract toPublicDto(): TPublicEntityDTO
 }
 
 export default Entity

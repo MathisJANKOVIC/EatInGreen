@@ -1,4 +1,4 @@
-import UserDTO from '../types/dto/internal/UserDTO'
+import { UserDTO } from '../types/dto/userDTO'
 import { createEntityId } from '../lib/uid'
 import { hash } from '../lib/encrypt'
 import User from '../entities/User'

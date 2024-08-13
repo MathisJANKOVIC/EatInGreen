@@ -7,11 +7,11 @@ abstract class DBService {
     protected readonly timeoutMS: number
 
     constructor(config: {
-        host: string
-        port: number
-        user: string
-        password: string
-        dbName: string
+        host: string,
+        port: number,
+        user: string,
+        password: string,
+        dbName: string,
         timeoutMS?: number
     }) {
         this.host = config.host
@@ -19,7 +19,7 @@ abstract class DBService {
         this.user = config.user
         this.password = config.password
         this.dbName = config.dbName
-        this.timeoutMS = config.timeoutMS ?? 1000
+        this.timeoutMS = config.timeoutMS ?? 5000
     }
 
     public abstract connect(): Promise<void>

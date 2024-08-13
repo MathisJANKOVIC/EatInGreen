@@ -14,6 +14,10 @@ const dbName = getEnv('DB_NAME')
 
 // Repositories
 const userRepository: UserRepository = new MongoUserRepository()
+
+// Services
+const userPersistenceService = new UserPersistenceService(userRepository)
+
 // const dbService = new MongoDBMemoryService()
 const dbService: DBService = new MongoDBService({
     host: dbHost,
@@ -24,6 +28,5 @@ const dbService: DBService = new MongoDBService({
     timeoutMS: 1000
 
 })
-const userPersistenceService = new UserPersistenceService(userRepository)
 
 export { dbService, userPersistenceService }

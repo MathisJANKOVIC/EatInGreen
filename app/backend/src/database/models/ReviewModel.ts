@@ -1,5 +1,5 @@
-import { EntityDocument, EntityModel, entitySchema } from "./baseEntityModel"
-import ReviewDTO from "../../types/dto/internal/ReviewDTO"
+import { EntityDocument, EntityModel, entitySchema } from "./entityModel"
+import { ReviewDTO } from "../../types/dto/reviewDTO"
 
 import { Schema, model } from "mongoose"
 

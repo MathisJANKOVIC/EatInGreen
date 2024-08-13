@@ -9,4 +9,6 @@ interface ProductDTO extends EntityDTO {
     userId: string
 }
 
-export default ProductDTO
+type PublicProductDTO = Omit<ProductDTO, 'userId'>
+
+export { ProductDTO, PublicProductDTO }

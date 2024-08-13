@@ -7,7 +7,7 @@ class UserPersistenceService extends EntityPersistenceService<User, UserReposito
         super(repository)
     }
 
-    public async findById(id: string): Promise<User | null> {
+    public async findById(id: string) {
         const userDto = await this.repository.findById(id)
         if (userDto) {
             return new User(userDto)
@@ -15,7 +15,7 @@ class UserPersistenceService extends EntityPersistenceService<User, UserReposito
         return null
     }
 
-    public async findByEmail(email: string): Promise<User | null> {
+    public async findByEmail(email: string) {
         const userDto = await this.repository.findByEmail(email)
         if (userDto) {
             return new User(userDto)
