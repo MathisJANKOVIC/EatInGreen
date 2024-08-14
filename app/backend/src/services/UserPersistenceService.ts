@@ -1,16 +1,16 @@
 import UserRepository from '../repositories/UserRepository'
-import PersistenceService from './PersistenceService'
+import EntityPersistenceService from './EntityPersistenceService'
 import User from '../entities/User'
 
-class UserPersistenceService implements PersistenceService<User> {
-    private readonly repository: UserRepository
+class UserPersistenceService implements EntityPersistenceService<User> {
+    private readonly userRepository: UserRepository
 
     constructor(repository: UserRepository) {
-        this.repository = repository
+        this.userRepository = repository
     }
 
     public async findUserById(id: string): Promise<User | null> {
-        const userDto = await this.repository.findById(id)
+        const userDto = await this.userRepository.findById(id)
         if (userDto) {
             return new User(userDto)
         }
@@ -18,7 +18,7 @@ class UserPersistenceService implements PersistenceService<User> {
     }
 
     public async findUserByEmail(email: string): Promise<User | null> {
-        const userDto = await this.repository.findByEmail(email)
+        const userDto = await this.userRepository.findByEmail(email)
         if (userDto) {
             return new User(userDto)
         }
@@ -26,7 +26,7 @@ class UserPersistenceService implements PersistenceService<User> {
     }
 
     public async save(user: User): Promise<void> {
-        await this.repository.save(user.toDto())
+        await this.userRepository.save(user.toDto())
     }
 }
 
