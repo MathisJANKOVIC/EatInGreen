@@ -27,7 +27,7 @@ class AuthController {
     public async login(req: Request, res: Response): Promise<void> {
         const { email, password } = req.body
 
-        const user = await this.userService.findByEmail(email)
+        const user = await this.userService.findUserByEmail(email)
 
         if(!user || !matchHash(password, user.passwordHash)) {
             throw new HTTPError(401, 'Invalid email or password')
