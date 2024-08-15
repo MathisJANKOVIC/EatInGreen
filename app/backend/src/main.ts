@@ -1,6 +1,6 @@
 import MongoUserRepository from './database/repositories/MongoUserRepository'
 import UserRepository from './repositories/UserRepository'
-import UserPersistenceService from './services/UserPersistenceService'
+import UserService from './services/UserService'
 import MongoDBMemoryService from './database/services/MongoDBMemoryService'
 import MongoDBService from './database/services/MongoDBService'
 import DBService from './services/DBService'
@@ -11,10 +11,10 @@ const userRepository: UserRepository = new MongoUserRepository()
 
 // Services
 let dbService: DBService
-const userPersistenceService = new UserPersistenceService(userRepository)
+const userPersistenceService = new UserService(userRepository)
 
 if (nodeEnv.isTest) {
-  dbService = new MongoDBMemoryService()
+    dbService = new MongoDBMemoryService()
 } else {
     const dbHost = getEnv('DB_HOST')
     const dbPort = Number(getEnv('DB_PORT'))
