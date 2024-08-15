@@ -1,4 +1,4 @@
-import UserPersistenceService from '../services/UserPersistenceService'
+import UserService from '../services/UserService'
 import UserFactory from '../factories/UserFactory'
 import HTTPError from '../utils/HTTPError'
 import { matchHash } from '../lib/encrypt'
@@ -7,9 +7,9 @@ import { JWT } from '../lib/jwt'
 import { Request, Response } from 'express'
 
 class AuthController {
-    private readonly userService: UserPersistenceService
+    private readonly userService: UserService
 
-    constructor(userService: UserPersistenceService) {
+    constructor(userService: UserService) {
         this.userService = userService
     }
 
@@ -17,7 +17,7 @@ class AuthController {
         const userData = req.body
 
         const user = UserFactory.createUser(userData)
-        await this.userService.save(user)
+        await this.userService.saveUser(user)
 
         const jwt = JWT.createFromPayload({ userId: user.id })
 
@@ -27,7 +27,7 @@ class AuthController {
     public async login(req: Request, res: Response): Promise<void> {
         const { email, password } = req.body
 
-        const user = await this.userService.findUserByEmail(email)
+        const user = await this.userService.getUserByEmail(email)
 
         if(!user || !matchHash(password, user.passwordHash)) {
             throw new HTTPError(401, 'Invalid email or password')
