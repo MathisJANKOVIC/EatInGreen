@@ -1,0 +1,11 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "setupFilesAfterEnv": ["./tests/setup.ts"],
+  "testMatch": ["**/tests/**/*.test.ts"],
+  "forceExit": true,
+  "detectOpenHandles": true,
+  "transform": {
+    "^.+\\.ts$": ["ts-jest", { "tsconfig": "./tsconfig.json" }]
+  }
+}
