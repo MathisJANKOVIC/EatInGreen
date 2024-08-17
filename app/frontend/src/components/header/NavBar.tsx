@@ -9,8 +9,8 @@ function NavBar() {
   };
 
   return (
-    <nav className="flex justify-center items-center py-2">
-      <div className="bg-white rounded-full w-[90%] max-w-6xl px-6 py-3 shadow-md flex justify-around">
+    <div className="flex justify-center items-center py-2">
+      <div className="bg-white rounded-full w-[95%]  px-6 py-3 shadow-md flex justify-around">
         <NavLink href="/best-sellers" isActive={activePage === '/best-sellers'} onClick={() => handleSetActivePage('/best-sellers')}>
           Meilleures ventes
         </NavLink>
@@ -27,7 +27,7 @@ function NavBar() {
           Ventes flash
         </NavLink>
       </div>
-    </nav>
+    </div>
   );
 }
 
