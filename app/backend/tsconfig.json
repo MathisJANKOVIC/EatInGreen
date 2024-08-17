@@ -2,10 +2,13 @@
 {
   "compilerOptions": {
     /* Language and Environment */
-    "target": "ESNext",
+    "target": "ES2022",
 
     /* Modules */
-    "module": "commonjs",
+    "baseUrl": "./src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
 
     /* Interop Constraints */
     "esModuleInterop": true,
@@ -13,10 +16,20 @@
 
     /* Type Checking */
     "strict": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
 
     /* Completeness */
     "skipLibCheck": true
-  }
+  },
+  "include": ["./src/**/*.ts", "./tests/**/*.ts"],
 }
