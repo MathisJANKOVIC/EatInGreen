@@ -3,7 +3,6 @@ import UserFactory from '../factories/UserFactory'
 import HTTPError from '../utils/HTTPError'
 import { matchHash } from '../lib/encrypt'
 import { JWT } from '../lib/jwt'
-
 import { Request, Response } from 'express'
 
 class AuthController {

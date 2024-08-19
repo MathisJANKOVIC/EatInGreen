@@ -1,17 +1,21 @@
 import MongoUserRepository from './database/repositories/MongoUserRepository'
 import UserRepository from './repositories/UserRepository'
 import UserService from './services/UserService'
+import ProductService from 'services/ProductService'
+import ProductRepository from 'repositories/ProductRepository'
 import MongoDBMemoryService from './database/services/MongoDBMemoryService'
 import MongoDBService from './database/services/MongoDBService'
 import DBService from './services/DBService'
 import { getEnv, nodeEnv } from './lib/env'
+import MongoProductRepository from 'database/repositories/MongoProductRepository'
 
 // Repositories
 const userRepository: UserRepository = new MongoUserRepository()
-
+const productRepository: ProductRepository = new MongoProductRepository()
 // Services
 let dbService: DBService
 const userPersistenceService = new UserService(userRepository)
+const productPersistenceService = new ProductService(productRepository)
 
 if (nodeEnv.isTest) {
     dbService = new MongoDBMemoryService()
@@ -32,4 +36,4 @@ if (nodeEnv.isTest) {
     })
 }
 
-export { dbService, userPersistenceService }
+export { dbService, userPersistenceService, productPersistenceService }
