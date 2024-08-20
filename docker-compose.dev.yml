@@ -5,7 +5,7 @@ services:
     build:
       context: ./app/proxy
     ports:
-      - '$APP_PORT:80'
+      - "$APP_PORT:80"
     environment:
       - SERVER_NAME=localhost
       - SERVER_PORT=80
@@ -27,7 +27,7 @@ services:
       context: ./app/frontend
       dockerfile: dockerfile.dev
     expose:
-      - '5173'
+      - "5173"
     volumes:
       - ./app/frontend:/app
       - /app/node_modules
@@ -44,7 +44,7 @@ services:
       context: ./app/backend
       dockerfile: dockerfile.dev
     expose:
-      - '3000'
+      - "3000"
     volumes:
       - ./app/backend:/app
       - /app/node_modules
@@ -54,7 +54,7 @@ services:
       - DB_USER=$DB_USER
       - DB_PASSWORD=$DB_PASSWORD
       - DB_HOST=db
-      - DB_PORT=$DB_PORT
+      - DB_PORT=27017
       - DB_NAME=eatingreen
       - JWT_SECRET_KEY=$JWT_SECRET_KEY
     depends_on:
@@ -63,10 +63,10 @@ services:
       - eatingreen-network
 
   db:
-    image: 'mongo'
+    image: "mongo"
     container_name: eatingreen-mongo
     ports:
-      - '$DB_PORT:27017'
+      - "$DB_PORT:27017"
     volumes:
       - db:/data/db
     environment:
