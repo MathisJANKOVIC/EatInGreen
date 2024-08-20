@@ -1,7 +1,7 @@
-import ProdController from "controllers/ProdController"
-import asyncHandler from "utils/asyncHandler"
+import ProdController from "../controllers/ProdController"
+import asyncHandler from "../utils/asyncHandler"
 import { Router } from "express"
-import { productPersistenceService } from "main"
+import { productPersistenceService } from "../main"
 
 const prodRouter = Router()
 

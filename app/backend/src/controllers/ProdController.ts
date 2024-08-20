@@ -1,5 +1,5 @@
-import ProductService from "services/ProductService";
-import ProductFactory from "factories/ProductFactory";
+import ProductService from "../services/ProductService";
+import ProductFactory from "../factories/ProductFactory";
 import { Request, Response } from 'express';
 import HTTPError from '../utils/HTTPError';
 

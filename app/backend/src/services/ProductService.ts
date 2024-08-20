@@ -1,5 +1,5 @@
-import ProductRepository from "repositories/ProductRepository"
-import Product from "entities/Product"
+import ProductRepository from "../repositories/ProductRepository"
+import Product from "../entities/Product"
 
 class ProductService {
     public productRepository: ProductRepository

@@ -1,13 +1,13 @@
 import MongoUserRepository from './database/repositories/MongoUserRepository'
 import UserRepository from './repositories/UserRepository'
 import UserService from './services/UserService'
-import ProductService from 'services/ProductService'
-import ProductRepository from 'repositories/ProductRepository'
+import ProductService from './services/ProductService'
+import ProductRepository from './repositories/ProductRepository'
 import MongoDBMemoryService from './database/services/MongoDBMemoryService'
 import MongoDBService from './database/services/MongoDBService'
 import DBService from './services/DBService'
 import { getEnv, nodeEnv } from './lib/env'
-import MongoProductRepository from 'database/repositories/MongoProductRepository'
+import MongoProductRepository from './database/repositories/MongoProductRepository'
 
 // Repositories
 const userRepository: UserRepository = new MongoUserRepository()
