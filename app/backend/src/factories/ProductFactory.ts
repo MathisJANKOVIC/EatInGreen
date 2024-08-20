@@ -12,7 +12,7 @@ class ProductFactory {
         userId: string
     }): Product {
         return new Product ({
-            id: createEntityId("user"),
+            id: createEntityId("Product"),
             createdAt: new Date(),
             name: productData.name,
             description: productData.description,

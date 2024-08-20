@@ -17,6 +17,7 @@ class ProdController {
             const newProduct = await this.productService.createProduct(product);
             res.status(201).json(newProduct);
         } catch (error) {
+            console.error('Error creating product:', error);
             throw new HTTPError(500, 'Failed to create product');
         }
     }
@@ -35,7 +36,8 @@ class ProdController {
             }
             res.status(200).json(product);
         } catch (error) {
-            throw new HTTPError(500, 'Failed to retrieve product');
+            console.error('Error retrieving product by ID:', error);
+            throw new HTTPError(500, 'Failed to retrieve product by ID');
         }
     }
 
@@ -53,10 +55,10 @@ class ProdController {
             }
             res.status(200).json(product);
         } catch (error) {
+            console.error('Error retrieving product by name:', error);
             throw new HTTPError(500, 'Failed to retrieve product');
         }
     }
-    
 
     public async getAllProducts(req: Request, res: Response): Promise<void> {
         try {
@@ -67,6 +69,7 @@ class ProdController {
             }
             res.status(200).json(products);
         } catch (error) {
+            console.error('Error retrieving all products:', error);
             throw new HTTPError(500, 'Failed to retrieve products');
         }
     }
@@ -87,10 +90,10 @@ class ProdController {
     
             res.status(200).json(updatedProduct);
         } catch (error) {
+            console.error('Error updating product:', error);
             throw new HTTPError(500, 'Failed to update product');
         }
     }
-    
 
     public async deleteProduct(req: Request, res: Response): Promise<void> {
         try {
@@ -105,8 +108,9 @@ class ProdController {
                 throw new HTTPError(404, 'Product not found');
             }
     
-            res.status(204).send();
+            res.status(200).json({ message: 'Product successfully deleted' });
         } catch (error) {
+            console.error('Error deleting product:', error);
             throw new HTTPError(500, 'Failed to delete product');
         }
     }

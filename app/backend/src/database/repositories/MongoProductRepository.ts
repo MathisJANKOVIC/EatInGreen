@@ -4,12 +4,12 @@ import ProductModel from '../models/ProductModel';
 
 class MongoProductRepository implements ProductRepository {
     public async findById(id: string): Promise<ProductDTO | null> {
-        const productDocument = await ProductModel.findOne({ id }).exec();
+        const productDocument = await ProductModel.findOne({ publicId: id }).exec();
         if (productDocument) {
             return productDocument.toDto();
         }
         return null;
-    }
+    }    
 
     public async findByName(name: string): Promise<ProductDTO | null> {
         const productDocument = await ProductModel.findOne({ name }).exec();
@@ -29,8 +29,26 @@ class MongoProductRepository implements ProductRepository {
         await productDocument.save();
     }
 
+    public async update(id: string, updateData: Partial<ProductDTO>): Promise<ProductDTO | null> {
+        if (updateData.id) {
+            delete updateData.id;
+        }
+    
+        const productDocument = await ProductModel.findOneAndUpdate(
+            { publicId: id }, 
+            { $set: updateData }, 
+            { new: true, runValidators: true } 
+        ).exec();
+    
+        if (productDocument) {
+            return productDocument.toDto(); 
+        }
+        return null; 
+    }
+    
+
     public async delete(id: string): Promise<ProductDTO | null> {
-        const productDocument = await ProductModel.findOneAndDelete({ id }).exec();
+        const productDocument = await ProductModel.findOneAndDelete({ publicId: id }).exec();
         if (productDocument) {
             return productDocument.toDto();
         }

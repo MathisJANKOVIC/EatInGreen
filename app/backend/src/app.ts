@@ -1,7 +1,7 @@
+import prodRouter from './routers/productRouter'
 import httpRequestLogger from './logging/httpRequestLogger'
 import errorHandler from './middlewares/errorHandler'
 import authRouter from './routers/authRouter'
-
 import cors from 'cors'
 import express from 'express'
 
@@ -15,6 +15,7 @@ app.set('trust proxy', true)
 
 // Routes
 app.use('/auth', authRouter)
+app.use('/prod', prodRouter)
 
 // Error handler
 app.use(errorHandler)

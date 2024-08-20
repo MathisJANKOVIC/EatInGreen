@@ -31,6 +31,22 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
         return this._userId
     }
 
+    public set name(newName: string) {
+        this._name = newName;
+    }
+    public set description(newDescription: string) {
+        this._description = newDescription;
+    }
+    public set price(newPrice: number) {
+        this._price = newPrice;
+    }
+    public set stock(newStock: number) {
+        this._stock = newStock;
+    }
+    public set imagePaths(newImagePaths: string[]) {
+        this._imagePaths = newImagePaths;
+    }
+
 
     constructor(productDTO: ProductDTO) {
         super({id: productDTO.id, createdAt: productDTO.createdAt})
