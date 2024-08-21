@@ -1,11 +1,11 @@
-import ProdController from "../controllers/ProdController"
+import ProductController from "../controllers/ProductController"
 import asyncHandler from "../utils/asyncHandler"
 import { Router } from "express"
 import { productPersistenceService } from "../main"
 
 const prodRouter = Router()
 
-const prodController = new ProdController(productPersistenceService)
+const prodController = new ProductController(productPersistenceService)
 
 prodRouter.post('/product', asyncHandler(prodController.createProduct.bind(prodController)));
 prodRouter.get('/products', asyncHandler(prodController.getAllProducts.bind(prodController)));

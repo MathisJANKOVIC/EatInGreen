@@ -15,7 +15,7 @@ app.set('trust proxy', true)
 
 // Routes
 app.use('/auth', authRouter)
-app.use('/prod', prodRouter)
+app.use('/product', prodRouter)
 
 // Error handler
 app.use(errorHandler)
