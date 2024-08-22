@@ -1,4 +1,4 @@
-import EntityDTO from "./EntityDTO"
+import EntityDTO from './EntityDTO'
 
 interface ReviewDTO extends EntityDTO {
     rating: number

@@ -1,4 +1,4 @@
-import EntityDTO from "./EntityDTO"
+import EntityDTO from './EntityDTO'
 
 interface UserDTO extends EntityDTO {
     firstName: string

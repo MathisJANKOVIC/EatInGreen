@@ -1,0 +1,44 @@
+name: Linters
+
+on: [push, pull_request]
+
+jobs:
+  backend-linter:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./app/backend
+
+    - name: Run linter
+      run: npm run linter
+      working-directory: ./app/backend
+
+  frontend-linter:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./app/frontend
+
+    - name: Run linter
+      run: npm run linter
+      working-directory: ./app/frontend

@@ -1,7 +1,7 @@
-import { EntityDocument, EntityModel, entitySchema } from "./entityModel"
-import { ReviewDTO } from "../../types/dto/reviewDTO"
+import { EntityDocument, EntityModel, entitySchema } from './entityModel'
+import { ReviewDTO } from '../../types/dto/reviewDTO'
 
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose'
 
 type ReviewDocument = EntityDocument<ReviewDTO> & Omit<ReviewDTO, 'id'>
 type ReviewModel = EntityModel<ReviewDocument, ReviewDTO>

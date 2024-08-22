@@ -1,6 +1,6 @@
-import EntityDTO from "../../types/dto/EntityDTO"
+import EntityDTO from '../../types/dto/EntityDTO'
 
-import { Document, Model, Schema } from "mongoose"
+import { Document, Model, Schema } from 'mongoose'
 
 interface EntityDocument<TEntityDTO> extends Document, Omit<EntityDTO, 'id'> {
     publicId: string
@@ -13,7 +13,7 @@ interface EntityModel<TEntityDocument, TEntityDTO> extends Model<TEntityDocument
 
 const entitySchema = new Schema<EntityDocument<EntityDTO>>({
     publicId: { type: String, required: true, immutable: true, unique: true },
-    createdAt: { type: Date, required: true, immutable: true},
+    createdAt: { type: Date, required: true, immutable: true },
 }, { versionKey: false })
 
 entitySchema.methods.toDto = function(): EntityDTO {

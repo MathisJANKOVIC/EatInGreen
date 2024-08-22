@@ -24,7 +24,7 @@ const useAllProducts = () => {
             setError(null);
 
             try {
-                const res = await fetch(`http://localhost:80/api/prod/products?cachebuster=${new Date().getTime()}`, {
+                const res = await fetch(`/api/product/products?cachebuster=${new Date().getTime()}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

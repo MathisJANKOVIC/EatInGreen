@@ -21,7 +21,7 @@ const EcoFriendly = () => {
 
                 <div className="w-1/4 bg-white p-4 rounded-lg shadow-md flex flex-col justify-between">
                     <h2 className="text-lg font-semibold mb-4 text-[#A07E53]">Par types de produits</h2>
-                   
+
                 </div>
 
                 <div className="w-3/4 flex flex-col space-y-4 h-full">
@@ -36,7 +36,7 @@ const EcoFriendly = () => {
                                         <h3 className="font-semibold text-[#A07E53]">{item.name}</h3>
                                         <p className="text-[#A07E53]">{item.description}</p>
                                     </div>
-                                  
+
                                 </div>
                             ))}
                         </div>
