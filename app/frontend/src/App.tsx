@@ -14,6 +14,7 @@ import EcoFriendly from './pages/eco-friendly/EcoFriendly.tsx'
 import TopRated from './pages/top-rated/TopRated.tsx'
 import BuyAgain from './pages/buy-again/BuyAgain.tsx'
 import FlashSales from './pages/flash-sales/FlashSales.tsx'
+import ProductDetails from './pages/details/ProductDetails.tsx'
 
 const router = createBrowserRouter([
   {path: "/login",element: <Login/>},
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     {path: "/top-rated",element: <TopRated/>},
     {path: "/buy-again",element: <BuyAgain/>},
     {path: "/flash-sales",element: <FlashSales/>},
+    {path: "/details/:id",element: <ProductDetails/>}
   ]}
 ])
 
