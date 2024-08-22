@@ -18,8 +18,7 @@ class ProductService {
         const productDTO = await this.productRepository.findById(id)
         if (productDTO) {
             return new Product(productDTO)
-        }
-        else {
+        } else {
             return null
         }
     }
@@ -28,8 +27,7 @@ class ProductService {
         const productDTO = await this.productRepository.findByName(name)
         if (productDTO) {
             return new Product(productDTO)
-        }
-        else {
+        } else {
             return null
         }
     }
