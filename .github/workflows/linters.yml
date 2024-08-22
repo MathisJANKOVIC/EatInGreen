@@ -14,22 +14,19 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Create .env file
-      run: |
-        echo APP_PORT=80 >> .env
-        echo DB_PORT=27017 >> .env
-        echo DB_USER=root >> .env
-        echo DB_PASSWORD=pass >> .env
-        echo JWT_SECRET_KEY=aazesqfdgmqrzesqldfkjg >> .env
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-    - name: Setup services
-      run: docker compose -f docker-compose.dev.yml up backend db -d
+    - name: Go to backend directory
+      run: cd ./app/backend
 
-    - name: Run tests
-      run: docker exec eatingreen-express npm run linter
+    - name: Install dependencies
+      run: npm install
 
-    - name: Stop services
-      run: docker compose down
+    - name: Run linter
+      run: npm run linter
 
   frontend-linter:
     runs-on: ubuntu-latest
@@ -43,8 +40,11 @@ jobs:
       with:
         node-version: '14'
 
+    - name: Go to frontend directory
+      run: cd ./app/frontend
+
     - name: Install dependencies
       run: npm install
 
-    - name: Run tests
+    - name: Run linter
       run: npm run linter
