@@ -1,8 +1,8 @@
-import { defineConfig, loadEnv, UserConfigExport } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig, loadEnv, UserConfigExport } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default ({ mode }: { mode: string }): UserConfigExport => {
-  const env = loadEnv(mode, process.cwd());
+  const env = loadEnv(mode, process.cwd())
 
   return defineConfig({
     plugins: [react()],
@@ -12,5 +12,5 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
       },
       port: Number(env.VITE_SERVER_PORT) ,
     },
-  });
-};
+  })
+}

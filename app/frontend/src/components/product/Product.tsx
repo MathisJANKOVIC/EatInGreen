@@ -1,18 +1,17 @@
-import React from 'react';
+import React from 'react'
 
 interface Product {
-  _id: string;
-  _name: string;
-  _price: number;
-  _stock: number;
-  _imagePaths: string[];
-  _description:string;
+  _id: string
+  _name: string
+  _price: number
+  _stock: number
+  _imagePaths: string[]
+  _description: string
 }
 
 interface ProductListProps {
-  products: Product[];
+  products: Product[]
 }
-
 
 const ProductComponent: React.FC<{ product: Product }> = ({ product }) => {
   return (
@@ -29,10 +28,8 @@ const ProductComponent: React.FC<{ product: Product }> = ({ product }) => {
         <p className="text-white mt-2">Stock: {product._stock}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { ProductComponent };
-export type { ProductListProps };
-export type { Product };
-
+export { ProductComponent }
+export type { ProductListProps, Product }

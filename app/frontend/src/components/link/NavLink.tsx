@@ -1,9 +1,9 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 interface NavLinkProps {
-  href: string;
-  children: React.ReactNode;
-  isActive: boolean;
-  onClick: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  href: string
+  children: React.ReactNode
+  isActive: boolean
+  onClick: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
 
 const CustomNavLink: React.FC<NavLinkProps> = ({ href, children }) => {
@@ -18,7 +18,7 @@ const CustomNavLink: React.FC<NavLinkProps> = ({ href, children }) => {
     >
       {children}
     </NavLink>
-  );
-};
+  )
+}
 
-export default CustomNavLink;
+export default CustomNavLink

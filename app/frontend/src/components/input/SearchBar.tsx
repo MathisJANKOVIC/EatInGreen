@@ -1,6 +1,6 @@
 interface SearchInputProps {
-  placeholder: string;
-  id: string;
+  placeholder: string
+  id: string
 }
 
 function SearchInputForm({ placeholder, id }: SearchInputProps) {
@@ -14,7 +14,7 @@ function SearchInputForm({ placeholder, id }: SearchInputProps) {
         aria-label={placeholder}
       />
     </div>
-  );
+  )
 }
 
-export default SearchInputForm;
+export default SearchInputForm

@@ -1,6 +1,6 @@
 interface ButtonFormProps {
-  label: string;
-  onClick: () => void;
+  label: string
+  onClick: () => void
 }
 
 function ButtonForm({ label, onClick }: ButtonFormProps) {
@@ -12,7 +12,7 @@ function ButtonForm({ label, onClick }: ButtonFormProps) {
         {label}
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default ButtonForm;
+export default ButtonForm
