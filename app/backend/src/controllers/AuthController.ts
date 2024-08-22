@@ -28,7 +28,7 @@ class AuthController {
 
         const user = await this.userService.getUserByEmail(email)
 
-        if(!user || !matchHash(password, user.passwordHash)) {
+        if (!user || !matchHash(password, user.passwordHash)) {
             throw new HTTPError(401, 'Invalid email or password')
         }
 

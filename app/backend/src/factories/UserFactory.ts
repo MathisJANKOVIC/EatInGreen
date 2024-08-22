@@ -12,7 +12,7 @@ class UserFactory {
         password: string
     }): User {
         return new User({
-            id: createEntityId("User"),
+            id: createEntityId('User'),
             createdAt: new Date(),
             firstName: userData.firstName,
             lastName: userData.lastName,

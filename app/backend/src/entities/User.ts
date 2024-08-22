@@ -1,5 +1,5 @@
-import { UserDTO, PublicUserDTO } from "../types/dto/userDTO"
-import Entity from "./Entity"
+import { UserDTO, PublicUserDTO } from '../types/dto/userDTO'
+import Entity from './Entity'
 
 class User extends Entity<PublicUserDTO> implements UserDTO {
     private _firstName: string

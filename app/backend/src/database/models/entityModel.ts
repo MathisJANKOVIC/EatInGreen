@@ -1,6 +1,6 @@
-import EntityDTO from "../../types/dto/EntityDTO"
+import EntityDTO from '../../types/dto/EntityDTO'
 
-import { Document, Model, Schema } from "mongoose"
+import { Document, Model, Schema } from 'mongoose'
 
 interface EntityDocument<TEntityDTO> extends Document, Omit<EntityDTO, 'id'> {
     publicId: string

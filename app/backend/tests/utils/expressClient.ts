@@ -1,5 +1,5 @@
-import supertest, { Response } from "supertest"
-import { Express } from "express"
+import supertest, { Response } from 'supertest'
+import { Express } from 'express'
 
 /**
  * A simple class to make HTTP requests to an Express application.

@@ -1,7 +1,7 @@
-import { EntityDocument, EntityModel, entitySchema } from "./entityModel"
-import { ProductDTO } from "../../types/dto/productDTO"
+import { EntityDocument, EntityModel, entitySchema } from './entityModel'
+import { ProductDTO } from '../../types/dto/productDTO'
 
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose'
 
 type ProductDocument = EntityDocument<ProductDTO> & Omit<ProductDTO, 'id'>
 type ProductModel = EntityModel<ProductDocument, ProductDTO>

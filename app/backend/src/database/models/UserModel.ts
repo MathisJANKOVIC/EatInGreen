@@ -1,8 +1,8 @@
-import { EntityDocument, EntityModel, entitySchema } from "./entityModel"
-import { UserDTO } from "../../types/dto/userDTO"
+import { EntityDocument, EntityModel, entitySchema } from './entityModel'
+import { UserDTO } from '../../types/dto/userDTO'
 import { HASH_PATTERN_REGEX } from '../../lib/encrypt'
 
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose'
 
 const EMAIL_PATTERN_REGEX = /^\S+@\S+\.\S+$/
 

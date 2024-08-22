@@ -1,5 +1,5 @@
-import ProductRepository from "../repositories/ProductRepository"
-import Product from "../entities/Product"
+import ProductRepository from '../repositories/ProductRepository'
+import Product from '../entities/Product'
 
 class ProductService {
     public productRepository: ProductRepository
@@ -9,9 +9,9 @@ class ProductService {
     }
 
     public async createProduct(product: Product): Promise <Product | null> {
-        const newProduct = new Product(product);
-        await this.productRepository.save(newProduct.toDto());
-        return newProduct;
+        const newProduct = new Product(product)
+        await this.productRepository.save(newProduct.toDto())
+        return newProduct
     }
 
     public async getProductById(id:string): Promise <Product | null> {
@@ -35,34 +35,34 @@ class ProductService {
     }
 
     public async getAllProduct(limit: number): Promise<Product[] | null> {
-        const productDTOs = await this.productRepository.findAll(limit);
-        
+        const productDTOs = await this.productRepository.findAll(limit)
+
         if (productDTOs && productDTOs.length > 0) {
-            return productDTOs.map(dto => new Product(dto));
+            return productDTOs.map(dto => new Product(dto))
         } else {
-            return null;
+            return null
         }
     }
 
     public async updateProduct(id: string, updatedData: Partial<Product>): Promise<Product | null> {
-        const existingProduct = await this.getProductById(id);
+        const existingProduct = await this.getProductById(id)
         if (!existingProduct) {
-            return null;
+            return null
         }
-        Object.assign(existingProduct, updatedData);
-        await this.productRepository.save(existingProduct.toDto());
-        return existingProduct;
+        Object.assign(existingProduct, updatedData)
+        await this.productRepository.save(existingProduct.toDto())
+        return existingProduct
     }
-    
+
     public async deleteProduct(id: string): Promise<boolean> {
-        const product = await this.getProductById(id);
+        const product = await this.getProductById(id)
         if (product) {
-            await this.productRepository.delete(id);
-            return true;
+            await this.productRepository.delete(id)
+            return true
         }
-        return false;
+        return false
     }
-    
+
     public async saveProduct(Product: Product): Promise<void> {
         await this.productRepository.save(Product.toDto())
     }

@@ -5,7 +5,6 @@
     "target": "ES2022",
 
     /* Modules */
-    "baseUrl": "./src",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,

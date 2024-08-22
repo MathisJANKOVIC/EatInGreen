@@ -1,6 +1,6 @@
-import Entity from "./Entity"
-import { ProductDTO, PublicProductDTO } from "../types/dto/productDTO"
-import EntityDTO from "../types/dto/EntityDTO"
+import Entity from './Entity'
+import { ProductDTO, PublicProductDTO } from '../types/dto/productDTO'
+import EntityDTO from '../types/dto/EntityDTO'
 
 class Product extends Entity<PublicProductDTO> implements EntityDTO{
 
@@ -20,7 +20,7 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
     }
     public get price() {
         return this._price
-    } 
+    }
     public get stock() {
         return this._stock
     }
@@ -32,19 +32,19 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
     }
 
     public set name(newName: string) {
-        this._name = newName;
+        this._name = newName
     }
     public set description(newDescription: string) {
-        this._description = newDescription;
+        this._description = newDescription
     }
     public set price(newPrice: number) {
-        this._price = newPrice;
+        this._price = newPrice
     }
     public set stock(newStock: number) {
-        this._stock = newStock;
+        this._stock = newStock
     }
     public set imagePaths(newImagePaths: string[]) {
-        this._imagePaths = newImagePaths;
+        this._imagePaths = newImagePaths
     }
 
 

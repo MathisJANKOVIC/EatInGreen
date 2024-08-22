@@ -1,7 +1,7 @@
-import DBService from "../../services/DBService"
+import DBService from '../../services/DBService'
 
-import mongoose from "mongoose"
-import { MongoMemoryServer } from "mongodb-memory-server"
+import mongoose from 'mongoose'
+import { MongoMemoryServer } from 'mongodb-memory-server'
 
 class MongoDBMemoryService implements DBService {
     private readonly host?: string

@@ -1,6 +1,6 @@
-import { ProductDTO } from "../types/dto/productDTO"
-import { createEntityId } from "../lib/uid"
-import Product from "../entities/Product"
+import { ProductDTO } from '../types/dto/productDTO'
+import { createEntityId } from '../lib/uid'
+import Product from '../entities/Product'
 
 class ProductFactory {
     public static createProduct(productData: {
@@ -12,7 +12,7 @@ class ProductFactory {
         userId: string
     }): Product {
         return new Product ({
-            id: createEntityId("Product"),
+            id: createEntityId('Product'),
             createdAt: new Date(),
             name: productData.name,
             description: productData.description,
