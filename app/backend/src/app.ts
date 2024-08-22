@@ -1,7 +1,7 @@
-import httpRequestLogger from './logging/httpRequestLogger'
-import errorHandler from './middlewares/errorHandler'
-import productRouter from './routers/productRouter'
-import authRouter from './routers/authRouter'
+import httpRequestLogger from '@logging/httpRequestLogger'
+import errorHandler from '@middlewares/errorHandler'
+import productRouter from '@routers/productRouter'
+import authRouter from '@routers/authRouter'
 
 import cors from 'cors'
 import express from 'express'

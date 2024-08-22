@@ -1,6 +1,7 @@
-import AuthController from '../controllers/AuthController'
-import asyncHandler from '../utils/asyncHandler'
-import { userPersistenceService } from '../main'
+import AuthController from '@controllers/AuthController'
+import asyncHandler from '@utils/asyncHandler'
+import { userPersistenceService } from '@src/main'
+
 import { Router } from 'express'
 
 const authRouter = Router()

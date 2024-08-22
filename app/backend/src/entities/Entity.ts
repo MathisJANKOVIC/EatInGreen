@@ -1,4 +1,4 @@
-import EntityDTO from '../types/dto/EntityDTO'
+import EntityDTO from '@types-dto/EntityDTO'
 
 abstract class Entity<TPublicEntityDTO> implements EntityDTO {
     protected readonly _id: string

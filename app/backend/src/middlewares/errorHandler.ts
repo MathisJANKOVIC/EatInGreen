@@ -1,5 +1,5 @@
-import HTTPError from '../utils/HTTPError'
-import log from '../lib/log'
+import HTTPError from '@utils/HTTPError'
+import log from '@lib/log'
 
 import { Request, Response, NextFunction } from 'express'
 

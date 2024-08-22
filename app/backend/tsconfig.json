@@ -8,6 +8,23 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "@controllers/*": ["./src/controllers/*"],
+      "@database/*": ["./src/database/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@factories/*": ["./src/factories/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@logging/*": ["./src/logging/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@repositories/*": ["./src/repositories/*"],
+      "@routers/*": ["./src/routers/*"],
+      "@services/*": ["./src/services/*"],
+      "@types-dto/*": ["./src/types/dto/*"],
+      "@types-utils/*": ["./src/types/utils/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@src/*": ["./src/*"],
+    },
 
     /* Interop Constraints */
     "esModuleInterop": true,
@@ -30,5 +47,6 @@
     /* Completeness */
     "skipLibCheck": true
   },
+
   "include": ["./src/**/*.ts", "./tests/**/*.ts"],
 }

@@ -1,6 +1,7 @@
-import { getEnv, nodeEnv } from './lib/env'
+import 'module-alias/register'
+import { getEnv,nodeEnv } from '@lib/env'
 import { dbService } from './main'
-import log from './lib/log'
+import log from '@lib/log'
 import app from './app'
 
 const serverPort = getEnv('SERVER_PORT')

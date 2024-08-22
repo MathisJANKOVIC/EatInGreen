@@ -1,8 +1,9 @@
-import UserService from '../services/UserService'
-import UserFactory from '../factories/UserFactory'
-import HTTPError from '../utils/HTTPError'
-import { matchHash } from '../lib/encrypt'
-import { JWT } from '../lib/jwt'
+import UserFactory from '@factories/UserFactory'
+import UserService from '@services/UserService'
+import HTTPError from '@utils/HTTPError'
+import { matchHash } from '@lib/encrypt'
+import { JWT } from '@lib/jwt'
+
 import { Request, Response } from 'express'
 
 class AuthController {

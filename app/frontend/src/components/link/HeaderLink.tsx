@@ -1,9 +1,7 @@
-
-
 interface HeaderLinkProps {
-  href: string;
-  url: string;
-  alt: string;
+  href: string
+  url: string
+  alt: string
 }
 
 const HeaderLink: React.FC<HeaderLinkProps> = ({ href, url, alt }) => {
@@ -14,7 +12,7 @@ const HeaderLink: React.FC<HeaderLinkProps> = ({ href, url, alt }) => {
         {alt}
       </a>
     </div>
-  );
-};
+  )
+}
 
-export default HeaderLink;
+export default HeaderLink

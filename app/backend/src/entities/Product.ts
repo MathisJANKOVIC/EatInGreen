@@ -1,6 +1,6 @@
+import { ProductDTO, PublicProductDTO } from '@types-dto/productDTO'
+import EntityDTO from '@types-dto/EntityDTO'
 import Entity from './Entity'
-import { ProductDTO, PublicProductDTO } from '../types/dto/productDTO'
-import EntityDTO from '../types/dto/EntityDTO'
 
 class Product extends Entity<PublicProductDTO> implements EntityDTO{
 

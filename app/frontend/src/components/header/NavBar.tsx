@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import NavLink from "../link/NavLink";
+import { useState } from 'react'
+import NavLink from '../link/NavLink'
 
 function NavBar() {
-  const [activePage, setActivePage] = useState<string | null>(null);;
+  const [activePage, setActivePage] = useState<string | null>(null)
 
   const handleSetActivePage = (href: string) => {
-    setActivePage(href);
-  };
+    setActivePage(href)
+  }
 
   return (
     <div className="flex justify-center items-center py-2">
@@ -28,7 +28,7 @@ function NavBar() {
         </NavLink>
       </div>
     </div>
-  );
+  )
 }
 
-export default NavBar;
+export default NavBar

@@ -1,5 +1,5 @@
-import ProductRepository from '../../repositories/ProductRepository'
-import { ProductDTO } from '../../types/dto/productDTO'
+import ProductRepository from '@repositories/ProductRepository'
+import { ProductDTO } from '@types-dto/productDTO'
 import ProductModel from '../models/ProductModel'
 
 class MongoProductRepository implements ProductRepository {

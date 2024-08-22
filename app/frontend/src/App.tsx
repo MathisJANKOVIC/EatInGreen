@@ -17,20 +17,20 @@ import FlashSales from './pages/flash-sales/FlashSales.tsx'
 import ProductDetails from './pages/details/ProductDetails.tsx'
 
 const router = createBrowserRouter([
-  {path: "/login",element: <Login/>},
-  {path: "/register",element: <Register/>},
-  {path: "/",element: <Main/>,children: [
-    {path: "/",element: <Home/>},
-    {path: "/profil",element: <Profil/>},
-    {path: "/panier",element: <Panier/>},
-    {path: "/favoris",element: <Favoris/>},
-    {path: "/best-sellers",element: <BestSeller/>},
-    {path: "/eco-friendly",element: <EcoFriendly/>},
-    {path: "/top-rated",element: <TopRated/>},
-    {path: "/buy-again",element: <BuyAgain/>},
-    {path: "/flash-sales",element: <FlashSales/>},
-    {path: "/details/:id",element: <ProductDetails/>}
-  ]}
+  { path: '/login',element: <Login/> },
+  { path: '/register',element: <Register/> },
+  { path: '/',element: <Main/>,children: [
+    { path: '/',element: <Home/> },
+    { path: '/profil',element: <Profil/> },
+    { path: '/panier',element: <Panier/> },
+    { path: '/favoris',element: <Favoris/> },
+    { path: '/best-sellers',element: <BestSeller/> },
+    { path: '/eco-friendly',element: <EcoFriendly/> },
+    { path: '/top-rated',element: <TopRated/> },
+    { path: '/buy-again',element: <BuyAgain/> },
+    { path: '/flash-sales',element: <FlashSales/> },
+    { path: '/details/:id',element: <ProductDetails/> }
+  ] }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

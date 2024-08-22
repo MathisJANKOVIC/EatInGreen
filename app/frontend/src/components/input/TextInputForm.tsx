@@ -1,9 +1,9 @@
 interface TextInputProps {
-  id: string;
-  label: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  id: string
+  label: string
+  placeholder: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 function TextInputForm({ placeholder, label, id, value, onChange }: TextInputProps) {
@@ -22,7 +22,7 @@ function TextInputForm({ placeholder, label, id, value, onChange }: TextInputPro
         onChange={onChange}
       />
     </div>
-  );
+  )
 }
 
-export default TextInputForm;
+export default TextInputForm

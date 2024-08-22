@@ -1,6 +1,6 @@
 import { EntityDocument, EntityModel, entitySchema } from './entityModel'
-import { UserDTO } from '../../types/dto/userDTO'
-import { HASH_PATTERN_REGEX } from '../../lib/encrypt'
+import { UserDTO } from '@types-dto/userDTO'
+import { HASH_PATTERN_REGEX } from '@lib/encrypt'
 
 import { Schema, model } from 'mongoose'
 
