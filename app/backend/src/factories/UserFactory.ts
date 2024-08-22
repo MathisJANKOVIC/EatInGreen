@@ -1,7 +1,7 @@
-import { UserDTO } from '../types/dto/userDTO'
-import { createEntityId } from '../lib/uid'
-import { hash } from '../lib/encrypt'
-import User from '../entities/User'
+import { UserDTO } from '@types-dto/userDTO'
+import { createEntityId } from '@lib/uid'
+import { hash } from '@lib/encrypt'
+import User from '@entities/User'
 
 class UserFactory {
     public static createUser(userData: {

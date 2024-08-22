@@ -1,5 +1,5 @@
 import { EntityDocument, EntityModel, entitySchema } from './entityModel'
-import { ProductDTO } from '../../types/dto/productDTO'
+import { ProductDTO } from '@types-dto/productDTO'
 
 import { Schema, model } from 'mongoose'
 

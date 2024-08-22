@@ -1,6 +1,6 @@
-import AuthRequest from '../types/utils/AuthRequest'
-import HTTPError from '../utils/HTTPError'
-import { JWT } from '../lib/jwt'
+import AuthRequest from '@types-utils/AuthRequest'
+import HTTPError from '@utils/HTTPError'
+import { JWT } from '@lib/jwt'
 
 import { Response, NextFunction } from 'express'
 

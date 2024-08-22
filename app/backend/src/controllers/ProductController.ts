@@ -1,7 +1,8 @@
-import ProductService from '../services/ProductService'
-import ProductFactory from '../factories/ProductFactory'
+import ProductService from '@services/ProductService'
+import ProductFactory from '@factories/ProductFactory'
+import HTTPError from '@utils/HTTPError'
+
 import { Request, Response } from 'express'
-import HTTPError from '../utils/HTTPError'
 
 class ProductController {
     private readonly productService: ProductService
@@ -12,7 +13,7 @@ class ProductController {
 
     public async createProduct(req: Request, res: Response): Promise<void> {
         const product = ProductFactory.createProduct(req.body)
-        
+
         const newProduct = await this.productService.createProduct(product)
         res.status(201).json(newProduct)
     }

@@ -1,12 +1,12 @@
-import MongoUserRepository from './database/repositories/MongoUserRepository'
-import UserRepository from './repositories/UserRepository'
-import UserService from './services/UserService'
-import ProductService from './services/ProductService'
-import ProductRepository from './repositories/ProductRepository'
-import MongoDBService from './database/services/MongoDBService'
-import DBService from './services/DBService'
-import { getEnv } from './lib/env'
-import MongoProductRepository from './database/repositories/MongoProductRepository'
+import MongoUserRepository from '@database/repositories/MongoUserRepository'
+import UserRepository from '@repositories/UserRepository'
+import UserService from '@services/UserService'
+import ProductService from '@services/ProductService'
+import ProductRepository from '@repositories/ProductRepository'
+import MongoDBService from '@database/services/MongoDBService'
+import DBService from '@services/DBService'
+import { getEnv } from '@lib/env'
+import MongoProductRepository from '@database/repositories/MongoProductRepository'
 
 const dbHost = getEnv('DB_HOST')
 const dbPort = Number(getEnv('DB_PORT'))
