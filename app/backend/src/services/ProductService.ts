@@ -4,7 +4,7 @@ import Product from '../entities/Product'
 class ProductService {
     public productRepository: ProductRepository
 
-    constructor(repository:ProductRepository) {
+    constructor(repository: ProductRepository) {
         this.productRepository = repository
     }
 
@@ -14,7 +14,7 @@ class ProductService {
         return newProduct
     }
 
-    public async getProductById(id:string): Promise <Product | null> {
+    public async getProductById(id: string): Promise <Product | null> {
         const productDTO = await this.productRepository.findById(id)
         if (productDTO) {
             return new Product(productDTO)
@@ -23,7 +23,7 @@ class ProductService {
         }
     }
 
-    public async getProductByName(name:string): Promise <Product | null> {
+    public async getProductByName(name: string): Promise <Product | null> {
         const productDTO = await this.productRepository.findByName(name)
         if (productDTO) {
             return new Product(productDTO)

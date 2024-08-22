@@ -49,7 +49,7 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
 
 
     constructor(productDTO: ProductDTO) {
-        super({id: productDTO.id, createdAt: productDTO.createdAt})
+        super({ id: productDTO.id, createdAt: productDTO.createdAt })
         this._name = productDTO.name
         this._description = productDTO.description
         this._price = productDTO.price
