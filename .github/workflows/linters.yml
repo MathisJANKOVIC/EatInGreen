@@ -1,10 +1,6 @@
 name: Linters
 
-on:
-  push:
-    branches: main
-  pull_request:
-    branches: main
+on: [push, pull_request]
 
 jobs:
   backend-linter:
@@ -19,14 +15,13 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Go to backend directory
-      run: cd ./app/backend
-
     - name: Install dependencies
       run: npm install
+      working-directory: ./app/backend
 
     - name: Run linter
       run: npm run linter
+      working-directory: ./app/backend
 
   frontend-linter:
     runs-on: ubuntu-latest
@@ -40,11 +35,10 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Go to frontend directory
-      run: cd ./app/frontend
-
     - name: Install dependencies
       run: npm install
+      working-directory: ./app/frontend
 
     - name: Run linter
       run: npm run linter
+      working-directory: ./app/frontend
