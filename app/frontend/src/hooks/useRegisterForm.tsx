@@ -1,54 +1,54 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 interface RegisterFormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
+    firstName: string
+    lastName: string
+    email: string
+    password: string
 }
 
 interface RegisterResponse {
-    token: string;
-    user: any; // Change `any` to the appropriate type based on your backend response
+    token: string
+    user: unknown // Change `any` to the appropriate type based on your backend response
 }
 
 const useRegisterForm = () => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [response, setResponse] = useState<RegisterResponse | null>(null);
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [response, setResponse] = useState<RegisterResponse | null>(null)
 
-    const sendFormData = async (formData: RegisterFormData) => {
-        setLoading(true);
-        setError(null);
+  const sendFormData = async (formData: RegisterFormData) => {
+    setLoading(true)
+    setError(null)
 
-        try {
-            const res = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-            if (!res.ok) {
-                throw new Error(`Error: ${res.statusText}`);
-            }
+      if (!res.ok) {
+        throw new Error(`Error: ${res.statusText}`)
+      }
 
-            const data: RegisterResponse = await res.json();
-            setResponse(data);
-            return data;
-        } catch (err) {
-            if (err instanceof Error) {
-                setError(err.message);
-            } else {
-                setError('An unknown error occurred');
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
+      const data: RegisterResponse = await res.json()
+      setResponse(data)
+      return data
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('An unknown error occurred')
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
 
-    return { sendFormData, loading, error, response };
-};
+  return { sendFormData, loading, error, response }
+}
 
-export default useRegisterForm;
+export default useRegisterForm

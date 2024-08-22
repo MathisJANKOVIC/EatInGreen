@@ -1,23 +1,23 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import useIdProduct from '../../hooks/useIdProduct';
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import useIdProduct from '../../hooks/useIdProduct'
 
 const ProductDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>()
   
-  const { product, loading, error } = useIdProduct(id);
+  const { product, loading, error } = useIdProduct(id)
   
 
   if (loading) {
-    return <p>Chargement du produit...</p>;
+    return <p>Chargement du produit...</p>
   }
 
   if (error) {
-    return <p>Erreur: {error}</p>;
+    return <p>Erreur: {error}</p>
   }
 
   if (!product) {
-    return <p>Produit non trouvé</p>;
+    return <p>Produit non trouvé</p>
   }
 
   return (
@@ -30,7 +30,7 @@ const ProductDetails: React.FC = () => {
       <p className="text-xl font-bold mb-2">{product._price} €</p>
       <p className="text-lg mb-2">Stock disponible: {product._stock}</p>
     </div>
-  );
-};
+  )
+}
 
-export default ProductDetails;
+export default ProductDetails
