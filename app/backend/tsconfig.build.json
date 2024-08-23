@@ -4,21 +4,6 @@
     "outDir": "./dist",
     "removeComments": true
   },
-  "_modulesAliases": {
-    "@controllers": "./dist/controllers",
-    "@database": "./dist/database",
-    "@entities": "./dist/entities",
-    "@factories": "./dist/factories",
-    "@lib": "/dist/lib",
-    "@logging": "./dist/logging",
-    "@middlewares": "./dist/middlewares",
-    "@repositories": "./dist/repositories",
-    "@routers": "./dist/routers",
-    "@services": "./dist/services",
-    "@types-dto": "./dist/types/dto",
-    "@types-utils": "./dist/types/utils",
-    "@utils": "./dist/utils",
-    "@src": "./dist"
-  },
+
   "include": ["./src/**/*.ts"]
 }

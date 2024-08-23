@@ -1,17 +1,20 @@
 import 'module-alias/register'
-import { getEnv,nodeEnv } from '@lib/env'
 import { dbService } from './main'
+import { getEnv, nodeEnv } from '@lib/env'
 import log from '@lib/log'
 import app from './app'
 
-const serverPort = getEnv('SERVER_PORT')
+const serverPort = getEnv('SERVER_PORT');
 
-dbService.connect()
+(async () => {
+    await dbService.connect()
 
-app.listen(serverPort, () => {
-    if (nodeEnv.isProduction) {
-        log.info('Server startup complete.')
-    } else {
-        log.debug('Server startup complete.') // To not overwhelm log file because of nodemon auto restarts
-    }
-})
+    app.listen(serverPort, () => {
+        if (nodeEnv.isProduction) {
+            log.info('Server startup complete.')
+        } else {
+            log.debug('Server startup complete.') // To not overwhelm log file because of nodemon auto restarts
+        }
+    })
+
+})()

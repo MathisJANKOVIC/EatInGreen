@@ -3,7 +3,7 @@
   "scripts": {
     "build": "rimraf ./dist && tsc --project ./tsconfig.build.json",
     "start": "node ./dist/index.js",
-    "dev": "nodemon ./src/index.ts --legacy-watch",
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register ./src/index.ts --legacy-watch",
     "tests": "jest --verbose",
     "linter": "eslint ./"
   },
@@ -38,6 +38,23 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.3",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript-eslint": "^8.1.0"
+  },
+  "_modulesAliases": {
+    "@controllers": "dist/controllers/*",
+    "@database": "dist/database/*",
+    "@entities": "dist/entities/*",
+    "@factories": "dist/factories/*",
+    "@lib": "dist/lib/*",
+    "@logging": "dist/logging/*",
+    "@middlewares": "dist/middlewares/*",
+    "@repositories": "dist/repositories/*",
+    "@routers": "dist/routers/*",
+    "@services": "dist/services/*",
+    "@types-dto": "dist/types/dto/*",
+    "@types-utils": "dist/types/utils/*",
+    "@utils": "dist/utils/*",
+    "@src": "dist/*"
   }
 }

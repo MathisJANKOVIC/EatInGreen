@@ -10,7 +10,7 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
       watch: {
         usePolling: true
       },
-      port: Number(env.VITE_SERVER_PORT) ,
+      port: Number(env.VITE_SERVER_PORT),
     },
   })
 }

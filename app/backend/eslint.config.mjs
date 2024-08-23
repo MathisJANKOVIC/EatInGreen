@@ -32,7 +32,8 @@ export default [
                     }
                 }
             ],
-            'object-curly-spacing': ['error', 'always'] // Imposer un espace à l'intérieur des accolades des objets
+            'object-curly-spacing': ['error', 'always'], // Imposer un espace à l'intérieur des accolades des objets
+            'comma-spacing': ['error', { 'before': false, 'after': true }] // Imposer un espace après les virgules
         }
     }
 ]

@@ -6,7 +6,7 @@ interface PasswordInputProps {
 	id: string
 }
 
-function PasswordInputForm({ placeholder, label, id, value , onChange }: PasswordInputProps) {
+function PasswordInputForm({ placeholder, label, id, value, onChange }: PasswordInputProps) {
   return (
     <div className="w-4/5 mx-auto">
       <label htmlFor={id} className="block text-formtext font-bold">

@@ -34,7 +34,8 @@ export default [
         }
       }
     ],
-    'object-curly-spacing': ['error', 'always']
+    'object-curly-spacing': ['error', 'always'],
+    'comma-spacing': ['error', { 'before': false, 'after': true }] // Imposer un espace après les virgules
   }
   }
 ]
