@@ -36,7 +36,7 @@ class UserController {
         }
 
         await this.userService.saveUser(user)
-        res.status(200).json({ message: 'User profile updated successfully' })
+        res.status(200).json({ user: user.toPublicDto() })
     }
 }
 
