@@ -19,8 +19,8 @@ const userRepository: UserRepository = new MongoUserRepository()
 const productRepository: ProductRepository = new MongoProductRepository()
 
 // Services
-export const userPersistenceService = new UserService(userRepository)
-export const productPersistenceService = new ProductService(productRepository)
+export const userService = new UserService(userRepository)
+export const productService = new ProductService(productRepository)
 export const dbService: DBService = new MongoDBService({
     host: dbHost,
     port: dbPort,

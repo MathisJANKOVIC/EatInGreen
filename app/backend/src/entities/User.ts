@@ -46,6 +46,28 @@ class User extends Entity<PublicUserDTO> implements UserDTO {
         this._cart = userDto.cart
     }
 
+    public setFirstName(firstName: string) {
+        this._firstName = firstName
+    }
+    public setLastName(lastName: string) {
+        this._lastName = lastName
+    }
+    public setPhoneNumber(phoneNumber: string) {
+        this._phoneNumber = phoneNumber
+    }
+    public setEmail(email: string) {
+        this._email = email
+    }
+    public setPasswordHash(passwordHash: string) {
+        this._passwordHash = passwordHash
+    }
+    public setConnectedAt(connectedAt: Date) {
+        this._connectedAt = connectedAt
+    }
+    public setCart(cart: { productId: string, quantity: number }[]) {
+        this._cart = cart
+    }
+
     public override toDto(): UserDTO {
         return {
             ...super.toDto(),
