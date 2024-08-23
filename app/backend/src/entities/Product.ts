@@ -3,14 +3,12 @@ import EntityDTO from '@types-dto/EntityDTO'
 import Entity from './Entity'
 
 class Product extends Entity<PublicProductDTO> implements EntityDTO{
-
     public _name: string
     public _description: string
     public _price: number
     public _stock: number
     public _imagePaths: string[]
     public readonly _userId: string
-
 
     public get name() {
         return this._name
@@ -47,7 +45,6 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
         this._imagePaths = newImagePaths
     }
 
-
     constructor(productDTO: ProductDTO) {
         super({ id: productDTO.id, createdAt: productDTO.createdAt })
         this._name = productDTO.name
@@ -57,7 +54,6 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
         this._imagePaths = productDTO.imagePaths
         this._userId = productDTO.userId
     }
-
 
     public override toDto(): ProductDTO {
         return {
@@ -81,6 +77,5 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
             imagePaths: this._imagePaths,
         }
     }
-
 }
 export default Product
