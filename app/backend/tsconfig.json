@@ -1,14 +1,25 @@
-// Visit https://aka.ms/tsconfig to read more about this file
 {
   "compilerOptions": {
-    /* Language and Environment */
     "target": "ES2022",
-
-    /* Modules */
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "baseUrl": "./",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
     "paths": {
       "@controllers/*": ["./src/controllers/*"],
       "@database/*": ["./src/database/*"],
@@ -23,30 +34,9 @@
       "@types-dto/*": ["./src/types/dto/*"],
       "@types-utils/*": ["./src/types/utils/*"],
       "@utils/*": ["./src/utils/*"],
-      "@src/*": ["./src/*"],
-    },
-
-    /* Interop Constraints */
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-
-    /* Type Checking */
-    "strict": true,
-    "alwaysStrict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noFallthroughCasesInSwitch": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": false,
-
-    /* Completeness */
-    "skipLibCheck": true
+      "@src/*": ["./src/*"]
+    }
   },
-
   "include": ["./src/**/*.ts", "./tests/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
