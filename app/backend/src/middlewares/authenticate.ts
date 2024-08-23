@@ -2,9 +2,9 @@ import AuthRequest from '@types-utils/AuthRequest'
 import HTTPError from '@utils/HTTPError'
 import { JWT } from '@lib/jwt'
 
-import { Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from 'express'
 
-function authenticate(req: AuthRequest, res: Response, next: NextFunction) {
+function authenticate(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization
 
     if (authHeader === undefined) {
@@ -18,8 +18,8 @@ function authenticate(req: AuthRequest, res: Response, next: NextFunction) {
     const jwt = new JWT(token)
 
     try {
-        const payload = jwt.extractPayload()
-        req.userId = payload.userId
+        const payload = jwt.extractPayload();
+        (req as AuthRequest).userId = payload.userId
     } catch {
         throw new HTTPError(401, 'invalid or expired authentication token')
     }

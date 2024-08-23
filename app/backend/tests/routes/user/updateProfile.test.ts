@@ -9,14 +9,16 @@ describe('User routes', () => {
             email: 'john@gmail.com',
             password: 'john123'
         }
-        await client.post('/auth/register', userData)
-
+        const res = await client.post('/auth/register', userData)
+        const token = res.body.token
+        const headers = { Authorization: `Bearer ${token}` }
+        
         const newUserData = {
             firstName: 'Jane',
             lastName: 'Smith',
             phoneNumber: '+2 123 456 7890'
         }
-        const response = await client.patch('/user/profile', newUserData)
+        const response = await client.patch('/user/profile', newUserData, headers)
         expect(response.status).toBe(200)
 
         expect(response.body).toHaveProperty('user')
