@@ -23,10 +23,10 @@ const ProductDetails: React.FC = () => {
   return (
     <main className="bg-customGray w-[95%] h-[85%] rounded-lg p-4 mx-auto my-auto flex flex-col transform translate-y-12">
       <NavBar />
-      <div className="bg-white w-full h-full mx-auto rounded-lg shadow-lg p-6 flex flex-col md:flex-row mt-6 space-y-4 md:space-y-0">
+      <div className="bg-white w-full h-full mx-auto rounded-lg shadow-lg p-6 flex flex-col md:flex-row mt-6 space-y-4 md:space-y-0 md:space-x-4">
         
-        {/* Image du produit en haut à droite */}
-        <div className="flex-shrink-0 md:w-1/3  flex-col items-center md:items-end">
+        {/* Image du produit */}
+        <div className="flex-shrink-0 md:w-1/3 flex flex-col items-center md:items-start">
           <img 
             src={product._imagePaths[0]} 
             alt={product._name} 
@@ -34,24 +34,30 @@ const ProductDetails: React.FC = () => {
           />
         </div>
 
-        {/* Description et informations du produit à gauche */}
-        <div className="flex-grow md:w-1/3">
+        {/* Description et informations du produit */}
+        <div className="flex-grow md:w-2/3">
           {/* Titre du produit */}
           <h1 className="text-3xl font-bold text-[#A07E53] mb-4">{product._name}</h1>
           
-          {/* Description du produit sous l'image */}
-          <p className="text-xl text-[#A07E53] mb-4">{product._description}</p>
+          {/* Description du produit avec scrollbar */}
+          <div className="text-xl text-[#A07E53] mb-2 max-h-20 overflow-y-auto">
+            {product._description}
+          </div>
 
           {/* Informations sur le prix et la quantité */}
           <div className="mt-6">
             <p className="text-lg text-[#A07E53] mb-2">Quantité : {product._stock}</p>
             <p className="text-xl font-bold text-[#A07E53] mb-4">Prix : {product._price} €</p>
 
-            <div className="bg-gray-200 p-4 rounded-lg shadow-inner w-[20%]">
-              <button className="mt-4 bg-green-500 text-green py-2 px-4 rounded-lg hover:bg-green-600 w-full">
-                ajouter au panier
+            <div className="flex justify-between w-full">
+              <button className="bg-green text-white py-2 px-4 rounded-lg hover:bg-green-600 w-1/2 mr-2">
+                Ajouter au panier
+              </button>
+              <button className="bg-green text-white py-2 px-4 rounded-lg hover:bg-green-600 w-1/2 ml-2">
+                Mettre en favoris
               </button>
             </div>
+
           </div>
         </div>
       </div>
