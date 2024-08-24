@@ -1,4 +1,4 @@
-import { userService } from '@src/main'
+import { userService } from '@/main'
 import authenticate from '@middlewares/authenticate'
 import UserController from '@controllers/UserController'
 

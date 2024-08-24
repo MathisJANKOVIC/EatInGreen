@@ -1,11 +1,11 @@
 import AuthController from '@controllers/AuthController'
 import asyncHandler from '@utils/asyncHandler'
-import { userService } from '@src/main'
+import { userService } from '@/main'
 
 import { Router } from 'express'
 
 const authRouter = Router()
-
+ 
 const authController = new AuthController(userService)
 
 authRouter.post('/register', asyncHandler(authController.register.bind(authController)))

@@ -38,8 +38,11 @@
       "@types-dto/*": ["./src/types/dto/*"],
       "@types-utils/*": ["./src/types/utils/*"],
       "@utils/*": ["./src/utils/*"],
-      "@src/*": ["./src/*"],
+      "@/*": ["./src/*"],
       "@tests/*": ["./src/tests/*"]
     }
-  }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
 }

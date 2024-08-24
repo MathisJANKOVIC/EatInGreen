@@ -1,6 +1,6 @@
 import ProductController from '@controllers/ProductController'
 import asyncHandler from '@utils/asyncHandler'
-import { productService } from '@src/main'
+import { productService } from '@/main'
 
 import { Router } from 'express'
 
