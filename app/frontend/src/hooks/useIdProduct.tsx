@@ -23,7 +23,7 @@ const useIdProduct = (_id: string | undefined) => {
     const fetchProduct = async () => {
       try {
         setLoading(true)
-        const res = await fetch(`/api/product/product/id/${_id}`, {
+        const res = await fetch(`/api/product/products/id/${_id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
