@@ -31,7 +31,7 @@ const Login: React.FC = () => {
       })
 
       if (response && response.token) {
-        navigate('/home')
+        navigate('/')
       }
     } catch (error) {
       console.error('Failed to send form data:', error)
