@@ -47,12 +47,12 @@ class ProductController {
     }
 
     public async getAllProducts(req: Request, res: Response): Promise<void> {
-        const limit = parseInt(req.query.limit as string) || 30
+        const limit = parseInt(req.query.limit as string) || 60
         const products = await this.productService.getAllProduct(limit)
         if (!products || products.length === 0) {
             throw new HTTPError(404, 'No products found')
         }
-        res.status(200).json(products)
+        res.status(200).json(products)  
     }
 
     public async updateProduct(req: Request, res: Response): Promise<void> {
