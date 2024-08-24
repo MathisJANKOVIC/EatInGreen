@@ -54,36 +54,6 @@ class ProductController {
         }
         res.status(200).json(products)  
     }
-
-    public async updateProduct(req: Request, res: Response): Promise<void> {
-        const { id } = req.params
-        const updatedData = req.body
-
-        if (!id) {
-            throw new HTTPError(400, 'Product ID is required')
-        }
-
-        const updatedProduct = await this.productService.updateProduct(id, updatedData)
-        if (!updatedProduct) {
-            throw new HTTPError(404, 'Product not found')
-        }
-        res.status(200).json(updatedProduct)
-    }
-
-    public async deleteProduct(req: Request, res: Response): Promise<void> {
-        const { id } = req.params
-
-        if (!id) {
-            throw new HTTPError(400, 'Product ID is required')
-        }
-
-        const deleted = await this.productService.deleteProduct(id)
-        if (!deleted) {
-            throw new HTTPError(404, 'Product not found')
-        }
-
-        res.status(200).json({ message: 'Product successfully deleted' })
-    }
 }
 
 export default ProductController

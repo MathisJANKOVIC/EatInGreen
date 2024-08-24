@@ -28,32 +28,6 @@ class MongoProductRepository implements ProductRepository {
         const productDocument = ProductModel.fromDto(productDto)
         await productDocument.save()
     }
-
-    public async update(id: string, updateData: Partial<ProductDTO>): Promise<ProductDTO | null> {
-        if (updateData.id) {
-            delete updateData.id
-        }
-
-        const productDocument = await ProductModel.findOneAndUpdate(
-            { publicId: id },
-            { $set: updateData },
-            { new: true, runValidators: true }
-        ).exec()
-
-        if (productDocument) {
-            return productDocument.toDto()
-        }
-        return null
-    }
-
-
-    public async delete(id: string): Promise<ProductDTO | null> {
-        const productDocument = await ProductModel.findOneAndDelete({ publicId: id }).exec()
-        if (productDocument) {
-            return productDocument.toDto()
-        }
-        return null
-    }
 }
 
 export default MongoProductRepository

@@ -41,29 +41,6 @@ class ProductService {
             return null
         }
     }
-
-    public async updateProduct(id: string, updatedData: Partial<Product>): Promise<Product | null> {
-        const existingProduct = await this.getProductById(id)
-        if (!existingProduct) {
-            return null
-        }
-        Object.assign(existingProduct, updatedData)
-        await this.productRepository.save(existingProduct.toDto())
-        return existingProduct
-    }
-
-    public async deleteProduct(id: string): Promise<boolean> {
-        const product = await this.getProductById(id)
-        if (product) {
-            await this.productRepository.delete(id)
-            return true
-        }
-        return false
-    }
-
-    public async saveProduct(Product: Product): Promise<void> {
-        await this.productRepository.save(Product.toDto())
-    }
 }
 
 export default ProductService
