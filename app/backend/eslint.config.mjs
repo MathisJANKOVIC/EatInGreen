@@ -1,15 +1,15 @@
-import globals from 'globals'
-import pluginJs from '@eslint/js'
-import tseslint from 'typescript-eslint'
 import stylisticTs from '@stylistic/eslint-plugin-ts'
+import tseslint from 'typescript-eslint'
+import pluginJs from '@eslint/js'
+import globals from 'globals'
 
 export default [
-    { files: ['**/*.{js,mjs,cjs,ts}'] },
+    { files: ['**/*'] },
+    { ignores: ['dist'] },
     { languageOptions: { globals: globals.node } },
     { plugins: { '@stylistic/ts': stylisticTs } },
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
-    { ignores: ['node_modules', 'dist'] },
     {
         rules: {
             '@typescript-eslint/no-unused-vars': 'off',

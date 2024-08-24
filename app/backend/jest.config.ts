@@ -1,8 +1,7 @@
-import type { Config } from '@jest/types'
-import tsconfig from './tsconfig.json'
 import { pathsToModuleNameMapper } from 'ts-jest'
+import type { Config } from '@jest/types'
 
-const compilerOptions = tsconfig.compilerOptions
+import tsconfig from './tsconfig.json'
 
 const config: Config.InitialOptions = {
     preset: 'ts-jest',
@@ -11,7 +10,7 @@ const config: Config.InitialOptions = {
     testMatch: ['**/tests/**/*.test.ts'],
     forceExit: true,
     detectOpenHandles: true,
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+    moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths, { prefix: '<rootDir>/' }),
     transform: {
         '^.+\\.ts$': ['ts-jest', { tsconfig: './tsconfig.json' }]
     }

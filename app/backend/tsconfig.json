@@ -1,28 +1,32 @@
 {
+  "include": ["./**/*"],
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
-    "baseUrl": "./",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "skipLibCheck": true,
+
     "alwaysStrict": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
+    "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noFallthroughCasesInSwitch": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "strictPropertyInitialization": false,
-    "skipLibCheck": true,
+    "useUnknownInCatchVariables": true,
+
     "paths": {
       "@controllers/*": ["./src/controllers/*"],
-      "@database/*": ["./src/database/*"],
+      "@database-models/*": ["./src/database/models/*"],
+      "@database-repositories/*": ["./src/database/repositories/*"],
+      "@database-services/*": ["./src/database/services/*"],
       "@entities/*": ["./src/entities/*"],
       "@factories/*": ["./src/factories/*"],
       "@lib/*": ["./src/lib/*"],
@@ -34,9 +38,8 @@
       "@types-dto/*": ["./src/types/dto/*"],
       "@types-utils/*": ["./src/types/utils/*"],
       "@utils/*": ["./src/utils/*"],
-      "@src/*": ["./src/*"]
+      "@src/*": ["./src/*"],
+      "@tests/*": ["./src/tests/*"]
     }
-  },
-  "include": ["./src/**/*.ts", "./tests/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  }
 }
