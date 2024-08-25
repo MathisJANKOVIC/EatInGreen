@@ -49,7 +49,7 @@ const httpRequestLogger = expressWinston.logger({
         const ip = rawIp.replace(/^.*:/, '') // Keep only the IPv4 address part from the raw address
 
         return { extra: { ip, port } }
-    },
+    }
 })
 
 export default httpRequestLogger

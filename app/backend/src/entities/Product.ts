@@ -63,7 +63,7 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
             price: this._price,
             stock: this._stock,
             imagePaths: this._imagePaths,
-            userId: this._userId,
+            userId: this._userId
         }
     }
 
@@ -74,7 +74,7 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
             description: this._description,
             price: this._price,
             stock: this._stock,
-            imagePaths: this._imagePaths,
+            imagePaths: this._imagePaths
         }
     }
 }

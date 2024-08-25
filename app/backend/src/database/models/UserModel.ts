@@ -21,7 +21,7 @@ const userSchema = new Schema<UserDocument>({
             productId: { type: String, required: true },
             quantity: { type: Number, required: true, min: 1 }
         }],
-        required: true,
+        required: true
     }
 })
 userSchema.add(entitySchema)
