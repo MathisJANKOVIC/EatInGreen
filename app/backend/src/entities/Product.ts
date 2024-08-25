@@ -29,19 +29,19 @@ class Product extends Entity<PublicProductDTO> implements EntityDTO{
         return this._userId
     }
 
-    public set name(newName: string) {
+    public setName(newName: string) {
         this._name = newName
     }
-    public set description(newDescription: string) {
+    public setDescription(newDescription: string) {
         this._description = newDescription
     }
-    public set price(newPrice: number) {
+    public setPrice(newPrice: number) {
         this._price = newPrice
     }
-    public set stock(newStock: number) {
+    public setStock(newStock: number) {
         this._stock = newStock
     }
-    public set imagePaths(newImagePaths: string[]) {
+    public setImagePaths(newImagePaths: string[]) {
         this._imagePaths = newImagePaths
     }
 
