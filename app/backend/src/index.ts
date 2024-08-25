@@ -1,4 +1,3 @@
-import 'module-alias/register'
 import { dbService } from './main'
 import { getEnv, nodeEnv } from '@lib/env'
 import log from '@lib/log'

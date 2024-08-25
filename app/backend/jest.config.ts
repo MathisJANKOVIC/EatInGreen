@@ -6,10 +6,11 @@ import tsconfig from './tsconfig.json'
 const config: Config.InitialOptions = {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    setupFilesAfterEnv: ['./tests/setup.ts'],
     testMatch: ['**/tests/**/*.test.ts'],
+    setupFilesAfterEnv: ['./tests/setup.ts'],
     forceExit: true,
     detectOpenHandles: true,
+    verbose: true,
     moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths, { prefix: '<rootDir>/' }),
     transform: {
         '^.+\\.ts$': ['ts-jest', { tsconfig: './tsconfig.json' }]
