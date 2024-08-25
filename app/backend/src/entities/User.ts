@@ -92,6 +92,12 @@ class User extends Entity<PublicUserDTO> implements UserDTO {
             cartItemCount: this.cartItemCount,
         }
     }
+
+    public addToCart(quantity: number, productId: string) {
+        const cartItem = { quantity, productId }
+        this._cart.push(cartItem)
+    
+    }
 }
 
 export default User
