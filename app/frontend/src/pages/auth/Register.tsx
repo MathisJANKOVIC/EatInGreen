@@ -11,6 +11,7 @@ const Register: React.FC = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phoneNumber: '',
     password: '',
     passwordcheck: ''
   })
@@ -49,6 +50,7 @@ const Register: React.FC = () => {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
+        phoneNumber: formData.phoneNumber,
         password: formData.password,
       })
 
@@ -73,6 +75,7 @@ const Register: React.FC = () => {
           <TextInputForm id='firstName' label='First name' placeholder='Enter your first name' value={formData.firstName} onChange={handleChange} />
           <TextInputForm id='lastName' label='Last name' placeholder='Enter your last name' value={formData.lastName} onChange={handleChange} />
           <TextInputForm id='email' label='Email' placeholder='Enter your email' value={formData.email} onChange={handleChange} />
+          <TextInputForm id='phoneNumber' label='Phone number' placeholder='Enter your phone number' value={formData.phoneNumber} onChange={handleChange} />
           <PasswordInputForm id='password' label='Password' placeholder='Enter your password' value={formData.password} onChange={handlePasswordChange} />
           <PasswordInputForm id='passwordcheck' label='Confirm Password' placeholder='Enter your password again' value={formData.passwordcheck} onChange={handlePasswordChange} />
           {!passwordsMatch && <p className='text-red-500 text-sm'>Passwords do not match</p>}
