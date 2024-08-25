@@ -29,7 +29,7 @@ class MongoDBService implements DBService {
     public async connect(): Promise<void> {
         await mongoose.connect(
             `mongodb://${this.user}:${this.password}@${this.host}:${this.port}/${this.dbName}?authSource=admin`, {
-                serverSelectionTimeoutMS: this.timeoutMs,
+                serverSelectionTimeoutMS: this.timeoutMs
             }
         )
     }

@@ -77,7 +77,7 @@ class User extends Entity<PublicUserDTO> implements UserDTO {
             email: this._email,
             passwordHash: this._passwordHash,
             connectedAt: this._connectedAt,
-            cart: this._cart,
+            cart: this._cart
         }
     }
 
@@ -89,7 +89,7 @@ class User extends Entity<PublicUserDTO> implements UserDTO {
             phoneNumber: this._phoneNumber,
             email: this._email,
             connectedAt: this._connectedAt,
-            cartItemCount: this.cartItemCount,
+            cartItemCount: this.cartItemCount
         }
     }
 
