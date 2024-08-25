@@ -7,7 +7,7 @@ class ProductService {
     constructor(repository: ProductRepository) {
         this.productRepository = repository
     }
-
+    
     public async createProduct(product: Product): Promise <Product | null> {
         const newProduct = new Product(product)
         await this.productRepository.save(newProduct.toDto())
