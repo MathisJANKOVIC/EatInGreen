@@ -20,7 +20,7 @@ class MongoDBMemoryService implements DBService {
 
     public async connect(): Promise<void> {
         this.server = await MongoMemoryServer.create({
-            instance: { ip: this.host, port: this.port, dbName: this.dbName },
+            instance: { ip: this.host, port: this.port, dbName: this.dbName }
         })
 
         const uri = this.server.getUri()

@@ -1,4 +1,4 @@
-FROM node:20-bookworm AS build
+FROM node:20 AS build
 
 WORKDIR /app
 
@@ -8,13 +8,13 @@ RUN npm install
 COPY ./ ./
 
 RUN npm run build
-# -------------------------------------------
-FROM node:20-bookworm AS deploy
+# --------------------------------
+FROM node:20-alpine AS deploy
 
 WORKDIR /app
 
 COPY ./package*.json ./
-RUN npm clean-install --only=production
+RUN npm clean-install --omit=dev
 
 COPY --from=build /app/dist ./dist
 

@@ -7,7 +7,7 @@ describe('Register route', () => {
             lastName: 'Doe',
             phoneNumber: '+1 123 456 7890',
             email: 'john.doe@gmail.com',
-            password: 'john123',
+            password: 'john123'
         }
         const response = await client.post('/auth/register', userData)
         expect(response.status).toBe(201)

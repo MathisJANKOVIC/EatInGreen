@@ -23,6 +23,25 @@ class MongoUserRepository implements UserRepository {
         const userDocument = UserModel.fromDto(userDto)
         await userDocument.save()
     }
+
+    public async update(userDTO: UserDTO): Promise< void > {
+
+        await UserModel.findOneAndUpdate(
+            { publicId: userDTO.id },  // Utilisation de publicId pour trouver l'utilisateur
+            { $set: userDTO },         // Mise à jour des champs fournis avec $set
+            { new: true }                   // Retourner le document mis à jour
+        ).exec()
+
+    }                                                                    
+    
+
+    public async deleteFromCart(userId: string, productId: string): Promise<void> {
+        const userDocument = await UserModel.findOne({ publicId: userId }).exec()
+        if (userDocument) {
+            userDocument.cart = userDocument.cart.filter(item => item.productId !== productId)
+            await userDocument.save()
+        } 
+    }
 }
 
 export default MongoUserRepository

@@ -21,10 +21,6 @@ abstract class Entity<TPublicEntityDTO> implements EntityDTO {
             id: this._id,
             createdAt: this._createdAt
         }
-        return {
-            id: this._id,
-            createdAt: this._createdAt
-        }
     }
 
     public abstract toPublicDto(): TPublicEntityDTO

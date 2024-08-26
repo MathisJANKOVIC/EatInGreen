@@ -10,7 +10,7 @@ describe('Login route', () => {
             lastName: 'Jankovic',
             phoneNumber: '+33 6 51 53 37 31',
             email: userEmail,
-            password: userPassword,
+            password: userPassword
         })
         expect(response.status).toBe(201)
     })

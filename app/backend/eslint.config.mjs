@@ -22,18 +22,20 @@ export default [
             '@stylistic/ts/type-annotation-spacing': [
                 'error',
                 {
-                    'before': false,     // Pas d'espace avant `:`
-                    'after': true,       // Un espace après `:`
+                    'before': false,
+                    'after': true,
                     'overrides': {
                         'arrow': {
-                            'before': true,  // Un espace avant `=>`
-                            'after': true    // Un espace après `=>`
+                            'before': true, // space before `=>`
+                            'after': true // space after `=>`
                         }
                     }
                 }
             ],
-            'object-curly-spacing': ['error', 'always'], // Imposer un espace à l'intérieur des accolades des objets
-            'comma-spacing': ['error', { 'before': false, 'after': true }] // Imposer un espace après les virgules
+            'object-curly-spacing': ['error', 'always'],
+            'comma-spacing': ['error', { 'before': false, 'after': true }],
+            'camelcase': ['error', { properties: 'always' }],
+            'comma-dangle': ['error', 'never']
         }
     }
 ]
