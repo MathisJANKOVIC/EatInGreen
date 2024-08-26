@@ -12,7 +12,7 @@ const ProductDetails: React.FC = () => {
   const { product, loading, error } = useIdProduct(id)
   const { addToCart, loading: addingToCart, error: cartError } = useCart() 
   const [quantity, setQuantity] = useState(1)
-  const _userId = localStorage.getItem('id')
+  const _userId = localStorage.getItem('id') //demandez avant de toucher !
 
   if (loading) {
     return <p>Chargement du produit...</p>

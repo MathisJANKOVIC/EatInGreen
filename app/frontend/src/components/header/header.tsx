@@ -5,9 +5,12 @@ import Pdp from '../../assets/Pdp.png'
 import Panier from '../../assets/Panier.png'
 import Favoris from '../../assets/Favoris.png'
 import HeaderLink from '../../components/link/HeaderLink'
+import { Link } from 'react-router-dom'
 
 function Header() {
   const [token, setToken] = useState<string | null>(null)
+  const id = localStorage.getItem('id') //demandez avant de toucher !
+  console.log(`User ID: ${id}`) // Vérifie que cette valeur est correcte
 
   useEffect(() => {
     // Charger le token depuis localStorage au chargement initial
@@ -31,7 +34,11 @@ function Header() {
 
       <div className="flex items-center space-x-4">
         <HeaderLink href="/favoris" url={Favoris} alt='favoris'/>
-        <HeaderLink href="/panier" url={Panier} alt='Panier'/>
+        <Link to={`/panier/${id}`} className="p-2 text-center flex-1 text-[#A07E53]">
+          <img src={Panier} alt='Panier' className="inline-block w-1/8 h-10 mr-2" />
+          Panier
+        </Link>
+
         {token ? (
           <HeaderLink href="/profil" url={Pdp} alt='Profils'/>
         ) : (
