@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react'
-
-interface Product {
-  _id: string
-  _name: string
-  _description: string
-  _price: number
-  _stock: number
-  _imagePaths: string[]
-}
+import { Product } from '../components/product/Product'
 
 const useIdProduct = (_id: string | undefined) => {
   const [product, setProduct] = useState<Product | null>(null)

@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import useIdProduct from '../../hooks/useIdProduct'
 import NavBar from '../../components/header/NavBar'
 import ButtonForm from '../../components/button/ButtonForm'
 import QuantitySelector from '../../components/input/QuantitySelector'
+import useCart from '../../hooks/useAddCart'
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-  const navigate = useNavigate()
   
   const { product, loading, error } = useIdProduct(id)
+  const { addToCart, loading: addingToCart, error: cartError } = useCart() 
   const [quantity, setQuantity] = useState(1)
-
-  const handleQuantityChange = (quantity: number) => {
-    console.log('Quantité sélectionnée:', quantity)
-  }
+  const _userId = localStorage.getItem('id')
 
   if (loading) {
     return <p>Chargement du produit...</p>
@@ -26,21 +24,6 @@ const ProductDetails: React.FC = () => {
     return <p>Produit non trouvé</p>
   }
 
-  const handleClick = async () => {
-  //   try {
-  //     const response = await sendCartItemData({
-  //       id: id,
-  //       quantity: quantity,
-  //     })
-
-  //     if (response && response.token) {
-  //       localStorage.setItem('authToken', response.token)
-  //       navigate('/')
-  //     }
-  //   } catch (error) {
-  //     console.error('Failed to send form data:', error)
-  //   }
-  }
 
   return (
     <main className="bg-customGray w-[95%] h-[85%] rounded-lg p-4 mx-auto my-auto flex flex-col transform translate-y-12">
@@ -73,15 +56,22 @@ const ProductDetails: React.FC = () => {
 
             <div className="flex justify-between w-full">
               <p className="text-lg text-formtext mb-2"> Quantité : </p>
-              <QuantitySelector quantity={1} maxQuantity={product._stock} setQuantity={setQuantity} />
+              <QuantitySelector quantity={quantity} maxQuantity={product._stock} setQuantity={setQuantity} />
               <div className='w-1/2'>
-                <ButtonForm label='Ajouter au panier' onClick={handleClick}/>
-              </div>
+                <Link
+                  to={`/panier/${_userId}`} 
+                >
+                  <ButtonForm label='Ajouter au panier' onClick={() => {
+                    addToCart({ productId: product._id, quantity })
+                  }} disabled={addingToCart} />
+                </Link>              </div>
             </div>
+            {cartError && <p className="text-red-500 mt-2">{cartError}</p>}
           </div>
         </div>
       </div>
     </main>
   )
 }
+
 export default ProductDetails

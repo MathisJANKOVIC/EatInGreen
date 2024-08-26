@@ -7,6 +7,7 @@ interface Product {
   _stock: number
   _imagePaths: string[]
   _description: string
+  _userId: string
 }
 
 interface ProductListProps {

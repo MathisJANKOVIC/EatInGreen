@@ -32,6 +32,9 @@ const Login: React.FC = () => {
 
       if (response && response.token) {
         localStorage.setItem('authToken', response.token)
+        localStorage.setItem('id', response.user.id) // ne pas toucher, merci !
+        console.log('User ID stored:', response.user.id)
+
         navigate('/')
       }
     } catch (error) {

@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react'
-
-interface Product {
-    _id: string
-    _name: string
-    _price: number
-    _description: string
-    _stock: number
-    _imagePaths: string[]
-}
+import { Product } from '../components/product/Product'
 
 interface FetchProductsResponse {
     products: Product[] 
