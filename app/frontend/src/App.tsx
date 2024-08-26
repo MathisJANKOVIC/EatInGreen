@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   { path: '/register', element: <Register/> },
   { path: '/', element: <Main/>, children: [
     { path: '/', element: <Home/> },
-    { path: '/profil', element: <Profil/> },
+    { path: '/profil/:id', element: <Profil/> },
     { path: '/panier/:id', element: <Panier/> },
     { path: '/favoris', element: <Favoris/> },
     { path: '/best-sellers', element: <BestSeller/> },

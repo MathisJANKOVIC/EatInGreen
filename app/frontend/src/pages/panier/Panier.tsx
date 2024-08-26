@@ -42,7 +42,7 @@ const CartPage: React.FC = () => {
                         <li key={item.productId} className="m-4">
                           <div className="block relative bg-white rounded-lg shadow-md overflow-hidden w-full sm:w-60 p-4">
                             <div className='mb-2'>
-                              <h3 className='text-xl font-semibold'>Product ID:</h3>
+                              <h3 className='text-xl font-semibold'>Product:</h3>
                               <p>{item.productId}</p>
                             </div>
                             <div className='mb-2'>

@@ -1,68 +1,116 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import useUpdateProfile from '../../hooks/useUpdateProfile'
 import NavBar from '../../components/header/NavBar'
 
-const Profil: React.FC = () => {
-  const messages: JSX.Element[] = []
+const EditProfile: React.FC = () => {
+  const { updateProfile, loading: updateLoading, error: updateError } = useUpdateProfile()
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    lastName: '',
+    firstName: '',
+    password: '', 
+  })
 
-  for (let i = 0; i < 4; i++) {
-    messages.push(
-      <div className='bg-gray-100 p-4 m-2 rounded-md text-[#A07E53]' key={i}>
-          ceci est un message de l utilisateur, c est un exemple.
-      </div>
-    )
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const userId = localStorage.getItem('id') // Don't touch, please
+
+    if (userId) {
+      await updateProfile(userId, formData)
+    } else {
+      console.error('User ID not found')
+    }
   }
 
   return (
-  
     <main className='bg-customGray w-[95%] h-[85%] rounded-lg p-4 mx-auto my-auto flex flex-col transform translate-y-12'>
       <NavBar />
       <div className='flex mt-6 space-x-4 flex-grow'>
-        <div className='w-3/4 flex flex-col space-y-4 h-full'>
+        <div className='w-3/4 flex flex-col space-y-4'>
+          {/* Affichage des informations actuelles */}
           <div className='bg-white p-4 rounded-lg shadow-md flex-1 overflow-auto'>
-            <h2 className='text-lg font-semibold mb-4 text-[#A07E53]'>Achats récent</h2>
-            <div className='bg-green-200 p-4 rounded-md text-center text-[#A07E53]'>
-                Vous n savez encore rien acheté 
-            </div>
-          </div>
-          <div className='bg-white p-4 rounded-lg shadow-md flex-1 overflow-auto'>
-            <h2 className='text-lg font-semibold mb-4 text-[#A07E53]'>Avis laissés</h2>
-            <div className='grid grid-cols-4 gap-4'>
-              {messages}
+            <h2 className='text-lg font-semibold mb-4 text-[#A07E53]'>Vos messages</h2>
+            <div className='flex space-x-4'>
+              <div className='flex-1 bg-gray-100 p-4 rounded-md text-[#A07E53]'>
+                <h3 className='font-medium'>Message 1</h3>
+                <p>Contenu du message 1.</p>
+              </div>
+              <div className='flex-1 bg-gray-100 p-4 rounded-md text-[#A07E53]'>
+                <h3 className='font-medium'>Message 2</h3>
+                <p>Contenu du message 2.</p>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Formulaire de modification */}
         <div className='w-1/4'>
           <div className='bg-white p-4 rounded-lg shadow-md h-full'>
-            <h2 className='text-lg font-semibold mb-4 text-[#A07E53]'>Votre compte</h2>
-            <div className='flex items-center mb-4'>
-              <img
-                src='https://via.placeholder.com/50'
-                alt='Profile'
-                className='rounded-full w-12 h-12 mr-4'
-              />
+            <h2 className='text-lg font-semibold mb-4 text-[#A07E53]'>Modifier votre compte</h2>
+            <form onSubmit={handleSubmit} className='space-y-4'>
               <div>
-                <h3 className='font-semibold text-[#A07E53]'>Axel Calveit</h3>
-                <p className='text-[#A07E53]'>BIO</p>
+                <label htmlFor='email' className='block text-sm font-medium'>Email</label>
+                <input
+                  id='email'
+                  name='email'
+                  type='email'
+                  value={formData.email}
+                  onChange={handleChange}
+                  className='mt-1 p-2 border rounded w-full'
+                />
               </div>
-            </div>
-            <div className='space-y-4'>
-              <div className='flex items-center text-[#A07E53]'>
-                <span>email</span>
-                <button className='ml-auto text-[#83C082]'>✎</button>
+              <div>
+                <label htmlFor='password' className='block text-sm font-medium'>Mot de passe</label>
+                <input
+                  id='password'
+                  name='password'
+                  type='password'
+                  value={formData.password}
+                  onChange={handleChange}
+                  className='mt-1 p-2 border rounded w-full'
+                />
               </div>
-              <div className='flex items-center text-[#A07E53]'>
-                <span>mdp</span>
-                <button className='ml-auto text-[#83C082]'>✎</button>
+              <div>
+                <label htmlFor='lastName' className='block text-sm font-medium'>Nom</label>
+                <input
+                  id='lastName'
+                  name='lastName'
+                  type='text'
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className='mt-1 p-2 border rounded w-full'
+                />
               </div>
-              <div    className='flex items-center text-[#A07E53]'>
-                <span>nom</span>
-                <button className='ml-auto text-[#83C082]'>✎</button>
+              <div>
+                <label htmlFor='firstName' className='block text-sm font-medium'>Prénom</label>
+                <input
+                  id='firstName'
+                  name='firstName'
+                  type='text'
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className='mt-1 p-2 border rounded w-full'
+                />
               </div>
-              <div className='flex items-center text-[#A07E53] '>
-                <span>prénom</span>
-                <button className='ml-auto text-[#83C082]'>✎</button>
-              </div>
-            </div>
+              <button
+                type='submit'
+                className='bg-[#83C082] text-white p-4 rounded-md w-full'
+                disabled={updateLoading}
+              >
+                {updateLoading ? 'Enregistrement...' : 'Enregistrer'}
+              </button>
+              {updateError && <p className='text-red-500'>{updateError}</p>}
+            </form>
           </div>
         </div>
       </div>
@@ -70,4 +118,4 @@ const Profil: React.FC = () => {
   )
 }
 
-export default Profil
+export default EditProfile

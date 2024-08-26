@@ -39,13 +39,18 @@ function Header() {
           Panier
         </Link>
 
-        {token ? (
-          <HeaderLink href="/profil" url={Pdp} alt='Profils'/>
-        ) : (
-          <a href="/login" className="p-2 text-center flex-1 text-[#A07E53]">
-            Login
-          </a>
-        )}
+        {/* {token ? (
+            <HeaderLink href="/profil" url={Pdp} alt='Profils'/>
+          ) : (
+            <a href="/login" className="p-2 text-center flex-1 text-[#A07E53]">
+              Login
+            </a>
+          )} */}
+        <Link to={`/profil/${id}`} className="p-2 text-center flex-1 text-[#A07E53]">
+          <img src={Pdp} alt='Profil' className="inline-block w-1/8 h-10 mr-2" />
+          profil
+        </Link>
+
       </div>
     </header>
   )
