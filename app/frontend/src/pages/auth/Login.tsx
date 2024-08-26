@@ -31,6 +31,7 @@ const Login: React.FC = () => {
       })
 
       if (response && response.token) {
+        localStorage.setItem('authToken', response.token)
         navigate('/')
       }
     } catch (error) {
@@ -49,6 +50,9 @@ const Login: React.FC = () => {
           <TextInputForm id='email' label='Email' placeholder='Enter your email' value={formData.email} onChange={handleChange} />
           <PasswordInputForm id='password' label='Password' placeholder='Enter your password' value={formData.password} onChange={handleChange} />
           <ButtonForm label='Connect' onClick={handleClick} />
+          <a href="/Register" className="p-2 text-center flex-1 text-[#A07E53]">
+            Register
+          </a>
           {loading && <p className='text-center text-gray-500'>Loading...</p>}
           {error && <p className='text-center text-red-500'>{error}</p>}
           {response && response.token && <p className='text-center text-green-500'>Login successful!</p>}

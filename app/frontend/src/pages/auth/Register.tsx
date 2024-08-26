@@ -80,6 +80,9 @@ const Register: React.FC = () => {
           <PasswordInputForm id='passwordcheck' label='Confirm Password' placeholder='Enter your password again' value={formData.passwordcheck} onChange={handlePasswordChange} />
           {!passwordsMatch && <p className='text-red-500 text-sm'>Passwords do not match</p>}
           <ButtonForm label='Register' onClick={handleClick} />
+          <a href="/Login" className="p-2 text-center flex-1 text-[#A07E53]">
+            Login
+          </a>
           {loading && <p className='text-center text-gray-500'>Loading...</p>}
           {error && <p className='text-center text-red-500'>{error}</p>}
           {response && <p className='text-center text-green-500'>Registration successful!</p>}
