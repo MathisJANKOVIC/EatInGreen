@@ -6,7 +6,7 @@ const config: Config.InitialOptions = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     testMatch: ['**/tests/**/*.test.ts'],
-    setupFilesAfterEnv: ['./tests/setup.ts'],
+    setupFilesAfterEnv: ['tests/setup.ts'],
     verbose: true,
     forceExit: true,
     detectOpenHandles: true,
