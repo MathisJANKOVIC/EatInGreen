@@ -1,9 +1,9 @@
 {
   "type": "commonjs",
   "scripts": {
-    "build": "rimraf ./dist && tsc -p ./tsconfig.build.json && tsc-alias -p ./tsconfig.build.json",
-    "start": "node ./dist/index.js",
-    "dev": "nodemon ./src/index.ts",
+    "build": "rimraf dist/ && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
     "test": "jest",
     "lint": "eslint"
   },
@@ -13,6 +13,7 @@
     "express": "^4.18.3",
     "express-winston": "^4.2.0",
     "jsonwebtoken": "^9.0.2",
+    "logform": "^2.6.1",
     "mongodb-memory-server": "^10.0.0",
     "mongoose": "^8.2.1",
     "uuid": "^10.0.0",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@jest/types": "^29.6.3",
     "@stylistic/eslint-plugin": "^2.6.4",
     "@stylistic/eslint-plugin-ts": "^2.6.4",
     "@types/bcrypt": "^5.0.2",
@@ -40,6 +42,7 @@
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.4",
     "typescript-eslint": "^8.1.0"
   }
 }
