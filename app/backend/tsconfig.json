@@ -1,7 +1,7 @@
 {
-  "include": ["./**/*"],
+  "include": ["**/*"],
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -23,23 +23,23 @@
     "useUnknownInCatchVariables": true,
 
     "paths": {
-      "@controllers/*": ["./src/controllers/*"],
-      "@database-models/*": ["./src/database/models/*"],
-      "@database-repositories/*": ["./src/database/repositories/*"],
-      "@database-services/*": ["./src/database/services/*"],
-      "@entities/*": ["./src/entities/*"],
-      "@factories/*": ["./src/factories/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@logging/*": ["./src/logging/*"],
-      "@middlewares/*": ["./src/middlewares/*"],
-      "@repositories/*": ["./src/repositories/*"],
-      "@routers/*": ["./src/routers/*"],
-      "@services/*": ["./src/services/*"],
-      "@types-dto/*": ["./src/types/dto/*"],
-      "@types-utils/*": ["./src/types/utils/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@/*": ["./src/*"],
-      "@tests/*": ["./src/tests/*"]
+      "@controllers/*": ["src/controllers/*"],
+      "@database-models/*": ["src/database/models/*"],
+      "@database-repositories/*": ["src/database/repositories/*"],
+      "@database-services/*": ["src/database/services/*"],
+      "@entities/*": ["src/entities/*"],
+      "@factories/*": ["src/factories/*"],
+      "@lib/*": ["src/lib/*"],
+      "@logging/*": ["src/logging/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@repositories/*": ["src/repositories/*"],
+      "@routers/*": ["src/routers/*"],
+      "@services/*": ["src/services/*"],
+      "@types-dto/*": ["src/types/dto/*"],
+      "@types-utils/*": ["src/types/utils/*"],
+      "@utils/*": ["src/utils/*"],
+      "@/*": ["src/*"],
+      "@tests/*": ["src/tests/*"]
     }
   }
 }

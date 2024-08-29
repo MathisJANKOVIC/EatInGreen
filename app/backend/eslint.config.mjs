@@ -5,7 +5,7 @@ import globals from 'globals'
 
 export default [
     { files: ['**/*'] },
-    { ignores: ['dist'] },
+    { ignores: ['dist/'] },
     { languageOptions: { globals: globals.node } },
     { plugins: { '@stylistic/ts': stylisticTs } },
     pluginJs.configs.recommended,
@@ -22,13 +22,10 @@ export default [
             '@stylistic/ts/type-annotation-spacing': [
                 'error',
                 {
-                    'before': false,
+                    'before': true,
                     'after': true,
                     'overrides': {
-                        'arrow': {
-                            'before': true, // space before `=>`
-                            'after': true // space after `=>`
-                        }
+                        'colon': { 'before': false, 'after': true }
                     }
                 }
             ],
