@@ -3,7 +3,7 @@ import { getEnv, nodeEnv } from '@lib/env'
 import log from '@lib/log'
 import app from './app'
 
-const serverPort = getEnv('SERVER_PORT');
+const serverPort = getEnv('PORT');
 
 (async () => {
     await dbService.connect()
