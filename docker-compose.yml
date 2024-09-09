@@ -67,23 +67,8 @@ services:
     networks:
       - app-network
 
-  dbadmin:
-    image: dpage/pgadmin4:8
-    container_name: eatingreen-dbadmin
-    ports:
-      - 5050:5050
-    volumes:
-      - dbadmin-data:/var/lib/pgadmin
-    environment:
-      PGADMIN_LISTEN_PORT: 5050
-      PGADMIN_DEFAULT_EMAIL: $DB_ADMIN_EMAIL
-      PGADMIN_DEFAULT_PASSWORD: $DB_ADMIN_PASSWORD
-    networks:
-      - app-network
-
 volumes:
   db:
-  dbadmin-data:
 
 networks:
   app-network:

@@ -76,7 +76,7 @@ services:
     image: dpage/pgadmin4:8
     container_name: eatingreen-dbadmin
     ports:
-      - 5050:5050
+      - $DB_ADMIN_PORT:5050
     volumes:
       - dbadmin-data:/var/lib/pgadmin
     environment:
