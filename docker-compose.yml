@@ -4,7 +4,7 @@ services:
     image: eatingreen/nginx
     container_name: eatingreen-proxy
     build:
-      context: app/proxy
+      context: proxy
     ports:
       - $APP_PORT:80
     environment:
