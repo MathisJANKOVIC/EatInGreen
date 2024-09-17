@@ -30,6 +30,7 @@ services:
       - ./app/frontend:/app
       - /app/node_modules
     environment:
+      - VITE_NODE_ENV=$APP_ENV
       - VITE_PORT=5173
       - VITE_BACKEND_API_PATH=/api
     networks:
@@ -47,7 +48,7 @@ services:
       - ./app/backend:/app
       - /app/node_modules
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=$APP_ENV
       - PORT=3000
       - DB_HOST=db
       - DB_PORT=27017
@@ -80,9 +81,9 @@ services:
     volumes:
       - dbadmin-data:/var/lib/pgadmin
     environment:
-      PGADMIN_LISTEN_PORT: 5050
       PGADMIN_DEFAULT_EMAIL: $DB_ADMIN_EMAIL
       PGADMIN_DEFAULT_PASSWORD: $DB_ADMIN_PASSWORD
+      PGADMIN_LISTEN_PORT: 5050
     networks:
       - app-network
 

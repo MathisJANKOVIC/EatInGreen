@@ -42,7 +42,7 @@ services:
     volumes:
       - ./app/backend/logs:/app/logs
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=$APP_ENV
       - PORT=3000
       - DB_HOST=db
       - DB_PORT=27017
